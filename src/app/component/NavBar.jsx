@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import "../css/NavBar.css"
+import "../cs/NavBar.css"
 
 function NavBar() {
   return (<nav className="nav-bar">

@@ -7,4 +7,3 @@ function LevelButton(props) {
     rounded-lg hover:bg-[#102437] mt-4 ">Level {props.level}</button>;
 }
 export default LevelButton
-  
