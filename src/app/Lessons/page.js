@@ -1,5 +1,6 @@
+import LevelButton from "../component/LevelButton"
+
 export default function Lessons(){
-    
     const Columns = () =>
     <div className=" w-full bg-gray-200 h-100 grid grid-cols-3 bg-gray-200 shadow-lg p-10 rounded-lg">
     <div style={{ transform: 'translateX(25px)' }} className="col-span-1 font-bold text-3xl ">Scales</div>

@@ -1,8 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "./globals.css";
 import "./globals.css";
-import Link from "next/link";
-import Image from "next/image";
+import NavBar from "./component/NavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,30 +21,12 @@ export const metadata = {
 function Header() {
   return (
     <>
-      
-      <nav className="flex justify-center flex-row gap-8 row-start-2 items-center ">
-        <Image
-          aria-hidden
-          src="/globe.svg"
-          alt="Globe icon"
-          width={75}
-          height={75}
-        />
-        <Link href="/">Home</Link>
-        <Link href="/Lessons">Lessons</Link>
-        <Link href="/SheetMusicTools">Sheet Music Tools</Link>
-        <Link href="/Community">Community</Link>
-        {/* TODO do some magic to show login or profile, but not both */}
-        <div className={styles.clickyButton} >
-          <Link href="/Login">Login</Link>
-        </div>
-        <Link href="/Profile">Profile</Link>
-        <Link href="/Profile/Settings">Settings</Link> {/* TODO Hide settings into profile page or side bar*/}
-      </nav>
+    {/* TODO: Add Logo :) */}
+      <NavBar className="nav-bar"/>
     </>
   )
 }
-
+//update
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
