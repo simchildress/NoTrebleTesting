@@ -8,6 +8,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
+    const [TTS, setTTS] = useState(false);
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -31,7 +32,7 @@ const SignUp = () => {
 
 return (
     <div className=' flex flex-col items-center justify center min-h-screen bg-gray-100 p-6'>
-         <form onSubmit={handleSubmit} className="bg-white p-10 rounded-lg shadow-lg w-full max-w-2xl text-2xl "> 
+         <form onSubmit={handleSubmit} className="bg-white p-20 rounded-lg shadow-lg w-full max-w-2xl text-2xl "> 
             <div className="mb-6"> 
             <h1 className = "text-5xl font-bold text-center mb-6">Sign Up</h1>
                 <label className="block text-gray-800 font-semibold mb-2">Name: </label> 
@@ -69,6 +70,17 @@ return (
                 value={confirmPassword} 
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full p-1 border border-gray-500 rounded "/>
+                    </div>
+                    <div>
+                        <label>
+                        <input 
+                        type="checkbox"
+                        style={{ width: "20px", height: "20px"}}
+                        checked={TTS}
+                        onChange={(e) => setTTS(e.target.checked)}
+                        />
+                        {"    "} Automatically turn on TTS
+                        </label>
                     </div>
 
                     {error && <p className="text-red-500 text-lg font-semibold mb-4">{error}</p>}
