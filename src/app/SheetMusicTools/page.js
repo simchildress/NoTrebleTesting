@@ -39,7 +39,7 @@ export default function SheetMusicTools(){
             </div>
             <br />
             
-            <div className="ml-20 mr-20">
+            <div className="ml-20 mr-20 mb-20">
                 <h1 className="font-bold text-5xl mb-7">Sheet Music Composer</h1>
                 <form className= "inset-2 bg-gray-200 -z-10 rounded-2xl text-2xl p-4 pl-7">
                     <label className="mt-5 block text-2xl">
