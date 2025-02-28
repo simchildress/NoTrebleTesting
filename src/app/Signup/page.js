@@ -6,6 +6,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { db } from "../../firebaseConfig"; 
 import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 
 const SignUp = () => {
@@ -15,7 +16,8 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [TTS, setTTS] = useState(false);
-
+  const router = useRouter();
+  
 const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -48,6 +50,7 @@ const handleSubmit = async (event) => {
         });
 
         console.log("User signed up and profile saved!");
+        router.push("/");
     } catch (error) {
         setError(error.message);
         console.error("Sign Up Error:", error.message);
