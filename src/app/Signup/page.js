@@ -4,6 +4,9 @@ import Link from "next/link";
 import { signUp } from "../../lib/firebase/auth";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
+import { db } from "../../firebaseConfig"; 
+import { doc, setDoc } from "firebase/firestore";
+
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -13,26 +16,44 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [TTS, setTTS] = useState(false);
 
-  const handleSubmit = async (event) => {
+const handleSubmit = async (event) => {
     event.preventDefault();
 
     const trimmedEmail = email.trim();
-    console.log("Email before signup:", `"${trimmedEmail}"`);
-    console.log("Type of Email:", typeof trimmedEmail);
+    const trimmedName = name.trim();
 
     if (!trimmedEmail.includes("@") || !trimmedEmail.includes(".")) {
-        setError("Invalid email format. Please enter a valid email.");
+        setError("Invalid email format.");
+        return;
+    }
+    if (password.length < 6) {
+        setError("Password must be at least 6 characters long.");
+        return;
+    }
+    if (password !== confirmPassword) {
+        setError("Passwords do not match.");
         return;
     }
 
     try {
-        await createUserWithEmailAndPassword(auth, trimmedEmail, password);
-        console.log("User signed up successfully!");
+        const userCredential = await createUserWithEmailAndPassword(auth, trimmedEmail, password);
+        const user = userCredential.user;
+
+        // Save user to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+            name: trimmedName,
+            email: trimmedEmail,
+            TTS: TTS,
+            createdAt: new Date(),
+        });
+
+        console.log("User signed up and profile saved!");
     } catch (error) {
         setError(error.message);
         console.error("Sign Up Error:", error.message);
     }
 };
+
 
 return (
     <div className=' flex flex-col items-center justify center min-h-screen bg-gray-100 p-6'>
