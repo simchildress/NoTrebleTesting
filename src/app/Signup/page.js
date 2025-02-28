@@ -1,34 +1,38 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { signUp } from "../../lib/firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 const SignUp = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const [TTS, setTTS] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [TTS, setTTS] = useState(false);
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-      if(password !== confirmPassword) {
-        setError("Passwords do not match.");
+    const trimmedEmail = email.trim();
+    console.log("Email before signup:", `"${trimmedEmail}"`);
+    console.log("Type of Email:", typeof trimmedEmail);
+
+    if (!trimmedEmail.includes("@") || !trimmedEmail.includes(".")) {
+        setError("Invalid email format. Please enter a valid email.");
         return;
-      }
-      // add login validation  
-      setError("");
-      console.log('Name:', name);
-      console.log('Email:', email);
-      console.log('Password:', password);
+    }
 
-      //clearing after input
-      setName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-    };
+    try {
+        await createUserWithEmailAndPassword(auth, trimmedEmail, password);
+        console.log("User signed up successfully!");
+    } catch (error) {
+        setError(error.message);
+        console.error("Sign Up Error:", error.message);
+    }
+};
 
 return (
     <div className=' flex flex-col items-center justify center min-h-screen bg-gray-100 p-6'>

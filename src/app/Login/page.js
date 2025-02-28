@@ -1,21 +1,28 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { login } from "../../lib/firebase/auth";
+
 
 const Login = () => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
 
-        const handleSubmit = (e) => {
-          e.preventDefault();
-          // add login validation  
-          console.log('Email:', email);
-          console.log('Password:', password);
-
-          //clear after submission
-          setEmail("");
-          setPassword("");
-        };
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            
+            try {
+              const user = await login(email, password);
+              console.log("User logged in:", user);
+              alert("Login successful!");
+          
+              setEmail("");
+              setPassword("");
+            } catch (error) {
+              alert("Login failed: " + error.message); 
+            }
+          };
+          
     
     return (
         <div className=' flex flex-col items-center justify center min-h-screen bg-gray-100 p-6'>
