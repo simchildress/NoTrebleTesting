@@ -8,7 +8,9 @@
   --btn-color: #455090;
   --shadow-color: #ededed;
   --footer-color: #102437;
-  
+  --body-text-size: 30px;
+  --h2-text-size: 60px;
+  --h3-text-size: 40px;
 }
 /* update */
 /* @media (prefers-color-scheme: dark) {
@@ -32,7 +34,7 @@
     }
   }
 
-  
+
 }
 body {
   color: var(--foreground);
@@ -40,7 +42,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
-
 
 .prefColor { /* Do not use this class purely for color prefs*/
   background-color: #ffffff; /* background color used in demo */
@@ -51,9 +52,13 @@ body {
 .home-footer{
   background-color: var(--footer-color);
   color:var(--shadow-color);
+  
   width: 100%;
   height: 10em;
   padding: 20px;
+}
+.home-footer > h2 {
+  font-size: var(--body-text-size);
 }
 
 /* Welcome */
@@ -67,16 +72,21 @@ body {
 }
 
 .welcome-div > h2{
-  font-size: 45px;
-  max-width:300px;
-
+  font-size: var(--h2-text-size);
+  max-width:400px;
 }
 .welcome-div > p{
-  font-size: 25px;
- 
-  max-width:550px;
+  font-size: var(--body-text-size);
+  max-width:860px;
   text-align: center;
 }
+.welcome-signup {
+  font-size: var(--body-text-size);
+  max-width:860px;
+  text-align: center;
+  align-self: center;
+}
+
 .grand-div{
   width:100%;
   margin:0%;
@@ -84,27 +94,41 @@ body {
 }
 /* Features */
 .features-div > h2 {
-  font-size:xx-large;
+  font-size:var(--h2-text-size);
   font-weight: bold;
   margin-bottom: 20px;
   
 }
+
 .features-list{
   background-color: var(--background);
   padding: 25px;
-  border-radius: 10%;
-  width: 60%;
-  height: 60%;
+  box-sizing: border-box;
+  border-radius: 12%;
+  width: 50%;
+  height: 50%;
   text-align: center;
-  max-width: 300px;
+  max-width: 600px;
+  margin-bottom: 10px;
 }
 
-.features-list > h3 {
-  padding-bottom: 4px;
-  font-size: x-large;
-}
+
 .features-div{
   background-color: var(--shadow-color);
   width: 100%;
   padding: 40px;
+}
+.features-list div {
+  font-size: var(--body-text-size);
+  padding: 10px;
+  max-width:500px;
+  min-width:500px;
+  max-height:400px;
+  min-height:400px;
+
+}
+.features-list div h3 {
+  font-size: var(--h3-text-size);
+  font-weight: 500;
+  padding-bottom: 4px;
 }
