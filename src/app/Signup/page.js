@@ -1,34 +1,62 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { signUp } from "../../lib/firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import { db } from "../../firebaseConfig"; 
+import { doc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+
 
 const SignUp = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState('');
-    const [TTS, setTTS] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [TTS, setTTS] = useState(false);
+  const router = useRouter();
+  
+const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+    const trimmedEmail = email.trim();
+    const trimmedName = name.trim();
 
-      if(password !== confirmPassword) {
+    if (!trimmedEmail.includes("@") || !trimmedEmail.includes(".")) {
+        setError("Invalid email format.");
+        return;
+    }
+    if (password.length < 6) {
+        setError("Password must be at least 6 characters long.");
+        return;
+    }
+    if (password !== confirmPassword) {
         setError("Passwords do not match.");
         return;
-      }
-      // add login validation  
-      setError("");
-      console.log('Name:', name);
-      console.log('Email:', email);
-      console.log('Password:', password);
+    }
 
-      //clearing after input
-      setName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-    };
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, trimmedEmail, password);
+        const user = userCredential.user;
+
+        // Save user to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+            name: trimmedName,
+            email: trimmedEmail,
+            TTS: TTS,
+            createdAt: new Date(),
+        });
+
+        console.log("User signed up and profile saved!");
+        router.push("/");
+    } catch (error) {
+        setError(error.message);
+        console.error("Sign Up Error:", error.message);
+    }
+};
+
 
 return (
     <div className=' flex flex-col items-center justify center min-h-screen bg-gray-100 p-6'>

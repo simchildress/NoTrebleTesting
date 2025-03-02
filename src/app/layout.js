@@ -1,8 +1,10 @@
+
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "./globals.css";
 import "./globals.css";
+import { Route, Routes } from "react-router-dom";
 import NavBar from "./component/NavBar";
-
+import HotKeyProvider from "./component/Hotkeys";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,6 +25,7 @@ function Header() {
     <>
     {/* TODO: Add Logo :) */}
       <NavBar className="nav-bar"/>
+    
     </>
   )
 }
@@ -34,6 +37,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header/>
+        <HotKeyProvider/>
         {children}
       </body>
     </html>

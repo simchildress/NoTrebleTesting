@@ -1,8 +1,11 @@
 "use client";
 import React, { useState } from "react";
+import FileUploader from "./fileupload";
 
-export default function SheetMusicTools(){
-    
+export default function SheetMusicTools() {
+    const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(null);
+ 
     //Music sheet starts out with 4 properties
     const [sheet, setSheet]=useState({
         title: "",
@@ -25,18 +28,53 @@ export default function SheetMusicTools(){
         event.preventDefault();
     };
 
+    function handleFileChange(selectedFile) {
+        setFile(selectedFile);
+        
+        // Generate preview URL for images/PDFs
+        if (selectedFile) {
+            setPreview(URL.createObjectURL(selectedFile)); 
+        } else {
+            setPreview(null); // Clear preview if no file is selected
+        }
+    }
+
     return (
         <main>
-            <div className= "m-20">
+            <div className="m-20">
                 <h1 className="font-bold text-5xl mb-7">Sheet Music Reader</h1>
-                <div className= "bg-gray-200 -z-10 rounded-2xl text-2xl p-4 pl-7">
-                    <button className="mt-10 px-5 py-3 border-2 border-black bg-white text-black rounded mb-20 mt-5 hover:bg-gray-400 duration-300">Upload image or PDF</button>
-                    <p className="pb-3">Piece Title: </p>
-                    <p className="pb-3">Key: </p>
-                    <p className="pb-3">Time Signature: </p>
-                    <p className="pb-3">Composer: </p>
+                
+                {/* Responsive Container */}
+                <div className="w-auto h-[600px] bg-gray-200 -z-10 rounded-2xl text-2xl p-4 pl-7 flex flex-col md:flex-row">
+                    
+                    {/* Left Section: File Upload + Info */}
+                    <div className="md:w-1/2 flex flex-col justify-between p-4">
+                        <FileUploader setFile={handleFileChange} />
+
+                        {/* Info Section (Anchored to Bottom) */}
+                        <div className="mt-auto text-left md:text-4xl text-lg">
+                            <p className="pb-3">Piece Title: </p>
+                            <p className="pb-3">Key: </p>
+                            <p className="pb-3">Time Signature: </p>
+                            <p className="pb-3">Composer: </p>
+                        </div>
+                    </div>
+
+                    {/* Right Section: Image/PDF Preview */}
+                    <div className="w-1/2 p-4 align-top shrink">
+                            {preview ? (
+                                file.type === "application/pdf" ? (
+                                    <embed src={preview} type="application/pdf"  className="w-full h-full max-h-full object-contain"/>
+                                ) : (
+                                    <img src={preview} alt="Preview" className="w-full h-full max-h-full object-contain rounded" />
+                                )
+                            ) : (
+                                <span className="text-gray-500">No file uploaded</span>
+                            )}
+                    </div>
                 </div>
             </div>
+
             <br />
             
             <div className="ml-20 mr-20 mb-20">
