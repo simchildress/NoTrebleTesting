@@ -6,7 +6,7 @@ function NavBar() {
   
   return (<nav className="nav-bar">
     <div className=" overdiv flex flex-row  items-center ">
-      <Image aria-hidden src="/globe.svg" alt="Globe icon" width={75} height={75}  className="self-center navLogo"/>
+      <Image aria-hidden src="/logo.png" alt="No Treble icon" width={80} height={80}  className="self-center navLogo"/>
       <ul className="nav-list flex flex-end">
         <li>
           <NavLink href="/" activeClassName="bubble" nonActiveClassName="">
