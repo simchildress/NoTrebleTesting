@@ -10,53 +10,43 @@ import { useRouter } from "next/navigation";
 
 
 const SignUp = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [TTS, setTTS] = useState(false);
-  const router = useRouter();
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [error, setError] = useState("");
+    const [TTS, setTTS] = useState(false);
+    const router = useRouter();
   
-const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const trimmedEmail = email.trim();
-    const trimmedName = name.trim();
-
-    if (!trimmedEmail.includes("@") || !trimmedEmail.includes(".")) {
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      const trimmedEmail = email.trim();
+      const trimmedName = name.trim();
+      const defaultProfilePath = "/defaultprofile.png"; // Default image
+  
+      if (!trimmedEmail.includes("@") || !trimmedEmail.includes(".")) {
         setError("Invalid email format.");
         return;
-    }
-    if (password.length < 6) {
+      }
+      if (password.length < 6) {
         setError("Password must be at least 6 characters long.");
         return;
-    }
-    if (password !== confirmPassword) {
+      }
+      if (password !== confirmPassword) {
         setError("Passwords do not match.");
         return;
-    }
-
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, trimmedEmail, password);
-        const user = userCredential.user;
-
-        // Save user to Firestore
-        await setDoc(doc(db, "users", user.uid), {
-            name: trimmedName,
-            email: trimmedEmail,
-            TTS: TTS,
-            createdAt: new Date(),
-        });
-
+      }
+  
+      try {
+        await signUp(trimmedEmail, password, trimmedName, defaultProfilePath, TTS);
         console.log("User signed up and profile saved!");
         router.push("/");
-    } catch (error) {
+      } catch (error) {
         setError(error.message);
         console.error("Sign Up Error:", error.message);
-    }
-};
-
+      }
+    };
 
 return (
     <div className=' flex flex-col items-center justify center min-h-screen bg-gray-100 p-6'>
