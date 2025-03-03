@@ -103,8 +103,8 @@ export default function Community() {
                                 value={postContent}
                                 onChange={handleChange}
                                 placeholder="Let's share what's going on..."
-                                className="mt-2 ml-3 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
-                            />
+                                className="flex-1 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
+                                />
                             <button
                                 onClick={handleSubmit}
                                 className="ml-10 w-auto bg-gray-800 text-white rounded-lg px-4 py-2"
@@ -128,7 +128,7 @@ export default function Community() {
                                         alt="Profile"
                                         className="w-10 h-10 rounded-full mr-4"
                                 />
-                            <p className="font-bold">{post.username || "Anonymous"}</p>
+                            <p className="font-bold text-[20px] mb-4">{ "@"+ post.username || "Anonymous"}</p>
                             <p>{post.content}</p>
                             <p className="text-sm text-gray-600">
                                 {post.timestamp?.seconds
