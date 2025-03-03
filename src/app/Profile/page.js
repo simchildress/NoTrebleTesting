@@ -1,52 +1,76 @@
-/* export default function Profile(){
-    return ( // TODO turn into an Icon later
-        <main>
-        <h1>Profile</h1>
-        </main>
-    );
-}
-*/
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { auth } from "@/firebaseConfig";
 import { getUserProfile } from "@/lib/firebase/auth";
 import { useRouter } from "next/navigation";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const router = useRouter();
+  const db = getFirestore();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const currentUser = auth.currentUser;
-
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
-        router.push("/Login"); 
+        router.push("/Login");
         return;
       }
-
       try {
         const profileData = await getUserProfile(currentUser.uid);
-        setUser(profileData);
+        setUser({
+          ...profileData,
+          profilePic: profileData.profilePic || "/defaultprofile.png",
+        });
       } catch (error) {
         console.error("Error fetching user profile:", error);
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchProfile();
-  }, []);
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push("/Login"); 
+      router.push("/Login");
     } catch (error) {
       console.error("Error signing out:", error);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!image) {
+      console.log("No image selected");
+      return;
+    }
+    setUploading(true);
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) return;
+      const userRef = doc(db, "users", currentUser.uid);
+      await setDoc(userRef, { profilePic: image }, { merge: true });
+      setUser((prevUser) => ({ ...prevUser, profilePic: image }));
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -57,8 +81,22 @@ const Profile = () => {
       <h1 className="text-2xl font-bold mb-4">Profile</h1>
       {user ? (
         <div>
+          <img
+            src={user.profilePic}
+            alt="Profile"
+            className="w-24 h-24 rounded-full mx-auto mb-4"
+            onError={(e) => (e.target.src = "/defaultprofile.png")}
+          />
           <p><strong>Name:</strong> {user.name}</p>
           <p><strong>Email:</strong> {user.email}</p>
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+          <button
+            onClick={handleUpload}
+            disabled={uploading || !image}
+            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+          >
+            {uploading ? "Uploading..." : "Upload Profile Picture"}
+          </button>
           <button
             onClick={handleLogout}
             className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
