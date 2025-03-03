@@ -5,6 +5,7 @@ import { getUserProfile } from "@/lib/firebase/auth";
 import { useRouter } from "next/navigation";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
+import NavLink from "../component/NavLink";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -77,37 +78,49 @@ const Profile = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
+    <>
     <div className="p-8 max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-4">Profile</h1>
       {user ? (
-        <div>
-          <img
-            src={user.profilePic}
-            alt="Profile"
-            className="w-24 h-24 rounded-full mx-auto mb-4"
-            onError={(e) => (e.target.src = "/defaultprofile.png")}
-          />
-          <p><strong>Name:</strong> {user.name}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          <button
-            onClick={handleUpload}
-            disabled={uploading || !image}
-            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
-          >
-            {uploading ? "Uploading..." : "Upload Profile Picture"}
-          </button>
-          <button
-            onClick={handleLogout}
-            className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-          >
-            Logout
-          </button>
-        </div>
+        <ul className="flex-col gap-10 h-52 justify-between">
+          <li><div>
+            <img
+              src={user.profilePic}
+              alt="Profile"
+              className="w-24 h-24 rounded-full mx-auto mb-4"
+              onError={(e) => (e.target.src = "/defaultprofile.png")}
+            />
+            <p><strong>Name:</strong> {user.name}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <button
+              onClick={handleUpload}
+              disabled={uploading || !image}
+              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+            >
+              {uploading ? "Uploading..." : "Upload Profile Picture"}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+            >
+              Logout
+            </button>
+            
+          </div></li>
+        </ul>
       ) : (
         <p>No user data found.</p>
       )}
+      
     </div>
+    <div className="plsExtend flex">
+      <NavLink href="/Profile/Settings" className="btn-primary btn-settings" activeClassName="" nonActiveClassName="">
+            Settings
+          </NavLink>
+    </div>
+    
+    </>
   );
 };
 
