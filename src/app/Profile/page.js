@@ -90,7 +90,7 @@ const Profile = () => {
               className="w-24 h-24 rounded-full mx-auto mb-4"
               onError={(e) => (e.target.src = "/defaultprofile.png")}
             />
-            <p><strong>Name:</strong> {user.name}</p>
+            <p><strong>Name:</strong> {user.username}</p>
             <p><strong>Email:</strong> {user.email}</p>
             <input type="file" accept="image/*" onChange={handleImageChange} />
             <button

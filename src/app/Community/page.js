@@ -21,7 +21,7 @@ export default function Community() {
                 const userRef = doc(db, "users", currentUser.uid); // Reference Firestore users collection
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
-                    setUsername(userSnap.data().name); // gets the "name" field from users collection
+                    setUsername(userSnap.data().username); // FOrgot to change from name to username
                 } else {
                     setUsername("Anonymous"); // if somehow one of these fools bypasses login, prints anonymous
                 }
