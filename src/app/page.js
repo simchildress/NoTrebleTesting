@@ -1,6 +1,28 @@
-import Image from "next/image";
+"use client"
 import NavLink from "./component/NavLink";
+import { useEffect, useState } from "react";
+import {onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebaseConfig";
 export default function Home() {
+  const [target, setTarget] = useState("/Login");
+    const [loading, setLoading] = useState(true);
+  
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+        if (!currentUser) {
+          setTarget("/Login");
+          return;
+        }
+        try {
+          setTarget("/Profile");
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        } finally {
+          setLoading(false);
+        }
+      });
+      return () => unsubscribe();
+    }, []);
   return (
     <>
     <div className=" grid grid-rows-[20px_1fr_20px] items-center justify-items-center  p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -11,7 +33,7 @@ export default function Home() {
             No Treble provides an accessible learning environment for blind/visually impaired people to learn music theory and access sheet music reading and writing tools.
           </p>
         </div>
-        <NavLink href="/Signup" className="btn-primary welcome-signup" activeClassName="" nonActiveClassName="">Sign up</NavLink>
+        {target === "/Login" ? <NavLink href="/Signup" className="btn-primary welcome-signup" activeClassName="" nonActiveClassName="">Sign up</NavLink> : ""}
       </main>
     </div>
     <div className="features-div flex-cols items-center justify-items-center">

@@ -9,6 +9,7 @@ import { login } from "../../lib/firebase/auth";
 const Login = () => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
+        
         const router = useRouter();
 
         const handleSubmit = async (e) => {
@@ -17,10 +18,8 @@ const Login = () => {
             try {
               const user = await login(email, password);
               console.log("User logged in:", user);
-              alert("Login successful!");
-
               router.push("/");
-          
+              
               setEmail("");
               setPassword("");
             } catch (error) {
