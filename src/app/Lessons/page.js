@@ -1,4 +1,5 @@
 import LevelButton from "../component/LevelButton"
+import Link from "next/link";
 
 export default function Lessons(){
     const Columns = () =>
