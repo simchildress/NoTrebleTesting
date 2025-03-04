@@ -52,12 +52,12 @@ export default function Community() {
             let profilePic = "/defaultprofile.png"; // Default profile pic
 
             if (userSnap.exists()) {
-                username = userSnap.data().name;
+                username = userSnap.data().username;
                 profilePic = userSnap.data().profilePic || "/defaultprofile.png"; // gets the profile pic
             }
 
             if (userSnap.exists()) {
-                username = userSnap.data().name;
+                username = userSnap.data().username;
             }
     
             await addDoc(collection(db, "forumPosts"), {
