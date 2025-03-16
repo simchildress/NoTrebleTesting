@@ -1,4 +1,5 @@
 import Image from "next/image";
+//import { useUser, loading, logout } from '../../lib/firebase/auth.js'
 
 export default function Home() {
   return (
