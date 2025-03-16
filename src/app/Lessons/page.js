@@ -6,18 +6,18 @@ export default function Lessons(){
     <div className="col-span-1 font-bold text-3xl text-center">Scales</div>
     <div className="col-span-1 font-bold text-3xl text-center">Rhythm</div>
     <div className="col-span-1 font-bold text-3xl text-center">Dynamics</div>
-    <LevelButton level = {1} ></LevelButton>
-    <LevelButton level = {1} ></LevelButton>
-    <LevelButton level = {1} ></LevelButton>
-    <LevelButton level = {2} ></LevelButton>
-    <LevelButton level = {2} ></LevelButton>
-    <LevelButton level = {2} ></LevelButton>
-    <LevelButton level = {3} ></LevelButton>
-    <LevelButton level = {3} ></LevelButton>
-    <LevelButton level = {3} ></LevelButton>
-    <LevelButton level = {4} ></LevelButton>
-    <LevelButton level = {4} ></LevelButton>
-    <LevelButton level = {4} ></LevelButton>
+    <LevelButton level = {1} address ="/Lessons/Fundamentals" ></LevelButton>
+    <LevelButton level = {1} address ="/" ></LevelButton>
+    <LevelButton level = {1} address ="/" ></LevelButton>
+    <LevelButton level = {2} address ="/" ></LevelButton>
+    <LevelButton level = {2} address ="/" ></LevelButton>
+    <LevelButton level = {2} address ="/" ></LevelButton>
+    <LevelButton level = {3} address ="/" ></LevelButton>
+    <LevelButton level = {3} address ="/" ></LevelButton>
+    <LevelButton level = {3} address ="/" ></LevelButton>
+    <LevelButton level = {4} address ="/" ></LevelButton>
+    <LevelButton level = {4} address ="/" ></LevelButton>
+    <LevelButton level = {4} address ="/" ></LevelButton>
     </div>
 
     

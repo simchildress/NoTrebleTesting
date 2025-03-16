@@ -1,29 +1,78 @@
+"use client"
 import React from "react";
-import Link from "next/link";
+import NavLink from "./NavLink";
 import Image from "next/image";
 import "../cs/NavBar.css"
+import { useEffect, useState } from "react";
+import {onAuthStateChanged } from "firebase/auth";
+import { getUserProfile } from "@/lib/firebase/auth";
+import { auth } from "@/firebaseConfig";
 
 function NavBar() {
+  const [target, setTarget] = useState("/Login");
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (!currentUser) {
+        setTarget("/Login");
+        return;
+      }
+      try {
+        const profileData = await getUserProfile(currentUser.uid);
+        setUser({
+          ...profileData,
+          profilePic: profileData.profilePic || "/defaultprofile.png",
+        });
+        setTarget("/Profile");
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setLoading(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
   return (<nav className="nav-bar">
-    <div className=" flex justify-between flex-row gap-30  items-center ">
-      <Image aria-hidden src="/globe.svg" alt="Globe icon" width={75} height={75}  className="self-end"/>
-      <ul className="nav-list flex gap-14 self-center">
-        <li><Link href="/">Home</Link></li>
-        <li><Link href="/Lessons">Lessons</Link></li>
-        <li><Link href="/SheetMusicTools">Sheet Music Tools</Link></li>
-        <li><Link href="/Community">Community</Link></li>
+    <div className=" overdiv flex flex-row  items-center ">
+      <Image aria-hidden src="/logo.png" alt="No Treble icon" width={80} height={80}  className="self-center navLogo"/>
+      <ul className="nav-list flex flex-end">
+        <li>
+          <NavLink href="/" activeClassName="bubble" nonActiveClassName="">
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink href="/Lessons" activeClassName="bubble" nonActiveClassName="">
+          Lessons
+          </NavLink>
+        </li>
+        <li>
+          <NavLink href="/SheetMusicTools" activeClassName="bubble" nonActiveClassName="">
+          Sheet Music Tools
+          </NavLink>
+        </li>
+        <li>
+          <NavLink href="/Community" activeClassName="bubble" nonActiveClassName="">
+          Community
+          </NavLink>
+        </li>
       </ul>
-      { /* TODO do some magic to show login or profile, but not both */}
-      <div className="self-start flex-end">
-        <Link className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5" href="/Login"
-        >
-          Login
-        </Link>
-        <Link className="btn-primary"href="/Profile">Profile</Link>
-        <Link href="/Profile/Settings">Settings</Link> { /* TODO Hide settings into profile page or side bar*/}
+      <div className="profile-div self-center">
+      <NavLink href={target} className={target === "/Login" ? "btn-primary self-center": ""} activeClassName={""} nonActiveClassName={""}>
+          {target === "/Login" ?  "Log in":  <img
+            src={user.profilePic}
+            alt="Profile"
+            className="w-24 h-24 rounded-full mx-auto mb-4"
+            onError={(e) => (e.target.src = "/defaultprofile.png")}
+          />}
+      </NavLink>
+        
       </div>
     </div>
   </nav>);
 }
-export default NavBar
+
+
+export default NavBar;
 
