@@ -5,6 +5,7 @@ import { getUserProfile } from "@/lib/firebase/auth";
 import { useRouter } from "next/navigation";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
+import NavLink from "../component/NavLink";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -77,37 +78,59 @@ const Profile = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Profile</h1>
-      {user ? (
-        <div>
-          <img
-            src={user.profilePic}
-            alt="Profile"
-            className="w-24 h-24 rounded-full mx-auto mb-4"
-            onError={(e) => (e.target.src = "/defaultprofile.png")}
-          />
-          <p><strong>Name:</strong> {user.name}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          <button
-            onClick={handleUpload}
-            disabled={uploading || !image}
-            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
-          >
-            {uploading ? "Uploading..." : "Upload Profile Picture"}
-          </button>
-          <button
-            onClick={handleLogout}
-            className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-          >
-            Logout
-          </button>
-        </div>
+    <>
+        {user ? (
+          <div className="w-3/4 min-h-screen bg-gray-100 flex flex-col md:flex-row justify-center mx-auto my-20 rounded-xl border-2 border-black-100 drop-shadow-md">
+            <div className="w-full md:w-1/2 flex flex-col items-center my-auto">
+              <img
+                src={user.profilePic}
+                alt="Profile"
+                className="w-[500px] h-[500px] sm:w-[200px] sm:h-[200px] md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] max-w-[500px] max-h-[500px] rounded-full border-4 border-black object-cover"
+                onError={(e) => (e.target.src = "/defaultprofile.png")}
+              />
+              <div className="flex flex-row items-center mt-10 gap-2">
+                <label className="cursor-pointer text-2xl bg-white text-black px-4 py-2 rounded-md hover:bg-gray-500 border-2 border-dashed border-black">
+                  Choose Image
+                  <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+                </label>
+                <button
+                  onClick={handleUpload}
+                  disabled={uploading || !image}
+                  className="ml-auto text-2xl px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+                >
+                  {uploading ? "Uploading..." : "Upload"}
+                </button>
+              </div>
+            </div>
+
+            <div className="w-full md:w-1/2 flex flex-col items-start my-auto">
+              <p className="text-4xl text-black"><strong>Name:</strong></p>
+              <p className="text-3xl text-gray-600 pb-10">{user.username}</p>
+              <p className="text-4xl text-black"><strong>Email:</strong></p>
+              <p className="text-3xl text-gray-600 pb-10">{user.email}</p>
+              <p className="text-4xl text-black"><strong>Grade Level:</strong></p>
+              <p className="text-3xl text-gray-600 pb-10">N/A</p>
+              <p className="text-4xl text-black"><strong>Instrument of Interest:</strong></p>
+              <p className="text-3xl text-gray-600 pb-10">N/A</p>
+              <div className="flex flex-row items-center mt-10 gap-[200px]">
+                <NavLink href="/Profile/Settings" className="text-2xl rounded-md bg-[#455090] px-[30px] py-[10px] font-semibold shadow-[0_4px_6px_-1px_rgba(16,36,55,0.1)] text-[#ededed] hover:bg-[#102437]">
+                  Settings
+                </NavLink>
+                <button
+                  onClick={handleLogout}
+                  className="text-2xl px-[30px] py-[10px] bg-red-500 text-white rounded-md font-semibold shadow-[0_4px_6px_-1px_rgba(16,36,55,0.1)] text-[#ededed] hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
       ) : (
         <p>No user data found.</p>
       )}
-    </div>
+    
+
+  </>
   );
 };
 

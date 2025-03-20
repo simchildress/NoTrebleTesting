@@ -1,0 +1,16 @@
+
+.lvlBtn{
+    display: 'block';
+    margin: 'auto';
+    margin-bottom:20px;
+    margin-top: 10px;
+    height: 10vh;
+    font-size: xx-large;
+    box-sizing: border-box;
+}
+.lvlBtn p {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 10px;
+}
