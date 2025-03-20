@@ -58,6 +58,7 @@ function NavBar() {
           </NavLink>
         </li>
       </ul>
+      
       <div className="profile-div self-center">
       <NavLink href={target} className={target === "/Login" ? "btn-primary self-center": ""} activeClassName={""} nonActiveClassName={""}>
           {target === "/Login" ?  "Log in":  <img
@@ -75,4 +76,3 @@ function NavBar() {
 
 
 export default NavBar;
-
