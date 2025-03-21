@@ -59,6 +59,10 @@ export default function Community() {
             if (userSnap.exists()) {
                 username = userSnap.data().username;
             }
+
+            else if (username == null){ 
+                console.error("hm");
+            }
     
             await addDoc(collection(db, "forumPosts"), {
                 content: postContent,
