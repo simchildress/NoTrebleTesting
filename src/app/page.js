@@ -1,8 +1,10 @@
 "use client"
+import Image from "next/image";
 import NavLink from "./component/NavLink";
 import { useEffect, useState } from "react";
 import {onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/firebaseConfig";
+import { auth } from "@/firebaseConfig";//import { useUser, loading, logout } from '../../lib/firebase/auth.js'
+
 export default function Home() {
   const [target, setTarget] = useState("/Login");
     const [loading, setLoading] = useState(true);
