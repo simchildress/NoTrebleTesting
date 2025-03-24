@@ -33,6 +33,7 @@ function NavBar() {
     });
     return () => unsubscribe();
   }, []);
+  
   return (<nav className="nav-bar">
     <div className=" overdiv flex flex-row  items-center ">
       <Image aria-hidden src="/logo.png" alt="No Treble icon" width={80} height={80}  className="self-center navLogo"/>
