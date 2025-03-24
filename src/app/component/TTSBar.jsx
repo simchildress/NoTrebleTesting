@@ -45,14 +45,14 @@ export default function TTSBar() {
                 right: "20px", 
                 zIndex: 1000,
             }}
-            onClick={handleClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             <p className="content-center text-xl mr-5">TTS Play/Pause</p>
             
             {/* Click on the icon to toggle */}
-            <div className="transition-transform transform hover:scale-150">
+            <div className="transition-transform transform hover:scale-150"
+                onClick={handleClick}>
                 {buttonClicked ? (
                     <FaCirclePause 
                         size={40} 
