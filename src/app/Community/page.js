@@ -39,9 +39,61 @@ export default function Community() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+    
+        if (!user) {
+            console.error("User is not logged in");
+            return; // this stops ppl from posting if they arent logged into NoTreble
+        }
+    
+        if (postContent.trim() === "") return; // Prevents empty forum listings
+    
+        try {
+            const userRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userRef);
+            let username = "Anonymous";
+            let profilePic = "/defaultprofile.png"; // Default profile pic
+
+            if (userSnap.exists()) {
+                username = userSnap.data().username;
+                profilePic = userSnap.data().profilePic || "/defaultprofile.png"; // gets the profile pic
+            }
+
+            if (userSnap.exists()) {
+                username = userSnap.data().username;
+            }
+
+            else if (username == null){ 
+                console.error("hm");
+            }
+    
+            await addDoc(collection(db, "forumPosts"), {
+                content: postContent,
+                userID: user.uid,
+                username: username,
+                profilePic: profilePic,
+                timestamp: serverTimestamp(),
+            });            
+    
+            setPostContent("");
+            fetchPosts(); // Refresh
+        } catch (error) {
+            console.error("Error adding post:", error);
+        }
+    };
+    
+    const fetchPosts = async () => {
+        const querySnapshot = await getDocs(collection(db, "forumPosts"));
+        const postsArray = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+        }));
+        setPosts(postsArray);
     };
 
-    
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
     return (
         <main>
             <h1 className="text-center font-bold text-5xl mt-40 mb-10">Community Posts</h1>
