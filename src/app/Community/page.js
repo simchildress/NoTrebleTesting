@@ -7,6 +7,8 @@ import { onAuthStateChanged } from "firebase/auth"; // checks if user is logged 
 import { doc, getDoc } from "firebase/firestore";
 import Popup from "../component/Popup";
 
+
+
 export default function Community() {
     const [postContent, setPostContent] = useState("");
     const [posts, setPosts] = useState([]); // Store post
@@ -52,12 +54,16 @@ export default function Community() {
             let profilePic = "/defaultprofile.png"; // Default profile pic
 
             if (userSnap.exists()) {
-                username = userSnap.data().name;
+                username = userSnap.data().username;
                 profilePic = userSnap.data().profilePic || "/defaultprofile.png"; // gets the profile pic
             }
 
             if (userSnap.exists()) {
-                username = userSnap.data().name;
+                username = userSnap.data().username;
+            }
+
+            else if (username == null){ 
+                console.error("hm");
             }
     
             await addDoc(collection(db, "forumPosts"), {
