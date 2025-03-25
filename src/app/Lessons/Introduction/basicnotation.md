@@ -1,15 +1,13 @@
-
 ---
-
-# Basic notation
-
+layout: post
+title: Basic notation
 ---
 
 ### Notes
 
 When written on a staff, a note indicates a pitch and rhythmic value. The notation consists of a *notehead* (either empty or filled in), and optionally can include a *stem*, *beam*, *dot*, or *flag*. 
 
-[comment]: <> (<img src="Graphics/noteillustration.png" width="50%">)
+<img src="./noteillustration.png" width="50%">
 
 ### Staff
 
@@ -21,7 +19,7 @@ Notes *still* can't convey their pitch information if the staff doesn't include 
 
 Here is the pitch C4 placed on the treble, bass, alto, and tenor clefs.
 
-[comment]: <> (<img src="Graphics/clefs.png" width="50%" height="50%">)
+<img src="Graphics/clefs.png" width="50%" height="50%">
 
 ### Grand staff
 
@@ -31,7 +29,7 @@ The grand staff consists of two staves, one that uses a treble clef, and one tha
 
 When the music's range exceeds what can be written on the staff, extra lines are drawn so that we can still clearly read the pitch. These extra lines are called *ledger lines.* In the example below, From Haydn's Piano Sonata in G (Hob. XVI: 39), Ab5 occurs just above the treble staff in the right hand, and G3 and B3 occur just below the treble staff in the left hand.
 
-[comment]: <> (<img src ="Graphics/ledgerLines.png" width="80%" height="80%">)
+<img src ="Graphics/ledgerLines.png" width="80%" height="80%">
 
 ### Accidentals
 
@@ -45,5 +43,5 @@ Accidentals are used to indicate when a pitch has been raised or lowered. They a
 
 The example below shows the symbols for flat, natural, sharp, double sharp, and double flat, respectively.
 
-[comment]: <> (<img src ="Graphics/accidentals.png" width="50%" height="50%">)
+<img src ="Graphics/accidentals.png" width="50%" height="50%">
 

@@ -10,7 +10,7 @@ export default function Lessons() {
     <div className="col-span-1 font-bold text-3xl text-center">Scales</div>
     <div className="col-span-1 font-bold text-3xl text-center">Rhythm</div>
     <div className="col-span-1 font-bold text-3xl text-center">Melody</div>
-    <LevelButton level = {1} address ="/Lessons/Fundamentals" ></LevelButton>
+    <LevelButton level = {1} address ="/Lessons/Introduction" ></LevelButton>
     <LevelButton level = {1} address ="/" ></LevelButton>
     <LevelButton level = {1} address ="/Lessons/Textbook?lesson=intervals" />
     <LevelButton level = {2} address ="/" ></LevelButton>
