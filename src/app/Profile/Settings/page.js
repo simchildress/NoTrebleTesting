@@ -8,6 +8,8 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { getAuth, deleteUser, updateProfile, updateEmail, updatePassword, updateGradeLevel, updateInstrument } from "firebase/auth";
 
+//WILL GET ATTEMPTED IMPORT ERROR BECAUSE THIS NEED TO BE SETUP WITHIN FIREBASE
+
 const Settings = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -96,7 +98,7 @@ const Settings = () => {
 
   return ( //need to integrate with theme
     <div className="w-3/4 min-h-screen bg-gray-100 flex flex-col mx-auto my-20 rounded-xl border-2 border-black-100 drop-shadow-md">
-      <h1 className="text-3xl font-bold mx-auto my-10"> Account Settings</h1>
+      <h1 className="text-3xl font-bold mx-auto mt-20 mb-10"> Account Settings</h1>
       
       <div className="mx-20">
         <label className="mt-5 mb-10 block text-xl font-bold">
@@ -144,21 +146,26 @@ const Settings = () => {
         </label>
 
         {/* Toggle button for TTS option */}
-      <div className="flex items-center space-x-4 mb-10">
-        <p className="text-xl font-bold">Text-To-Speech (TTS) option:</p>
-        <button
-          onClick={() => setIsOn(!isOn)}
-          className={`w-20 h-10 flex items-center justify-${isOn ? "end" : "start"} rounded-full px-2 transition-colors ${
-            isOn ? "bg-green-500" : "bg-red-500"
-          }`}
-        >
-          <span className="text-white font-bold text-lg flex-1 text-center">
-            {isOn ? "ON" : "OFF"}
-          </span>
-        </button>
-      
-      </div>
-        <p className="text-xl font-bold">Text Sizes: </p>
+        <div className="flex items-center space-x-4 mb-10">
+          <p className="text-xl font-bold">Text-To-Speech (TTS) option:</p>
+          <button
+            onClick={() => setIsOn(!isOn)}
+            className={`w-20 h-10 flex items-center justify-${isOn ? "end" : "start"} rounded-full px-2 transition-colors ${
+              isOn ? "bg-green-500" : "bg-red-500"
+            }`}
+          >
+            <span className="text-white font-bold text-lg flex-1 text-center">
+              {isOn ? "ON" : "OFF"}
+            </span>
+          </button>
+        
+        </div >
+        
+        { /* User will get to choose 3 different font sizes? */ }
+        <div className="flex items-center space-x-4 mb-10">
+          <p className="text-xl font-bold">Text Sizes: </p>
+        </div>
+
       </div>
 
 
