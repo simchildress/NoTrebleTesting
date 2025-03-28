@@ -21,6 +21,7 @@ export default function Lessons() {
     <LevelButton level = {3} address ="/Lessons/Textbook?lesson=motion" ></LevelButton>
     </div>
     // can add level 4 buttons again if needed
+    // thinking about changing the names of the level buttons
 
     
     return (
