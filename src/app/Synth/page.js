@@ -140,7 +140,7 @@ export default function SynthPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-      <h2 className="text-3xl font-bold mb-6">Upload and Play MIDI</h2>
+      <h2 className="text-3xl font-bold mb-6">Upload and Play Your Sheet Music!</h2>
 
       <input
         type="file"
