@@ -1,17 +1,24 @@
-
-
-@media (max-width: 480px) {
+/* mobile screens*/
+@media (max-width: 376px) {
+    .lesson {
+        font-size: 1.3rem;
+      
+    }
+}
+@media (min-width: 377px) and (max-width: 480px) {
     .lesson {
         font-size: 1.5rem
     }
 }
 
+/* tablet screen */ 
 @media (min-width: 481px) and (max-width: 768px) {
     .lesson {
         font-size: 1.8rem;
     }
 }
 
+/* laptop screens*/
 @media(min-width: 769px) and (max-width: 1024px) {
     .lesson {
         font-size: 2.2rem;

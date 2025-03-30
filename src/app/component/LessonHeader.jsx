@@ -1,6 +1,4 @@
 import React from "react";
-//import NavLink from "./NavLink";
-import Link from "next/link";
 import "../cs/LessonHeader.css"
 
 function LessonHeader(props) {
