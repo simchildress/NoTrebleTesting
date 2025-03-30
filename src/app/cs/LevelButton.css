@@ -17,7 +17,16 @@
 }
 
 /* mobile screens*/
-@media (max-width: 480px) {
+
+@media (max-width: 376px) {
+    .lvlBtn {
+        height: 6vh;
+        width:70%;
+        font-size: 1rem;
+        padding-top: 0.5px;
+    }
+}
+@media (min-width: 377px) and (max-width: 480px) {
     .lvlBtn {
         height: 6vh;
         width:70%;
@@ -26,7 +35,7 @@
     }
 }
 
-/* tablet screens */
+/* tablet screen */
 @media (min-width: 481px) and (max-width: 768px) {
     .lvlBtn {
         height: 8vh;

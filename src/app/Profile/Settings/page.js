@@ -4,24 +4,22 @@ import { useEffect, useState } from "react";
 import { auth } from "@/firebaseConfig";
 import { getUserProfile, updateUserProfile } from "@/lib/firebase/auth";
 import { useRouter } from "next/navigation";
-import { signOut, onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
+import { onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { TfiControlBackward } from "react-icons/tfi";
 import NavLink from "../../component/NavLink";
 
 
 const Settings = () => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [gradeLevel, setGradeLevel] = useState("");
-  const [instrument, setInstrument] = useState("");
   const router = useRouter();
   const db = getFirestore();
-  const [textSize, setTextSize] = useState("medium");
-  const [isOn, setIsOn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [newUsername, setUsername] = useState("");
+  const [newEmail, setEmail] = useState("");
+  const [newPassword, setPassword] = useState("");
+  const [newTextSize, setTextSize] = useState("medium");
+  const [newTTS, setTTS] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -36,6 +34,13 @@ const Settings = () => {
         });
         setUsername(profileData.username || "");  // Set initial username
         setEmail(profileData.email || "");  // Set initial email
+        setTTS(profileData.TTS || false); //set initial TTS 
+
+        // Fetch the text size setting to work with global CSS
+        const storedTextSize = profileData.textSize || "medium";
+        setTextSize(storedTextSize);
+        document.body.classList.toggle("large-text-size", storedTextSize === "large");
+        document.body.classList.toggle("medium-text-size", storedTextSize === "medium");
       } catch (error) {
         console.error("Error fetching user profile:", error);
       } finally {
@@ -48,24 +53,24 @@ const Settings = () => {
   const handleSaveChanges = async () => {
     const currentUser = auth.currentUser;
     if (!currentUser) return;
-
+  
     try {
-      // Update username in Firestore
+      // Update username, email, TTS and textsize in Firebase
       const userRef = doc(db, "users", currentUser.uid);
-      await setDoc(userRef, { username: newUsername }, { merge: true });
+      await setDoc(userRef, { username: newUsername, email: newEmail, textSize: newTextSize, TTS: newTTS }, { merge: true });
 
       // Update email if it's changed
       if (newEmail !== user.email) {
         await updateEmail(currentUser, newEmail);
       }
-
-      // Update password if it's changed
+  
+      // Update password if it's changed (Need to redo this part to match Sarah's implementation)
       if (newPassword) {
-        await updatePassword(currentUser, newPassword);
+        await updatePassword(currentUser, password);
       }
-
+  
       // Reflect changes in the UI
-      setUser((prevUser) => ({ ...prevUser, username: newUsername, email: newEmail }));
+      setUser((prevUser) => ({ ...prevUser, username: newUsername, email: newEmail, textSize: newTextSize, TTS: newTTS }));
       alert("Changes saved successfully!");
     } catch (error) {
       console.error("Error saving changes:", error);
@@ -88,10 +93,34 @@ const Settings = () => {
       }
   };
 
-  // Need to link this with the TTS option when sign in
-  const handleToggle = () => {
-    setIsOn(!isON);
-  }
+  const handleToggle = async () => {
+    const currentUser = auth.currentUser;
+    if (!currentUser || newTTS === null) return;  // Ensure user is loaded and newTTS is not null
+  
+    const toggledTTS = !newTTS;  // Toggle the current value
+  
+    try {
+      // Update TTS setting in Firestore
+      const userRef = doc(db, "users", currentUser.uid);
+      await setDoc(userRef, { TTS: toggledTTS }, { merge: true });
+  
+      console.log(`TTS set to ${toggledTTS ? "ON" : "OFF"}`);
+      setTTS(toggledTTS);  // Update local state for TTS
+    } catch (error) {
+      console.error("Error updating TTS setting:", error);
+    }
+  };
+  
+    // Handle changing text size (medium or large)
+    const handleTextSizeChange = (newTextSize) => {
+      // Toggle the text size classes on the body
+      document.body.classList.toggle("large-text-size", newTextSize === "large");
+      document.body.classList.toggle("medium-text-size", newTextSize === "medium");
+    
+      // Update the local state
+      setTextSize(newTextSize);
+    };
+    
 
   return ( 
     <div className="w-3/4 h-fit bg-gray-100 flex flex-col mx-auto mt-20 mb-20 rounded-xl border-2 border-black-100 drop-shadow-md">
@@ -107,7 +136,7 @@ const Settings = () => {
           <input 
               type="text"
               name="username"
-              value={username}
+              value={newUsername}
               onChange={(e) => setUsername(e.target.value)}
               className="w-3/4 mt-2 ml-5 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600 shadow-md shadow-[#455090]/20"
           />
@@ -118,7 +147,7 @@ const Settings = () => {
           <input 
               type="text"
               name="email"
-              value={email}
+              value={newEmail}
               onChange={(e) => setEmail(e.target.value)}
               className="w-3/4 mt-2 ml-5 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600 shadow-md shadow-[#455090]/20"
           />
@@ -126,69 +155,37 @@ const Settings = () => {
 
         <label className="mt-5 mb-10 block text-2xl font-bold">
           Password:
-          <input 
-              type="text"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-3/4 mt-2 ml-5 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600 shadow-md shadow-[#455090]/20"
-          />
+            <button>Reset your password</button>
         </label>
 
-        <label className="mt-5 mb-10 block text-2xl font-bold">
-          Grade Level:
-          <input 
-              type="text"
-              name="gradelevel"
-              value={gradeLevel}
-              onChange={(e) => setGradeLevel(e.target.value)}
-              className="w-3/4 mt-2 ml-5 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600 shadow-md shadow-[#455090]/20"
-          />
-        </label>
-
-        <label className="mt-5 mb-10 block text-2xl font-bold">
-          Instrument of Interest:
-          <input 
-              type="text"
-              name="instrument"
-              value={instrument}
-              onChange={(e) => setInstrument(e.target.value)}
-              className="w-3/4 mt-2 ml-5 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600 shadow-md shadow-[#455090]/20"
-          />
-        </label>
-
-        {/* Toggle button for TTS option */}
         <div className="flex items-center space-x-4 mb-8">
           <p className="text-2xl font-bold">Text-To-Speech (TTS) option:</p>
-          <button
-            onClick={() => setIsOn(!isOn)}
-            className={`w-20 h-10 flex items-center justify-${isOn ? "end" : "start"} rounded-lg px-2 transition-colors ${
-              isOn ? "bg-green-500" : "bg-red-500"
-            }`}
-          >
-            <span className="text-white font-bold text-2xl flex-1 text-center">
-              {isOn ? "ON" : "OFF"}
-            </span>
-          </button>
-        
-        </div >
+          {user && (
+            <button
+              onClick={handleToggle}
+              className={`w-20 h-10 flex items-center justify-${newTTS ? "end" : "start"} rounded-lg px-2 transition-colors ${
+                newTTS ? "bg-green-500" : "bg-red-500"
+              }`}
+            >
+              <span className="text-white font-bold text-2xl flex-1 text-center">
+                {newTTS ? "ON" : "OFF"}
+              </span>
+            </button>
+          )}
+        </div>
         
         { /* User will get to choose 2 different font sizes? */ }
         <div className="flex items-center space-x-4 mb-10">
           <p className="text-2xl font-bold">Text Sizes: </p>
           <button 
-            onClick={() => setTextSize("medium")}
-            className={`p-2 m-2 font-bold text-2xl border rounded-lg hover:bg-gray-500 ${ 
-              textSize === "medium" ? "bg-green-500 text-white" : "bg-white text-black"
-              }`}
+            onClick={() => handleTextSizeChange("medium")}
+            className={`p-2 m-2 font-bold text-2xl border rounded-lg hover:bg-gray-500 ${newTextSize === "medium" ? "bg-green-500 text-white" : "bg-white text-black"}`}
           >
             MEDIUM
           </button>
           <button 
-            onClick={() => setTextSize("large")}
-            className={`p-2 m-2 font-bold text-2xl border rounded-lg hover:bg-gray-500 ${ 
-              textSize === "large" ? "bg-green-500 text-white" : "bg-white text-black"
-              }`}
+            onClick={() => handleTextSizeChange("large")}
+            className={`p-2 m-2 font-bold text-2xl border rounded-lg hover:bg-gray-500 ${newTextSize === "large" ? "bg-green-500 text-white" : "bg-white text-black"}`}
           >
             LARGE
           </button>

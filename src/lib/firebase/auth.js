@@ -19,6 +19,7 @@ const signUp = async (email, password, username, profilePic, TTS) => {
       username: username,
       profilePic: profilePic, 
       TTS: TTS,
+      textSize: "medium", // Default text size
       createdAt: new Date(),
     });
 
