@@ -25,9 +25,7 @@ export const metadata = {
 function Header() {
   return (
     <>
-    {/* TODO: Add Logo :) */}
       <NavBar className="nav-bar"/>
-    
     </>
   )
 }

@@ -11,6 +11,7 @@
   --body-text-size: 30px;
   --h2-text-size: 60px;
   --h3-text-size: 40px;
+  
 }
 /* update */
 /* @media (prefers-color-scheme: dark) {
@@ -50,7 +51,9 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
-
+p, h2, h3 {
+  text-wrap: pretty;
+}
 .prefColor { /* Do not use this class purely for color prefs*/
   background-color: #ffffff; /* background color used in demo */
   color: #ededed; /* secondary background shade used in demo */
@@ -60,7 +63,7 @@ body {
 .home-footer{
   background-color: var(--footer-color);
   color:var(--shadow-color);
-  
+  max-width: calc(100%-20px);
   width: 100%;
   height: 10em;
   padding: 20px;
@@ -72,20 +75,21 @@ body {
 /* Welcome */
 .welcome-div{
   height: 50%;
+  max-width:730px;
 }
 .welcome-div > h2, .welcome-div > p {
   padding-bottom: 20px;
   text-align: center;
-  width: 20em;
+  text-wrap: balance;
+  /* width: 20em; */
 }
 
 .welcome-div > h2{
   font-size: var(--h2-text-size);
-  max-width:400px;
+  max-width: calc0(0.002%-20px);
 }
 .welcome-div > p{
   font-size: var(--body-text-size);
-  max-width:860px;
   text-align: center;
 }
 .welcome-signup {
@@ -101,6 +105,15 @@ body {
   box-sizing: border-box;
 }
 /* Features */
+.features {
+  display: flex;
+  width: 85%;
+  max-width: 1980px;
+  height: 100%;
+  gap: 10px;
+  justify-content: center;
+  align-items: stretch;
+}
 .features-div > h2 {
   font-size:var(--h2-text-size);
   font-weight: bold;
@@ -110,43 +123,136 @@ body {
 
 .features-list{
   background-color: var(--background);
-  padding: 25px;
-  box-sizing: border-box;
+  padding: 20px;
   border-radius: 12%;
-  width: 50%;
-  height: 50%;
+  width: 100%;
   text-align: center;
   max-width: 600px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 
 .features-div{
   background-color: var(--shadow-color);
   width: 100%;
+  height: 100%;
   padding: 40px;
 }
 .features-list div {
+  align-items: center;
   font-size: var(--body-text-size);
-  padding: 10px;
-  max-width:500px;
-  min-width:500px;
-  max-height:400px;
-  min-height:400px;
-
+  padding-right: 20px;
+  height: 100%;
+  min-width: calc(100% + 20px);
+  max-width: calc(100% + 20px);
 }
+
 .features-list div h3 {
   font-size: var(--h3-text-size);
   font-weight: 500;
   padding-bottom: 4px;
 }
+.features-list div > h3, .features-list div > p {
+  margin: 5px;
+}
+
+@media screen and (max-width: 1200px){
+  .features {
+    max-width: 480px;
+    justify-content: space-around;
+      flex-direction: column;
+      margin: 0 auto;
+      min-width: fit-content;
+      max-width: 70%;
+  }
+}
+/* Styles for smaller screens */
+@media screen and (max-width: 780px) {
+.flex {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 70%;
+}
+/* Welcome */
+.welcome-div{
+  margin-top: 0px;
+}
+.welcome-div > h2, .welcome-div > p {
+  padding-bottom: 20px;
+  /* text-align: left; */
+  min-width: none;
+}
+.welcome-main{
+  margin: -100px;
+}
+
+.welcome-signup {
+  font-size: var(--body-text-size);
+  max-width:100%;
+  text-align: center;
+  align-self: center;
+}
+  .features {
+    max-width: 480px;
+    justify-content: space-around;
+      flex-direction: column;
+      margin: 0 auto;
+      min-width: fit-content;
+      max-width: 70%;
+  }
+  .features-list{
+    width: 100%;
+    height: 70%;
+    min-width: none;
+    min-height: none;
+    max-height: fit-content;
+  }
+  .features-list div {
+    font-size: var(--body-text-size);
+    max-width:fit-content;
+    min-height:calc(50%+20px);
+    max-height:calc(50%+20px);
+    min-width: calc(50%+20px);
+    max-width: calc(50%+20px);
+  }
+/* NavBar */
+  .nav-bar {
+    max-width: 100%;
+    width:100%;
+    border-bottom: 30px;
+    box-shadow: 0 5px 2px -2px rgba(0, 0, 0, 0.2); 
+    border: 2px solid transparent; 
+    justify-content: left;
+  }
+  .nav-list {
+    min-width: inherit;
+    max-width: none;
+    /* padding: 2px; */
+    
+  }
+  /* Footer */
+
+  footer > h2 {
+    padding-top: 10%;
+    text-align: center;
+  }
+  footer {
+    font-size: 1.3em;
+    max-width:none;
+    min-width: none;
+    height: 100%;
+    text-wrap:wrap;
+  }
+
+}
+
 /*Lessons*/
 .lesson-div{
   font-size: (--body-text-size);
   font-family: "Geist Sans", sans-serif;
   background-color: var(--background);
-
-
 }
 .lesson-div > h3{
   font-family: "Geist Sans";
