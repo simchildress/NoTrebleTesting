@@ -75,10 +75,12 @@ p, h2, h3 {
 /* Welcome */
 .welcome-div{
   height: 50%;
+  max-width:730px;
 }
 .welcome-div > h2, .welcome-div > p {
   padding-bottom: 20px;
   text-align: center;
+  text-wrap: balance;
   /* width: 20em; */
 }
 
@@ -88,7 +90,6 @@ p, h2, h3 {
 }
 .welcome-div > p{
   font-size: var(--body-text-size);
-  max-width:860px;
   text-align: center;
 }
 .welcome-signup {
@@ -104,6 +105,15 @@ p, h2, h3 {
   box-sizing: border-box;
 }
 /* Features */
+.features {
+  display: flex;
+  width: 85%;
+  max-width: 1980px;
+  height: 100%;
+  gap: 10px;
+  justify-content: center;
+  align-items: stretch;
+}
 .features-div > h2 {
   font-size:var(--h2-text-size);
   font-weight: bold;
@@ -113,61 +123,70 @@ p, h2, h3 {
 
 .features-list{
   background-color: var(--background);
-  padding: 25px;
-  box-sizing: border-box;
+  padding: 20px;
   border-radius: 12%;
-  width: 50%;
-  height: 50%;
+  width: 100%;
   text-align: center;
   max-width: 600px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 
 .features-div{
   background-color: var(--shadow-color);
   width: 100%;
+  height: 100%;
   padding: 40px;
 }
 .features-list div {
+  align-items: center;
   font-size: var(--body-text-size);
-  padding: 10px;
-  max-width:fit-content;
-  min-height:calc(50%+20px);
-  max-height:calc(50%+20px);
-  min-width: calc(50%+20px);
-  max-width: calc(50%+20px);
+  padding-right: 20px;
+  height: 100%;
+  min-width: calc(100% + 20px);
+  max-width: calc(100% + 20px);
 }
+
 .features-list div h3 {
   font-size: var(--h3-text-size);
   font-weight: 500;
   padding-bottom: 4px;
 }
-/*Lessons*/
-.lesson-div{
-  font-size: (--body-text-size);
-  font-family: "Geist Sans", sans-serif;
-  background-color: var(--background);
-
-/* Styles for smaller screens */
-@media screen and (max-width: 780px) {
-  
-  .flex {
-      display: flex;
-      justify-content: space-around;
-      flex-direction: column;
-      margin: 0 auto;
-      max-width: 70%;
-  }
-/* Welcome */
-.welcome-div > h2, .welcome-div > p {
-  padding-bottom: 20px;
-  text-align: center;
-  max-width: none;
-  min-width: none;
-  width: 1.5em;
+.features-list div > h3, .features-list div > p {
+  margin: 5px;
 }
 
+@media screen and (max-width: 1200px){
+  .features {
+    max-width: 480px;
+    justify-content: space-around;
+      flex-direction: column;
+      margin: 0 auto;
+      min-width: fit-content;
+      max-width: 70%;
+  }
+}
+/* Styles for smaller screens */
+@media screen and (max-width: 780px) {
+.flex {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 70%;
+}
+/* Welcome */
+.welcome-div{
+  margin-top: 0px;
+}
+.welcome-div > h2, .welcome-div > p {
+  padding-bottom: 20px;
+  /* text-align: left; */
+  min-width: none;
+}
+.welcome-main{
+  margin: -100px;
+}
 
 .welcome-signup {
   font-size: var(--body-text-size);
@@ -177,8 +196,11 @@ p, h2, h3 {
 }
   .features {
     max-width: 480px;
-    min-width: none;
-    min-height: none;
+    justify-content: space-around;
+      flex-direction: column;
+      margin: 0 auto;
+      min-width: fit-content;
+      max-width: 70%;
   }
   .features-list{
     width: 100%;
@@ -188,12 +210,12 @@ p, h2, h3 {
     max-height: fit-content;
   }
   .features-list div {
-    width: 1em;
-    max-width:480px;
-    min-width: none;
-    max-height:100%;
-    min-height: inherit;
-    min-width: inherit;
+    font-size: var(--body-text-size);
+    max-width:fit-content;
+    min-height:calc(50%+20px);
+    max-height:calc(50%+20px);
+    min-width: calc(50%+20px);
+    max-width: calc(50%+20px);
   }
 /* NavBar */
   .nav-bar {
@@ -202,20 +224,15 @@ p, h2, h3 {
     border-bottom: 30px;
     box-shadow: 0 5px 2px -2px rgba(0, 0, 0, 0.2); 
     border: 2px solid transparent; 
-    padding: none;
-    box-sizing: border-box;
     justify-content: left;
   }
   .nav-list {
     min-width: inherit;
     max-width: none;
-    padding: 2px;
+    /* padding: 2px; */
+    
   }
-
-
-  main p {
-    line-height: 0.6em;
-  }
+  /* Footer */
 
   footer > h2 {
     padding-top: 10%;
@@ -231,6 +248,11 @@ p, h2, h3 {
 
 }
 
+/*Lessons*/
+.lesson-div{
+  font-size: (--body-text-size);
+  font-family: "Geist Sans", sans-serif;
+  background-color: var(--background);
 }
 .lesson-div > h3{
   font-family: "Geist Sans";
