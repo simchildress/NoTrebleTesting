@@ -61,15 +61,15 @@ export default function Home() {
               <div>
                 <h3><span>Sheet Music Composer</span></h3>
                 <p>
-                Write and edit your own compositions with this feature. You’ll be able to edit your sheet music markings in an easy and accessible way and play it back to perfect your piece.
+                 Write and edit your own compositions with this feature. You’ll be able to edit your sheet music markings in an easy and accessible way and play it back to perfect your piece.
                 </p>
               </div>
             </li>
           </ul>
     </div>
-    <footer className="home-footer flex gap-16 items-center justify-center">
-        <h2 className=" self-center p2">Brought to you by Bryte </h2>
-      </footer>
+    <footer className="home-footer">
+        <h2 className="self-center flex items-center justify-center p2">Brought to you by Bryte </h2>
+    </footer>
   </>
   );
 }
