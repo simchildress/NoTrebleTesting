@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./component/NavBar";
 import HotKeyProvider from "./component/Hotkeys";
 import TTSBar from "./component/TTSBar";
+import { TextSizeProvider } from './context/textsizecontext'; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,14 +36,13 @@ function Header() {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header/>
-        <HotKeyProvider/>
-        <TTSBar/>
-        
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <TextSizeProvider>
+          <Header />
+          <HotKeyProvider />
+          <TTSBar />
+          {children}
+        </TextSizeProvider>
       </body>
     </html>
   );

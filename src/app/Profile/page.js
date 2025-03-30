@@ -108,10 +108,6 @@ const Profile = () => {
               <p className="text-3xl text-gray-600 pb-10">{user.username}</p>
               <p className="text-4xl text-black"><strong>Email:</strong></p>
               <p className="text-3xl text-gray-600 pb-10">{user.email}</p>
-              <p className="text-4xl text-black"><strong>Grade Level:</strong></p>
-              <p className="text-3xl text-gray-600 pb-10">N/A</p>
-              <p className="text-4xl text-black"><strong>Instrument of Interest:</strong></p>
-              <p className="text-3xl text-gray-600 pb-10">N/A</p>
               <div className="flex flex-row items-center mt-10 space-x-20">
                 <NavLink href="/Profile/Settings" className="text-2xl rounded-md bg-[#455090] px-[30px] py-[10px] font-semibold shadow-[0_4px_6px_-1px_rgba(16,36,55,0.1)] text-[#ededed] hover:bg-[#102437]">
                   Settings

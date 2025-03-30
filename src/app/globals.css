@@ -8,10 +8,18 @@
   --btn-color: #455090;
   --shadow-color: #ededed;
   --footer-color: #102437;
-  --body-text-size: 30px;
+   /*Medium text size*/
+  --body-text-size: 30px; 
   --h2-text-size: 60px;
   --h3-text-size: 40px;
 }
+
+.large-text-size {
+  --body-text-size: 60px; 
+  --h2-text-size: 120px;
+  --h3-text-size: 80px;
+}
+
 /* update */
 /* @media (prefers-color-scheme: dark) {
   :root {
