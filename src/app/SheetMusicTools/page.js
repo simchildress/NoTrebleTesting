@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import FileUploader from "./fileupload";
+import SheetMusicInput from "../component/SheetMusicInput"
 
 export default function SheetMusicTools() {
     const [file, setFile] = useState(null);
@@ -82,42 +83,39 @@ export default function SheetMusicTools() {
                 <form className= "inset-2 bg-gray-200 -z-10 rounded-2xl p-4 pl-7 text-3xl border-2 border-gray-400">
                     <label className="mt-5 block">
                         Enter Title:
-                        <input 
+                        <SheetMusicInput 
                             type="text"
                             name="title"
                             value={sheet.title}
-                            onChange={handleChange} 
-                            className="mt-2 ml-3 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
+                            onChange={handleChange}
                         />
+                      
                     </label>
                     <label className="mt-5 block">
                         Enter Composer Name:
-                        <input
+                        <SheetMusicInput
                             type="text" 
                             name="composer"
                             value={sheet.composer}
                             onChange={handleChange}  
-                            className="mt-2 ml-3 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
                         />
                     </label>
                     <label className="mt-5 block">
                         Enter Key:
-                        <input
+                        <SheetMusicInput
                             type="text" 
                             name="key"
                             value={sheet.key}
                             onChange={handleChange} 
-                            className="mt-2 ml-3 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
                         />
                     </label>
                     <label className="mt-5 block">
                         Enter Time Signature:
-                        <input
+                        <SheetMusicInput
                             type="text" 
                             name="timesig"
                             value={sheet.timesig}
                             onChange={handleChange}  
-                            className="mt-2 ml-3 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
                         />
                     </label>
                 </form>
