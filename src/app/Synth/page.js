@@ -8,60 +8,9 @@ export default function SynthPage() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [instrument, setInstrument] = useState("synth");
 
-  let synth = null;
-
-  //trrying to map out the midi correctly this wrong rn but its a work in progress, but hey the synth works great
-  const sampleMapping = {
-    21: "Player_dyn1_rr1_000.wav",
-    23: "Player_dyn1_rr1_002.wav",
-    25: "Player_dyn1_rr1_004.wav",
-    27: "Player_dyn1_rr1_006.wav",
-    29: "Player_dyn1_rr1_008.wav",
-    31: "Player_dyn1_rr1_010.wav",
-    33: "Player_dyn1_rr1_012.wav",
-    35: "Player_dyn1_rr1_014.wav",
-    37: "Player_dyn1_rr1_016.wav",
-    39: "Player_dyn1_rr1_018.wav",
-    41: "Player_dyn1_rr1_020.wav",
-    43: "Player_dyn1_rr1_022.wav",
-    45: "Player_dyn1_rr1_024.wav",
-    47: "Player_dyn1_rr1_026.wav",
-    49: "Player_dyn1_rr1_028.wav",
-    51: "Player_dyn1_rr1_030.wav",
-    53: "Player_dyn1_rr1_032.wav",
-    55: "Player_dyn1_rr1_034.wav",
-    57: "Player_dyn1_rr1_036.wav",
-    59: "Player_dyn1_rr1_038.wav",
-    61: "Player_dyn1_rr1_040.wav",
-    63: "Player_dyn1_rr1_042.wav",
-    65: "Player_dyn1_rr1_044.wav",
-    67: "Player_dyn2_rr1_000.wav",
-    69: "Player_dyn2_rr1_002.wav",
-    71: "Player_dyn2_rr1_004.wav",
-    73: "Player_dyn2_rr1_006.wav",
-    75: "Player_dyn2_rr1_008.wav",
-    77: "Player_dyn2_rr1_010.wav",
-    79: "Player_dyn2_rr1_012.wav",
-    81: "Player_dyn2_rr1_014.wav",
-    83: "Player_dyn2_rr1_016.wav",
-    85: "Player_dyn2_rr1_018.wav",
-    87: "Player_dyn2_rr1_020.wav",
-    89: "Player_dyn2_rr1_022.wav",
-    91: "Player_dyn2_rr1_024.wav",
-    93: "Player_dyn2_rr1_026.wav",
-    95: "Player_dyn2_rr1_028.wav",
-    97: "Player_dyn2_rr1_030.wav",
-    99: "Player_dyn2_rr1_032.wav",
-    101: "Player_dyn2_rr1_034.wav",
-    103: "Player_dyn2_rr1_036.wav",
-    105: "Player_dyn2_rr1_038.wav",
-    107: "Player_dyn2_rr1_040.wav",
-    108: "Player_dyn2_rr1_042.wav",
-  };
-
-  async function playMIDI(file) {
+  async function playMIDI(file) { // checks if they picked a midi file yet, if not browser should prompt for one
     if (!file) {
-      alert("upload a MIDI file");
+      alert("Upload a MIDI file");
       return;
     }
 
@@ -75,41 +24,37 @@ export default function SynthPage() {
       Tone.Transport.cancel();
       Tone.Transport.stop();
 
+      let synth;
       if (instrument === "synth") {
         synth = new Tone.PolySynth(Tone.Synth).toDestination();
-        scheduleNotes(midi, synth);
-      } else if (instrument === "piano") {
+      } else if (instrument === "piano") { // piano samples
         synth = new Tone.Sampler(
           {
-            urls: generatePianoUrls(),
+            urls: {
+              C4: "https://wayneh08.github.io/NoTreble_Samples/Upright_Piano/C4.wav",
+              E4: "https://wayneh08.github.io/NoTreble_Samples/Upright_Piano/E4.wav",
+              G4: "https://wayneh08.github.io/NoTreble_Samples/Upright_Piano/G4.wav",
+              C5: "https://wayneh08.github.io/NoTreble_Samples/Upright_Piano/C5.wav",
+            },
             release: 1,
             onload: () => scheduleNotes(midi, synth),
-          }).toDestination();
-      } else if (instrument === "guitar") {
+          }
+        ).toDestination();
+      } else if (instrument === "guitar") { //guitar samples
         synth = new Tone.Sampler(
           {
-            urls: generateGuitarUrls(),
+            urls: {
+              C4: "https://wayneh08.github.io/NoTreble_Samples/Guitar/C4.wav",
+              E4: "https://wayneh08.github.io/NoTreble_Samples/Guitar/E4.wav",
+              G4: "https://wayneh08.github.io/NoTreble_Samples/Guitar/G4.wav",
+              C5: "https://wayneh08.github.io/NoTreble_Samples/Guitar/C5.wav",
+            },
             release: 1,
-            onload: () => scheduleNotes(midi, synth),
-          }).toDestination();
+            onload: () => scheduleNotes(midi, synth), // Ensuring sampler is loaded
+          }
+        ).toDestination();
       }
     };
-  }
-
-  function generatePianoUrls() {
-    let urls = {};
-    for (let note in sampleMapping) {
-      urls[note] = `https://wayneh08.github.io/NoTreble_Samples/Upright_Piano/${sampleMapping[note]}`; //repo with the piano samples
-    }
-    return urls;
-  }
-
-  function generateGuitarUrls() {
-    let urls = {};
-    for (let note in sampleMapping) {
-      urls[note] = `https://wayneh08.github.io/NoTreble_Samples/samples/guitar-${sampleMapping[note]}`; // This dont exist yet, guitar wont work
-    }
-    return urls;
   }
 
   function scheduleNotes(midi, synth) {
@@ -169,19 +114,19 @@ export default function SynthPage() {
           onClick={() => playMIDI(midiFile)}
           className="px-6 py-3 text-xl font-semibold bg-green-500 rounded-lg shadow-lg hover:bg-green-600 transition-all"
         >
-            Play
+          Play
         </button>
         <button
           onClick={pauseMIDI}
           className="px-6 py-3 text-xl font-semibold bg-yellow-500 rounded-lg shadow-lg hover:bg-yellow-600 transition-all"
         >
-            Pause
+        Pause
         </button>
         <button
           onClick={restartMIDI}
           className="px-6 py-3 text-xl font-semibold bg-red-500 rounded-lg shadow-lg hover:bg-red-600 transition-all"
         >
-            Restart
+          Restart
         </button>
       </div>
     </div>
