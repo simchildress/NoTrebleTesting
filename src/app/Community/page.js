@@ -96,10 +96,10 @@ export default function Community() {
 
     return (
         <main>
-            <h1 className="text-center font-bold text-5xl mt-40 mb-10">Community Posts</h1>
-            <div className="container mx-auto bg-gray-200 -z-10 rounded-2xl text-2xl p-8">
+            <h1 className="text-center font-bold text-h3 mt-40 mb-10">Community Posts</h1>
+            <div className="container mx-auto bg-gray-200 -z-10 rounded-2xl text-body p-8">
                 {/* Post Input */}
-                <div className="w-auto mx-auto bg-[#455090] -z-10 rounded-2xl text-2xl p-8">
+                <div className="w-auto mx-auto bg-[#455090] -z-10 rounded-2xl text-body  p-8">
                     <div className="flex items-center space-x-4">
                     {user ? (
                         <>
@@ -119,14 +119,14 @@ export default function Community() {
                             </button>
                         </>
                     ) : (
-                        <p className="text-center text-lg text-gray-600">You must be logged in to post.</p>
+                        <p className="text-center text-body  text-gray-600">You must be logged in to post.</p>
                     )}
                     </div>
                 </div>
 
                 {/* Display Posts */}
                 <p className="mt-10 mb-10">See more</p>
-                <div className="mx-auto bg-[#455090] -z-10 rounded-2xl text-2xl p-8">
+                <div className="mx-auto bg-[#455090] -z-10 rounded-2xl text-body p-8">
                     {posts.map((post) => (
                         <div key={post.id} className="bg-white p-4 my-4 rounded-lg shadow-md">
                                 <img

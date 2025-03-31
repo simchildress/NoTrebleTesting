@@ -29,7 +29,7 @@ export default function Lessons() {
     
     return (
         <main>
-        <h1 className="text-center font-bold text-4xl mt-6 ">Music Theory Lessons</h1>    
+        <h1 className="text-center font-bold text-h3 mt-6 ">Music Theory Lessons</h1>    
         <div className= "mb-6 bg-gray-200 p-10 rounded-lg shadow-lg w-lg mt-4 ">
         <Columns/>
         </div>

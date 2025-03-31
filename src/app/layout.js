@@ -1,4 +1,3 @@
-
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "./globals.css";
 import "./globals.css";
@@ -7,6 +6,7 @@ import NavBar from "./component/NavBar";
 import HotKeyProvider from "./component/Hotkeys";
 import TTSBar from "./component/TTSBar";
 import { TextSizeProvider } from './context/textsizecontext'; 
+import Speech from "react-text-to-speech";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +30,7 @@ function Header() {
     </>
   )
 }
+
 //update
 export default function RootLayout({ children }) {
   return (

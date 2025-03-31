@@ -89,14 +89,14 @@ const Profile = () => {
                 onError={(e) => (e.target.src = "/defaultprofile.png")}
               />
               <div className="flex flex-row items-center mt-10 gap-2">
-                <label className="cursor-pointer text-2xl bg-white text-black px-4 py-2 rounded-md hover:bg-gray-500 border-2 border-dashed border-black">
+                <label className="cursor-pointer text-body bg-white text-black px-4 py-2 rounded-md hover:bg-gray-500 border-2 border-dashed border-black">
                   Choose Image
                   <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
                 </label>
                 <button
                   onClick={handleUpload}
                   disabled={uploading || !image}
-                  className="ml-auto text-2xl px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+                  className="ml-auto text-body px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
                 >
                   {uploading ? "Uploading..." : "Upload"}
                 </button>
@@ -104,17 +104,17 @@ const Profile = () => {
             </div>
 
             <div className="w-full md:w-1/2 flex flex-col items-start my-auto">
-              <p className="text-4xl text-black"><strong>Name:</strong></p>
-              <p className="text-3xl text-gray-600 pb-10">{user.username}</p>
-              <p className="text-4xl text-black"><strong>Email:</strong></p>
-              <p className="text-3xl text-gray-600 pb-10">{user.email}</p>
+              <p className="text-h3 text-black"><strong>Name:</strong></p>
+              <p className="text-body text-gray-600 pb-10">{user.username}</p>
+              <p className="text-h3 text-black"><strong>Email:</strong></p>
+              <p className="text-body text-gray-600 pb-10">{user.email}</p>
               <div className="flex flex-row items-center mt-10 space-x-20">
-                <NavLink href="/Profile/Settings" className="text-2xl rounded-md bg-[#455090] px-[30px] py-[10px] font-semibold shadow-[0_4px_6px_-1px_rgba(16,36,55,0.1)] text-[#ededed] hover:bg-[#102437]">
+                <NavLink href="/Profile/Settings" className="text-body rounded-md bg-[#455090] px-[30px] py-[10px] font-semibold shadow-[0_4px_6px_-1px_rgba(16,36,55,0.1)] text-[#ededed] hover:bg-[#102437]">
                   Settings
                 </NavLink>
                 <button
                   onClick={handleLogout}
-                  className="text-2xl px-[30px] py-[10px] bg-red-500 text-white rounded-md font-semibold shadow-[0_4px_6px_-1px_rgba(16,36,55,0.1)] text-[#ededed] hover:bg-red-600"
+                  className="text-body px-[30px] py-[10px] bg-red-500 text-white rounded-md font-semibold shadow-[0_4px_6px_-1px_rgba(16,36,55,0.1)] text-[#ededed] hover:bg-red-600"
                 >
                   Logout
                 </button>

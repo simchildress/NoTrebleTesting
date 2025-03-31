@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import NavLink from "./component/NavLink";
 import { useEffect, useState } from "react";

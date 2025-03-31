@@ -124,14 +124,14 @@ const Settings = () => {
 
   return ( 
     <div className="w-3/4 h-fit bg-gray-100 flex flex-col mx-auto mt-20 mb-20 rounded-xl border-2 border-black-100 drop-shadow-md">
-      <NavLink href="/Profile" className="flex items-center w-[8rem] bg-black text-white text-2xl ml-20 mt-10 px-4 py-2 rounded-lg hover:bg-white hover:text-black hover:border-2 hover:border-black">
-        <TfiControlBackward className="w-1/2 h-1/2 mr-2"/>
+      <NavLink href="/Profile" className="flex w-fit items-center bg-black text-white text-body ml-20 mt-10 px-4 py-2 rounded-lg hover:bg-white hover:text-black hover:border-2 hover:border-black">
+        <TfiControlBackward className="w-1/4 h-1/4 mr-2 flex-shrink-0"/>
         Back
       </NavLink>      
-      <h1 className="text-3xl font-bold mx-auto mt-5 mb-6"> Account Settings</h1>
+      <h1 className="text-h2 font-bold mx-auto mt-5 mb-6"> Account Settings</h1>
       
       <div className="mx-20">
-        <label className="mt-5 mb-10 block text-2xl font-bold">
+        <label className="mt-5 mb-10 block text-body font-bold">
           Username:
           <input 
               type="text"
@@ -142,7 +142,7 @@ const Settings = () => {
           />
         </label>
 
-        <label className="mt-5 mb-10 block text-2xl font-bold">
+        <label className="mt-5 mb-10 block text-body font-bold">
           Email:
           <input 
               type="text"
@@ -153,21 +153,21 @@ const Settings = () => {
           />
         </label>
 
-        <label className="mt-5 mb-10 block text-2xl font-bold">
+        <label className="mt-5 mb-10 block text-body font-bold">
           Password:
-            <button>Reset your password</button>
+            <button className="ml-4 italic text-blue-900 underline underline-offset-4 ">Reset your password</button>
         </label>
 
         <div className="flex items-center space-x-4 mb-8">
-          <p className="text-2xl font-bold">Text-To-Speech (TTS) option:</p>
+          <p className="text-body font-bold">Text-To-Speech (TTS) option:</p>
           {user && (
             <button
               onClick={handleToggle}
-              className={`w-20 h-10 flex items-center justify-${newTTS ? "end" : "start"} rounded-lg px-2 transition-colors ${
+              className={`p-2 m-2 flex items-center justify-${newTTS ? "end" : "start"} rounded-lg px-2 transition-colors ${
                 newTTS ? "bg-green-500" : "bg-red-500"
               }`}
             >
-              <span className="text-white font-bold text-2xl flex-1 text-center">
+              <span className="text-white font-bold text-body flex-1 text-center">
                 {newTTS ? "ON" : "OFF"}
               </span>
             </button>
@@ -176,16 +176,16 @@ const Settings = () => {
         
         { /* User will get to choose 2 different font sizes? */ }
         <div className="flex items-center space-x-4 mb-10">
-          <p className="text-2xl font-bold">Text Sizes: </p>
+          <p className="text-body font-bold">Text Sizes: </p>
           <button 
             onClick={() => handleTextSizeChange("medium")}
-            className={`p-2 m-2 font-bold text-2xl border rounded-lg hover:bg-gray-500 ${newTextSize === "medium" ? "bg-green-500 text-white" : "bg-white text-black"}`}
+            className={`p-2 m-2 font-bold text-body border rounded-lg hover:bg-gray-500 ${newTextSize === "medium" ? "bg-green-500 text-white" : "bg-white text-black"}`}
           >
             MEDIUM
           </button>
           <button 
             onClick={() => handleTextSizeChange("large")}
-            className={`p-2 m-2 font-bold text-2xl border rounded-lg hover:bg-gray-500 ${newTextSize === "large" ? "bg-green-500 text-white" : "bg-white text-black"}`}
+            className={`p-2 m-2 font-bold text-body border rounded-lg hover:bg-gray-500 ${newTextSize === "large" ? "bg-green-500 text-white" : "bg-white text-black"}`}
           >
             LARGE
           </button>
@@ -196,7 +196,7 @@ const Settings = () => {
 
       <button
         onClick={handleSaveChanges} // Save all changes when clicked
-        className="m-auto bg-[#455090] text-white text-2xl rounded-xl px-5 py-3 hover:bg-blue-600 mb-6"
+        className="m-auto bg-[#455090] text-white text-body rounded-xl px-5 py-3 hover:bg-blue-600 mb-6"
       >
         Save Changes
       </button>
@@ -204,7 +204,7 @@ const Settings = () => {
 
       <button
         onClick={handleDeleteAccount}
-        className="m-auto mb-5 bg-red-200 text-black text-2xl rounded-xl px-4 py-2 hover:bg-red-500 border-2 border-black/50 border-dashed"
+        className="m-auto mb-5 bg-red-200 text-black text-body rounded-xl px-4 py-2 hover:bg-red-500 border-2 border-black/50 border-dashed"
       >
         Delete Account
       </button>

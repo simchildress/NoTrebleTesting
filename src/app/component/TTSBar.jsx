@@ -1,5 +1,6 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Speech from 'react-text-to-speech';
 import { FaCirclePause } from "react-icons/fa6";
 import { FaCirclePlay } from "react-icons/fa6";
 
@@ -9,6 +10,7 @@ export default function TTSBar() {
     const [position, setPosition] = useState({ x: 100, y: 200 }); // Initial position
     const [dragging, setDragging] = useState(false); // Drag state
     const [offset, setOffset] = useState({ x: 0, y: 0 }); // Offset when dragging
+    const [pageContent, setPageContent] = useState("");  //State to track the contents of each page
 
     const handleMouseDown = (e) => {
         setDragging(true);
@@ -31,12 +33,18 @@ export default function TTSBar() {
         setButtonClicked(!buttonClicked);
     };
 
+    useEffect(() => {
+        // Get texts from the body page (can also personalize to sections with id)
+        const texts = document.body.innerText;
+        setPageContent(texts);
+    }, []);
+
     return (
         <div
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
-            className="flex justify-center items-center w-[300px] h-[80px] bg-white border-4 border-gray-200 drop-shadow rounded-[50px]"
+            className="flex justify-center items-center w-fit h-fit p-5 bg-white border-4 border-gray-200 drop-shadow rounded-[50px]"
             style={{
                 position: "absolute", 
                 left: `${position.x}px`, 
@@ -48,9 +56,12 @@ export default function TTSBar() {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <p className="content-center text-xl mr-5">TTS Play/Pause</p>
+            <p className="content-center text-3xl mr-5">TTS Play/Pause</p>
             
-            {/* Click on the icon to toggle */}
+
+
+
+            {/* Click on the icon to toggle */} 
             <div className="transition-transform transform hover:scale-150"
                 onClick={handleClick}>
                 {buttonClicked ? (
@@ -65,6 +76,7 @@ export default function TTSBar() {
                     />
                 )}
             </div>
+
         </div>
     );
 }
