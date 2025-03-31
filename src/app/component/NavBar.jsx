@@ -4,7 +4,7 @@ import NavLink from "./NavLink";
 import Image from "next/image";
 import "../cs/NavBar.css"
 import { useEffect, useState } from "react";
-import {onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { getUserProfile } from "@/lib/firebase/auth";
 import { auth } from "@/firebaseConfig";
 

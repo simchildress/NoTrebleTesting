@@ -1,7 +1,3 @@
-"use client";
-import {createRoot} from 'react-dom/client'
-import Markdown from 'react-markdown';
-import markdown from '!!raw-loader!./basicnotation.md';
 
 
 export default function Fundamentals(){
