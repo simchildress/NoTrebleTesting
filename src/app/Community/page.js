@@ -96,7 +96,7 @@ export default function Community() {
 
     return (
         <main>
-            <h1 className="text-center font-bold text-5xl mt-40 mb-10">Community Posts</h1>
+            <h1 className="text-center font-bold mt-40 mb-10" style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Community Posts</h1>
             <div className="container mx-auto bg-gray-200 -z-10 rounded-2xl text-2xl p-8">
                 {/* Post Input */}
                 <div className="w-auto mx-auto bg-[#455090] -z-10 rounded-2xl text-2xl p-8">
@@ -110,37 +110,41 @@ export default function Community() {
                                 onChange={handleChange}
                                 placeholder="Let's share what's going on..."
                                 className="flex-1 px-4 py-2 border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
+                                style={{fontSize: 'calc(var(--body-text-size))'}}
                                 />
                             <button
                                 onClick={handleSubmit}
                                 className="ml-10 w-auto bg-gray-800 text-white rounded-lg px-4 py-2"
+                                style={{fontSize: 'calc(var(--body-text-size) * 1)'}}
                             >
                                 Create Post
                             </button>
                         </>
                     ) : (
-                        <p className="text-center text-lg text-gray-600">You must be logged in to post.</p>
+                        <p className="text-center text-gray-600" style={{fontSize: 'calc(var(--body-text-size) * 1)'}}>You must be logged in to post.</p>
                     )}
                     </div>
                 </div>
 
                 {/* Display Posts */}
                 <p className="mt-10 mb-10">See more</p>
-                <div className="mx-auto bg-[#455090] -z-10 rounded-2xl text-2xl p-8">
+                <div className="mx-auto bg-[#455090] -z-10 rounded-2xl p-8 size-fit" style={{fontSize: 'calc(var(--body-text-size) - 6px)'}}>
                     {posts.map((post) => (
-                        <div key={post.id} className="bg-white p-4 my-4 rounded-lg shadow-md">
+                        <div key={post.id} className="bg-white p-4 my-4 size-fit rounded-lg shadow-md">
                                 <img
                                      src={post.profilePic || "/defaultprofile.png"}
                                         alt="Profile"
                                         className="w-10 h-10 rounded-full mr-4"
                                 />
-                            <p className="font-bold text-[20px] mb-4">{ "@"+ post.username || "Anonymous"}</p>
-                            <p>{post.content}</p>
-                            <p className="text-sm text-gray-600">
-                                {post.timestamp?.seconds
-                                    ? new Date(post.timestamp.seconds * 1000).toLocaleString()
-                                    : "No timestamp"}
-                            </p>
+                            <div style={{margin: '10px'}}>
+                                <p className="font-bold mb-4" style={{fontSize: 'calc(var(--body-text-size) - 10px)'}}>{ "@"+ post.username || "Anonymous"}</p>
+                                <p style={{fontSize: 'calc(var(--body-text-size))'}}>{post.content}</p>
+                                <p className="text-gray-600" style={{fontSize: 'calc(var(--body-text-size) - 16px)'}}>
+                                    {post.timestamp?.seconds
+                                        ? new Date(post.timestamp.seconds * 1000).toLocaleString()
+                                        : "No timestamp"}
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>

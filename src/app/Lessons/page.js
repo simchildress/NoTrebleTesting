@@ -9,19 +9,25 @@ export default function Lessons() {
    
 
     const Columns = () => 
-    <div className="grid grid-cols-3 mt-4">
-    <LessonHeader lesson = "Scales"></LessonHeader>
-    <LessonHeader lesson = "Rhythm"></LessonHeader>
-    <LessonHeader lesson = "Melody"></LessonHeader>
-    <LevelButton level = {1} address ="/Lessons/Fundamentals" ></LevelButton>
-    <LevelButton level = {1} address ="/" ></LevelButton>
-    <LevelButton level = {1} address ="/Lessons/Textbook?lesson=intervals" />
-    <LevelButton level = {2} address ="/" ></LevelButton>
-    <LevelButton level = {2} address ="/" ></LevelButton>
-    <LevelButton level = {2} address ="/Lessons/Textbook?lesson=triads" ></LevelButton>
-    <LevelButton level = {3} address ="/" ></LevelButton>
-    <LevelButton level = {3} address ="/" ></LevelButton>
-    <LevelButton level = {3} address ="/Lessons/Textbook?lesson=motion" ></LevelButton>
+    <div className="grand_lessons_div grid grid-cols-3 mt-4">
+        <div>
+            <LessonHeader lesson = "Scales"></LessonHeader>
+            <LevelButton level = {1} address ="/Lessons/Introduction" ></LevelButton>
+            <LevelButton level = {2} address ="/" ></LevelButton>
+            <LevelButton level = {3} address ="/" ></LevelButton>
+        </div>
+        <div>
+            <LessonHeader lesson = "Rhythm"></LessonHeader>
+            <LevelButton level = {1} address ="/" ></LevelButton>
+            <LevelButton level = {2} address ="/" ></LevelButton>
+            <LevelButton level = {3} address ="/" ></LevelButton>
+        </div>
+        <div>
+            <LessonHeader lesson = "Melody"></LessonHeader>
+            <LevelButton level = {1} address ="/Lessons/Textbook?lesson=intervals" />
+            <LevelButton level = {2} address ="/Lessons/Textbook?lesson=triads" ></LevelButton>
+            <LevelButton level = {3} address ="/Lessons/Textbook?lesson=motion" ></LevelButton>
+        </div>
     </div>
     // can add level 4 buttons again if needed
     // thinking about changing the names of the level buttons
@@ -29,8 +35,17 @@ export default function Lessons() {
     
     return (
         <main>
-        <h1 className="text-center font-bold text-4xl mt-6 ">Music Theory Lessons</h1>    
+        <h1 className="text-center font-bold mt-6 " style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Music Theory Lessons</h1>    
         <div className= "mb-6 bg-gray-200 p-10 rounded-lg shadow-lg w-lg mt-4 ">
+        <Link href="/Lessons/Introduction">
+            <div
+            className=" lvlBtn  col-span-1 text-semibold w-60 bg-[#455090] text-white   
+            rounded-lg hover:bg-[#102437] shadow-md "
+            style={{ display: 'block', margin: 'auto', marginBottom: '20px', marginTop: '10px', height: '10vh'}}
+            >
+            <p>Introduction</p>
+            </div>
+        </Link>
         <Columns/>
         </div>
         </main>

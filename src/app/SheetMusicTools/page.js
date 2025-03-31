@@ -43,7 +43,7 @@ export default function SheetMusicTools() {
     return (
         <main>
             <div className="m-20">
-                <h1 className="font-bold text-5xl mb-7">Sheet Music Reader</h1>
+                <h1 className="font-bold mb-7" style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Sheet Music Reader</h1>
                 
                 {/* Responsive Container */}
                 <div className="w-auto h-[600px] bg-gray-200 -z-10 rounded-2xl text-2xl p-4 pl-7 flex flex-col md:flex-row border-2 border-gray-400">
@@ -79,7 +79,7 @@ export default function SheetMusicTools() {
             <br />
             
             <div className="ml-20 mr-20 mb-20">
-                <h1 className="font-bold text-5xl mb-7">Sheet Music Composer</h1>
+                <h1 className="font-bold mb-7" style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Sheet Music Composer</h1>
                 <form className= "inset-2 bg-gray-200 -z-10 rounded-2xl p-4 pl-7 text-3xl border-2 border-gray-400">
                     <label className="mt-5 block">
                         Enter Title:

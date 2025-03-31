@@ -174,6 +174,26 @@ p, h2, h3 {
       max-width: 70%;
   }
 }
+/*Lessons*/
+.lesson-div{
+  width: 100%;
+  margin: 5px;
+  font-size: (--body-text-size);
+  /* font-family: "Geist Sans", sans-serif; */
+  background-color: var(--background);
+}
+.lesson-div > h3{
+  /* font-family: "Geist Sans"; */
+  font-size: var(--h2-text-size);
+  padding-top: 10px;
+  padding-bottom: 4px;
+  padding-left: 40px
+}
+.lesson-div > p{
+  font-size: var(--body-text-size);
+  text-align: justify;
+}
+
 /* Styles for smaller screens */
 @media screen and (max-width: 780px) {
 .flex {
@@ -256,17 +276,3 @@ p, h2, h3 {
 
 }
 
-/*Lessons*/
-.lesson-div{
-  font-size: (--body-text-size);
-  font-family: "Geist Sans", sans-serif;
-  background-color: var(--background);
-}
-.lesson-div > h3{
-  font-family: "Geist Sans";
-  font-size: var(--h3-text-size);
-  padding-top: 5px;
-  padding-bottom: 4px;
-  padding-left: 40px
-  
-}
