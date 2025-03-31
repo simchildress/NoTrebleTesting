@@ -144,7 +144,6 @@ body {
 .lesson-div{
   font-size: (--body-text-size);
   font-family: "Geist Sans", sans-serif;
-  background-color: var(--background);
 
 
 }
@@ -153,6 +152,14 @@ body {
   font-size: var(--h3-text-size);
   padding-top: 5px;
   padding-bottom: 4px;
-  padding-left: 40px
+  padding-left: 10px
   
+}
+.lesson-div > h2{
+  font-family: "Geist Sans";
+  font-size: var(--h2-text-size);
+  padding-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
