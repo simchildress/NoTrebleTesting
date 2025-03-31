@@ -5,6 +5,7 @@ import { auth } from "@/firebaseConfig";
 import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth"; // checks if user is logged in (to determine if they can post or nahhh :P)
 import { doc, getDoc } from "firebase/firestore";
+import { useTTS } from "../context/TTSContext";
 import Popup from "../component/Popup";
 
 
@@ -15,7 +16,8 @@ export default function Community() {
     const [user, setUser] = useState(null); // log user that posted
     const [username, setUsername] = useState("Anonymous");
     const [ButtonPopup, setButtonPopup] = useState(false);
-
+    const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
+    
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
@@ -29,6 +31,9 @@ export default function Community() {
                 }
             }
         });
+
+        speakPageContent();
+
         return () => unsubscribe();
     }, []);
     
@@ -99,7 +104,7 @@ export default function Community() {
             <h1 className="text-center font-bold mt-40 mb-10" style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Community Posts</h1>
             <div className="container mx-auto bg-gray-200 -z-10 rounded-2xl text-2xl p-8">
                 {/* Post Input */}
-                <div className="w-auto mx-auto bg-[#455090] -z-10 rounded-2xl text-2xl p-8">
+                <div className="w-auto mx-auto bg-[#455090] -z-10 rounded-2xl text-body  p-8">
                     <div className="flex items-center space-x-4">
                     {user ? (
                         <>

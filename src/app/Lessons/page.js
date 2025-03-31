@@ -1,12 +1,18 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import Link from "next/link";
 import LevelButton from "../component/LevelButton";
 import LessonHeader from "../component/LessonHeader";
+import { useTTS } from "../context/TTSContext";
 
 
+export default function Lessons() { 
+    const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
 
-export default function Lessons() {
-   
+    useEffect(() => {
+      speakPageContent(); // Speak the page content when the component is mounted
+    }, []); 
 
     const Columns = () => 
     <div className="grand_lessons_div grid grid-cols-3 mt-4">

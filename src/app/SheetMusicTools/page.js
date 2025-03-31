@@ -1,12 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileUploader from "./fileupload";
 import SheetMusicInput from "../component/SheetMusicInput"
+import { useTTS } from "../context/TTSContext";
 
 export default function SheetMusicTools() {
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
- 
+    const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
+    
     //Music sheet starts out with 4 properties
     const [sheet, setSheet]=useState({
         title: "",
@@ -40,20 +42,24 @@ export default function SheetMusicTools() {
         }
     }
 
+    useEffect(() => {
+        speakPageContent(); // Speak the page content when the component is mounted
+    }, []); 
+
     return (
         <main>
             <div className="m-20">
                 <h1 className="font-bold mb-7" style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Sheet Music Reader</h1>
                 
                 {/* Responsive Container */}
-                <div className="w-auto h-[600px] bg-gray-200 -z-10 rounded-2xl text-2xl p-4 pl-7 flex flex-col md:flex-row border-2 border-gray-400">
+                <div className="w-auto h-auto bg-gray-200 -z-10 rounded-2xl text-body p-4 pl-7 flex flex-col md:flex-row border-2 border-gray-400">
                     
                     {/* Left Section: File Upload + Info */}
                     <div className="md:w-1/2 flex flex-col justify-between p-4">
                         <FileUploader setFile={handleFileChange} />
 
                         {/* Info Section (Anchored to Bottom) */}
-                        <div className="mt-auto text-left md:text-4xl text-lg">
+                        <div className="mt-auto text-left md:text-4xl text-body">
                             <p className="pb-3">Piece Title: </p>
                             <p className="pb-3">Key: </p>
                             <p className="pb-3">Time Signature: </p>
@@ -77,11 +83,10 @@ export default function SheetMusicTools() {
             </div>
 
             <br />
-            
             <div className="ml-20 mr-20 mb-20">
                 <h1 className="font-bold mb-7" style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Sheet Music Composer</h1>
-                <form className= "inset-2 bg-gray-200 -z-10 rounded-2xl p-4 pl-7 text-3xl border-2 border-gray-400">
-                    <label className="mt-5 block">
+                <form className= "block inset-2 bg-gray-200 -z-10 rounded-2xl p-4 pl-7 text-3xl border-2 border-gray-400">
+                    <label className="mt-5 ">
                         Enter Title:
                         <SheetMusicInput 
                             type="text"
@@ -89,9 +94,8 @@ export default function SheetMusicTools() {
                             value={sheet.title}
                             onChange={handleChange}
                         />
-                      
                     </label>
-                    <label className="mt-5 block">
+                    <label className="mt-5">
                         Enter Composer Name:
                         <SheetMusicInput
                             type="text" 
@@ -100,7 +104,7 @@ export default function SheetMusicTools() {
                             onChange={handleChange}  
                         />
                     </label>
-                    <label className="mt-5 block">
+                    <label className="mt-5">
                         Enter Key:
                         <SheetMusicInput
                             type="text" 
@@ -109,7 +113,7 @@ export default function SheetMusicTools() {
                             onChange={handleChange} 
                         />
                     </label>
-                    <label className="mt-5 block">
+                    <label className="mt-5">
                         Enter Time Signature:
                         <SheetMusicInput
                             type="text" 
@@ -119,12 +123,6 @@ export default function SheetMusicTools() {
                         />
                     </label>
                 </form>
-                <div className="w-1/2 p-4 align-top shrink">
-                    <img 
-                    src="null" 
-                    alt="Generated or Placeholder" 
-                    />
-                </div>
             </div>
         </main>
     );

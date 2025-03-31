@@ -6,10 +6,7 @@
     margin-top: 10px;
     height: 10vh;
     width: 85%;
-    min-width: fit-content;
-    gap: 20px;
-    /* font-size: 2rem; */
-    font-size: var(--h3-text-size);
+    font-size: var(--body-text-size);
     box-sizing: border-box;
     background: #455090;
 }
