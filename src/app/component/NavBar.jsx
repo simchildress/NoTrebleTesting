@@ -40,22 +40,22 @@ function NavBar() {
       <ul className="nav-list flex flex-end">
         <li>
           <NavLink href="/" activeClassName="bubble" nonActiveClassName="">
-            Home
+            Home (↑)
           </NavLink>
         </li>
         <li>
           <NavLink href="/Lessons" activeClassName="bubble" nonActiveClassName="">
-          Lessons
+          Lessons (↓)
           </NavLink>
         </li>
         <li>
           <NavLink href="/SheetMusicTools" activeClassName="bubble" nonActiveClassName="">
-          Sheet Music Tools
+          Sheet Music Tools (←)
           </NavLink>
         </li>
         <li>
           <NavLink href="/Community" activeClassName="bubble" nonActiveClassName="">
-          Community
+          Community (→)
           </NavLink>
         </li>
       </ul>

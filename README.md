@@ -43,7 +43,15 @@ Music Theory lessons presented in this project was made by the authors of [`Open
 ### Living list of APIs and frameworks
 - Next.Js
 - FireBase
-
+- Tone.Js
+- Speech Synthesis
+## Living UML Diagrams
+### Web Architecture
+![Website Architecture Diagram](https://github.com/user-attachments/assets/090c7679-e69c-4b7a-9ed3-d26631f98115)
+### Post Sequence
+![Sequence diagram for creating a post](https://github.com/user-attachments/assets/408f2296-88ea-4d53-a86f-24c5d5cc4391)
+### Sheet Music Tool Conversion process
+![Sheet Music Tools Converter State Diagram](https://github.com/user-attachments/assets/665049be-9c58-429d-a966-60558ec9c820)
 ## Team Bryte
 - Joshua Yao | Scrum master | Front End | Back End
 - Jade Mitchell | Front End

@@ -11,6 +11,11 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontSize: {
+        body: "var(--body-text-size)",
+        h2: "var(--h2-text-size)",
+        h3: "var(--h3-text-size)",
+      }
     },
   },
   plugins: [],

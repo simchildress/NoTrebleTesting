@@ -11,7 +11,7 @@ const SheetMusicInput = ({ type, name, value, onChange }) => {
           name={name}
           value={value}
           onChange={onChange}
-          className=" SMinput border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
+          className=" SMinput flex border-2 border-gray-400 rounded-lg focus:outline-none focus:border-blue-600"
         />
   );
 }

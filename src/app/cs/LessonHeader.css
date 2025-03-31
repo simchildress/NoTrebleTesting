@@ -1,3 +1,7 @@
+.lesson {
+    font-size: var(--h3-text-size);
+    margin-bottom: 5px;
+}
 /* mobile screens*/
 @media (max-width: 376px) {
     .lesson {
@@ -28,4 +32,5 @@
 @media(min-width: 1025px) {
     .lesson {
         font-size: 2.5rem;
+        
     }}

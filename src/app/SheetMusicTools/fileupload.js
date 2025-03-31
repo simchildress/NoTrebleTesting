@@ -24,7 +24,7 @@ export default function FileUploader({ setFile }) {
                 accept="image/*, application/pdf"
                 style={{ display: "none" }}
             />
-            <button  className="w-150 mt-4 px-3 py-2 md:text-4xl text-lg border-2 border-black bg-white text-black rounded hover:bg-gray-400 duration-300"
+            <button  className="w-fit mt-4 mb-10 px-3 py-2 text-body border-2 border-black bg-white text-black rounded hover:bg-gray-400 duration-300"
             onClick={() => document.getElementById("fileInput").click()}>
                     Upload Image or PDF
             </button>

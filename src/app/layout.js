@@ -1,4 +1,3 @@
-
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "./globals.css";
 import "./globals.css";
@@ -6,7 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./component/NavBar";
 import HotKeyProvider from "./component/Hotkeys";
 import TTSBar from "./component/TTSBar";
-import { TextSizeProvider } from './context/textsizecontext'; 
+import { TextSizeProvider } from "./context/textsizecontext"; 
+import { TTSProvider } from './context/TTSContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,17 +30,20 @@ function Header() {
     </>
   )
 }
+
 //update
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <TextSizeProvider>
-          <Header />
-          <HotKeyProvider />
-          <TTSBar />
-          {children}
-        </TextSizeProvider>
+        <TTSProvider>
+          <TextSizeProvider>
+            <Header />
+            <HotKeyProvider />
+            <TTSBar />
+            {children}
+          </TextSizeProvider>
+        </TTSProvider>
       </body>
     </html>
   );
