@@ -11,17 +11,17 @@ export default function Pitches(){
 
                 <h3>The Keyboard </h3>
 
-                <p>The keyboard is great for helping you develop a visual, aural, and tactile understanding of music theory. On the illustration below, the *pitch-class* letter names are written on the keyboard. </p>
+                <p>The keyboard is great for helping you develop a visual, aural, and tactile understanding of music theory. On the illustration below, the <em>pitch-class</em> letter names are written on the keyboard. </p>
 
                 <img src={'/LessonImages/keyboardlayout-small.png'} style={{ width: '50%', height: '50%' }}/>
 
                 <h3>Enharmonic equivalence </h3>
 
-                <p>Notice that some of the keys have two names. When two pitch classes share a key on the keyboard, they are said to have *enharmonic equivalence*. Theoretically, each key could have several names (the note C could also be considered D&#9837;&#9837;, for instance), but it's usually not necessary to know more than two enharmonic spellings. </p>
+                <p>Notice that some of the keys have two names. When two pitch classes share a key on the keyboard, they are said to have <em>enharmonic equivalence</em>. Theoretically, each key could have several names (the note C could also be considered D&#9837;&#9837;, for instance), but it's usually not necessary to know more than two enharmonic spellings. </p>
 
                 <h3>Octave Designation </h3>
 
-                <p>When specifying a particular pitch precisely, we also need to know the <em>register</em>. In fact, if all you have is C-sharp or B-flat, you do not have a <em>pitch</em>, you have a *pitch-class*. A pitch-class plus a register together designate a specific pitch. </p>
+                <p>When specifying a particular pitch precisely, we also need to know the <em>register</em>. In fact, if all you have is C-sharp or B-flat, you do not have a <em>pitch</em>, you have a <em>pitch-class</em>. A pitch-class plus a register together designate a specific pitch. </p>
 
                 <p>We will follow the International Standards Organization (ISO) system for register designations. In that system, middle C (the first ledger line above the bass staff or the first ledger line below the treble staff) is C4. An octave higher than middle C is C5, and an octave lower than middle C is C3. </p>
 
