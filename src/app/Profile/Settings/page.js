@@ -8,7 +8,7 @@ import { onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { TfiControlBackward } from "react-icons/tfi";
 import NavLink from "../../component/NavLink";
-
+import { useTTS } from "../../context/TTSContext";
 
 const Settings = () => {
   const router = useRouter();
@@ -20,6 +20,8 @@ const Settings = () => {
   const [newPassword, setPassword] = useState("");
   const [newTextSize, setTextSize] = useState("medium");
   const [newTTS, setTTS] = useState(false);
+
+  const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -47,6 +49,9 @@ const Settings = () => {
         setLoading(false);
       }
     });
+
+    speakPageContent(); // Speak the page content when the component is mounted
+
     return () => unsubscribe();
   }, [router]);
 

@@ -1,12 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FileUploader from "./fileupload";
 import SheetMusicInput from "../component/SheetMusicInput"
+import { useTTS } from "../context/TTSContext";
 
 export default function SheetMusicTools() {
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
- 
+    const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
+    
     //Music sheet starts out with 4 properties
     const [sheet, setSheet]=useState({
         title: "",
@@ -39,6 +41,10 @@ export default function SheetMusicTools() {
             setPreview(null); // Clear preview if no file is selected
         }
     }
+
+    useEffect(() => {
+        speakPageContent(); // Speak the page content when the component is mounted
+    }, []); 
 
     return (
         <main>

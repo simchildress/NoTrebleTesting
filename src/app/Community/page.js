@@ -5,6 +5,7 @@ import { auth } from "@/firebaseConfig";
 import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth"; // checks if user is logged in (to determine if they can post or nahhh :P)
 import { doc, getDoc } from "firebase/firestore";
+import { useTTS } from "../context/TTSContext";
 import Popup from "../component/Popup";
 
 
@@ -15,7 +16,8 @@ export default function Community() {
     const [user, setUser] = useState(null); // log user that posted
     const [username, setUsername] = useState("Anonymous");
     const [ButtonPopup, setButtonPopup] = useState(false);
-
+    const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
+    
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
@@ -29,6 +31,9 @@ export default function Community() {
                 }
             }
         });
+
+        speakPageContent();
+
         return () => unsubscribe();
     }, []);
     
