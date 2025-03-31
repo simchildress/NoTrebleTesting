@@ -133,9 +133,9 @@ export default function Community() {
 
                 {/* Display Posts */}
                 <p className="mt-10 mb-10">See more</p>
-                <div className="mx-auto bg-[#455090] -z-10 rounded-2xl p-8 size-fit" style={{fontSize: 'calc(var(--body-text-size) - 6px)'}}>
+                <div className="mx-auto bg-[#455090] -z-10 rounded-2xl p-8" style={{fontSize: 'calc(var(--body-text-size) - 6px)'}}>
                     {posts.map((post) => (
-                        <div key={post.id} className="bg-white p-4 my-4 size-fit rounded-lg shadow-md">
+                        <div key={post.id} className="bg-white p-4 my-4 rounded-lg shadow-md">
                                 <img
                                      src={post.profilePic || "/defaultprofile.png"}
                                         alt="Profile"

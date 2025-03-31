@@ -204,9 +204,14 @@ p, h2, h3 {
   padding: 12px;
   text-align: justify;
 }
-
+ 
 /* Styles for smaller screens */
 @media screen and (max-width: 780px) {
+  .lesson-div > p{
+    font-size: var(--body-text-size);
+    padding: 12px;
+    text-align: left;
+  }
 .flex {
     display: flex;
     justify-content: space-around;
