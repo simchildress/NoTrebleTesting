@@ -7,7 +7,7 @@ import { auth } from "../../firebaseConfig";
 import { db } from "../../firebaseConfig"; 
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { useTTS } from "./context/TTSContext";
+import { useTTS } from "../context/TTSContext";
 
 const SignUp = () => {
     const [name, setName] = useState("");
