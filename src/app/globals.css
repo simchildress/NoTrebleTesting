@@ -143,17 +143,8 @@ body {
 /*Lessons*/
 .lesson-div{
   font-size: (--body-text-size);
-  font-family: "Geist Sans", sans-serif;
-
-
-}
-.lesson-div > h3{
-  font-family: "Geist Sans";
-  font-size: var(--h3-text-size);
-  padding-top: 5px;
-  padding-bottom: 4px;
-  padding-left: 10px
-  
+  /*font-family: "Geist Sans", sans-serif;*/
+  background-color: var(--background);
 }
 .lesson-div > h2{
   font-family: "Geist Sans";
@@ -162,4 +153,97 @@ body {
   padding-top: 20px;
   text-align: center;
   margin-bottom: 20px;
+}
+.lesson-div > h3{
+  font-family: "Geist Sans";
+  font-size: var(--h3-text-size);
+  padding-top: 5px;
+  padding-bottom: 4px;
+  padding-left: 40px
+}
+.lesson-div > p{
+  font-size: var(--body-text-size);
+  text-align: justify;
+}
+
+/* Styles for smaller screens */
+@media screen and (max-width: 780px) {
+.flex {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 70%;
+}
+/* Welcome */
+.welcome-div{
+  margin-top: 0px;
+}
+.welcome-div > h2, .welcome-div > p {
+  padding-bottom: 20px;
+  /* text-align: left; */
+  min-width: none;
+}
+.welcome-main{
+  margin: -100px;
+}
+
+.welcome-signup {
+  font-size: var(--body-text-size);
+  max-width:100%;
+  text-align: center;
+  align-self: center;
+}
+  .features {
+    max-width: 480px;
+    justify-content: space-around;
+      flex-direction: column;
+      margin: 0 auto;
+      min-width: fit-content;
+      max-width: 70%;
+  }
+  .features-list{
+    width: 100%;
+    height: 70%;
+    min-width: none;
+    min-height: none;
+    max-height: fit-content;
+  }
+  .features-list div {
+    font-size: var(--body-text-size);
+    max-width:fit-content;
+    min-height:calc(50%+20px);
+    max-height:calc(50%+20px);
+    min-width: calc(50%+20px);
+    max-width: calc(50%+20px);
+  }
+/* NavBar */
+  .nav-bar {
+    max-width: 100%;
+    width:100%;
+    border-bottom: 30px;
+    box-shadow: 0 5px 2px -2px rgba(0, 0, 0, 0.2); 
+    border: 2px solid transparent; 
+    justify-content: left;
+  }
+  .nav-list {
+    min-width: inherit;
+    max-width: none;
+    /* padding: 2px; */
+    
+  }
+  /* Footer */
+
+  footer > h2 {
+    padding-top: 10%;
+    text-align: center;
+  }
+  footer {
+    font-size: 1.3em;
+    max-width:none;
+    min-width: none;
+    height: 100%;
+    text-wrap:wrap;
+  }
+
 }
