@@ -6,7 +6,7 @@ export default function Key(){
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="/Lesson-div" >
+            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
 
             <h2>Key Signatures</h2>
 
