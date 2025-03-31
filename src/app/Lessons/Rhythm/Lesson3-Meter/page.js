@@ -7,7 +7,6 @@ export default function Meter(){
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
             <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
                 <h2>Meter and time signatures</h2>
-
                 <p>Meter involves the way multiple pulse layers work together to organize music in time. Standard meters in Western music can be classified into <em>simple meters</em> and <em>compound meters</em>, as well as <em>duple</em>, <em>triple</em>, and <em>quadruple</em> meters. </p>
 
                 <p>Duple, triple, and quadruple classifications result from the relationship between the counting pulse and the pulses that are <em>slower</em> than the counting pulse. In other words, it is a question of <em>grouping</em>: how many beats occur in each bar. If counting-pulse beats group into twos, we have duple meter; groups of three, triple meter; groups of four, quadruple meter. Conducting patterns are determined based on these classifications. </p>
