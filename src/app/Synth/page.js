@@ -7,6 +7,8 @@ export default function SynthPage() {
   const [midiFile, setMidiFile] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [instrument, setInstrument] = useState("synth");
+  const [speed, setSpeed] = useState(1); // Speed control
+  const [originalBPM, setOriginalBPM] = useState(120); // Store og BPM
 
   async function playMIDI(file) { // checks if they picked a midi file yet, if not browser should prompt for one
     if (!file) {
@@ -23,6 +25,10 @@ export default function SynthPage() {
 
       Tone.Transport.cancel();
       Tone.Transport.stop();
+
+      const bpm = midi.header.tempos[0]?.bpm || 120; // Defaults file to 120 BPM if it is not specified in og file
+      setOriginalBPM(bpm); // Stores file BPM
+      Tone.Transport.bpm.value = bpm * speed; // Adds speed
 
       let synth;
       if (instrument === "synth") {
@@ -54,10 +60,13 @@ export default function SynthPage() {
           }
         ).toDestination();
       }
+      scheduleNotes(midi, synth);
     };
   }
 
   function scheduleNotes(midi, synth) {
+    Tone.Transport.bpm.value = originalBPM * speed; // Sets playback speed before starting
+
     midi.tracks.forEach((track) => {
       track.notes.forEach((note) => {
         Tone.Transport.schedule((time) => {
@@ -81,6 +90,16 @@ export default function SynthPage() {
     Tone.Transport.stop();
     Tone.Transport.start();
     setIsPlaying(true);
+  }
+
+  function handleSpeedChange(e) {
+    const newSpeed = parseFloat(e.target.value);
+    setSpeed(newSpeed);
+
+    // Directly update the playback speed while playing
+    if (isPlaying) {
+      Tone.Transport.bpm.value = originalBPM * newSpeed;
+    }
   }
 
   return (
@@ -108,6 +127,20 @@ export default function SynthPage() {
         </select>
       </div>
 
+      {/* Speed Control */}
+      <div className="mb-4 flex flex-col items-center">
+        <label className="text-lg">Speed: {speed.toFixed(2)}x</label>
+        <input
+          type="range"
+          min="0.25" // lowest speed
+          max="2" // fastest speed
+          step="0.05"
+          value={speed}
+          onChange={handleSpeedChange}
+          className="w-64 mt-2"
+        />
+      </div>
+
       {/* Control Buttons */}
       <div className="flex gap-4">
         <button
@@ -120,7 +153,7 @@ export default function SynthPage() {
           onClick={pauseMIDI}
           className="px-6 py-3 text-xl font-semibold bg-yellow-500 rounded-lg shadow-lg hover:bg-yellow-600 transition-all"
         >
-        Pause
+          Pause
         </button>
         <button
           onClick={restartMIDI}
