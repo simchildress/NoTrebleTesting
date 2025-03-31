@@ -8,15 +8,21 @@
     width: 85%;
     font-size: var(--body-text-size);
     box-sizing: border-box;
+    background: #455090;
 }
 .lvlBtn p {
+    
     text-align: center;
     height: 100%;
     width: 100%;
     margin-top: 20px;
 }
-
-/* mobile screens*/
+/* Allows Flexbox best to enable for lower resolutions*/
+/* .grand_lessons_div{
+    display:flex;
+    flex-direction: column;
+} */
+/* mobile screens */
 
 @media (max-width: 376px) {
     .lvlBtn {

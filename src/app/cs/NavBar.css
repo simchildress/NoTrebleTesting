@@ -42,6 +42,7 @@
     /* font-size: var(--body-text-size); */
     font-size: calc(var(--body-text-size) * 0.95);
     width: fit-content;
+    min-width: fit-content;
     text-wrap:nowrap;
     margin-right: 20px;
     margin-left: 5%;
