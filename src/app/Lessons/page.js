@@ -50,7 +50,7 @@ export default function Lessons() {
             rounded-lg hover:bg-[#102437] shadow-md "
             style={{ display: 'block', margin: 'auto', marginBottom: '20px', marginTop: '10px', height: '10vh'}}
             >
-            <p>Introduction</p>
+            <p>Intro</p>
             </div>
         </Link>
         <Columns/>

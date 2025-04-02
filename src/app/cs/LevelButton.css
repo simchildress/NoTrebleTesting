@@ -6,37 +6,42 @@
     margin-top: 10px;
     height: 10vh;
     width: 85%;
-    font-size: var(--body-text-size);
+    font-size: var(--h3-text-size);
     box-sizing: border-box;
     background: #455090;
 }
 .lvlBtn p {
-    
+    font-size: var(--h3-text-size);
     text-align: center;
     height: 100%;
     width: 100%;
     margin-top: 20px;
 }
-/* Allows Flexbox best to enable for lower resolutions*/
-/* .grand_lessons_div{
-    display:flex;
-    flex-direction: column;
-} */
 /* mobile screens */
 
 @media (max-width: 376px) {
+    .grand_lessons_div{
+        display:flex;
+        flex-direction: column;
+    }
     .lvlBtn {
         height: 6vh;
         width:70%;
-        font-size: 1rem;
+        /* font-size: 1rem; */
+        font-size: var(--h2-text-size);
         padding-top: 0.5px;
     }
 }
 @media (min-width: 377px) and (max-width: 480px) {
+    .grand_lessons_div{
+        display:flex;
+        flex-direction: column;
+    }
     .lvlBtn {
         height: 6vh;
         width:70%;
-        font-size: 1rem;
+        /* font-size: 1rem; */
+        font-size: var(--body-text-size);
         padding-top: 0.5px;
     }
 }
@@ -46,7 +51,7 @@
     .lvlBtn {
         height: 8vh;
         width: 75%;
-        font-size: 1.5rem;
+        /* font-size: 1.5rem; */
         padding-top: 0.5px;
     }
 }
@@ -56,7 +61,7 @@
     .lvlBtn {
         height: 9vh;
         width: 80%;
-        font-size: 2rem;
+        /* font-size: 2rem; */
         padding-top: 0.5px;
     
     }
@@ -67,7 +72,7 @@
     .lvlBtn {
         height:10vh;
         width: 85%;
-        font-size: 2.5rem;
+        /* font-size: 2.5rem; */
         padding-top: 1px;
     }
 }
