@@ -40,11 +40,8 @@ export default function SheetMusicTools() {
         } else {
             setPreview(null); // Clear preview if no file is selected
         }
-    }
-
-    useEffect(() => {
-        speakPageContent(); // Speak the page content when the component is mounted
-    }, []); 
+    
+    };
 
     return (
         <main>

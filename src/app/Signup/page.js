@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { signUp } from "../../lib/firebase/auth";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -7,7 +7,6 @@ import { auth } from "../../firebaseConfig";
 import { db } from "../../firebaseConfig"; 
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { useTTS } from "../context/TTSContext";
 
 const SignUp = () => {
     const [name, setName] = useState("");
@@ -17,7 +16,6 @@ const SignUp = () => {
     const [error, setError] = useState("");
     const [TTS, setTTS] = useState(false);
     const router = useRouter();
-    const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
   
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -47,12 +45,9 @@ const SignUp = () => {
         setError(error.message);
         console.error("Sign Up Error:", error.message);
       }
+    
+      };
     };
-
-    useEffect(() => {
-      // Trigger the text-to-speech functionality after the component mounts
-    speakPageContent(); // This will read out the page content
-    }, []);
 
 return (
     <div className=' flex flex-col items-center justify center min-h-screen bg-gray-100 p-6'>
@@ -124,4 +119,4 @@ return (
         ); 
     }; 
 
-        export default SignUp; 
+    export default SignUp; 

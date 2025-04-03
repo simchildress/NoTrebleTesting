@@ -4,15 +4,9 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import LevelButton from "../component/LevelButton";
 import LessonHeader from "../component/LessonHeader";
-import { useTTS } from "../context/TTSContext";
 
 
 export default function Lessons() { 
-    const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
-
-    useEffect(() => {
-      speakPageContent(); // Speak the page content when the component is mounted
-    }, []); 
 
     const Columns = () => 
     <div className="grand_lessons_div grid grid-cols-3 mt-4">
@@ -39,7 +33,6 @@ export default function Lessons() {
     // can add level 4 buttons again if needed
     // thinking about changing the names of the level buttons
 
-    
     return (
         <main>
         <h1 className="text-center font-bold mt-6 " style={{fontSize: 'calc(var(--h3-text-size) + 8px)'}}>Music Theory Lessons</h1>    
