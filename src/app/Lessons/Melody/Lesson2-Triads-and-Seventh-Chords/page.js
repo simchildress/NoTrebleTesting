@@ -5,7 +5,7 @@ export default function Triads(){
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
+            <div className="lesson-div" >
                 <h2>Triads and seventh chords</h2>
 
                 <p>A chord is any combination of three or more pitch classes that sound simultaneously.</p>
@@ -18,7 +18,7 @@ export default function Triads(){
 
                 <p>To quickly determine whether a three-note chord is a triad, arrange the three notes on the "circle of thirds" below. The pitch classes of a triad will always sit next to each other.</p>
 
-                <img src={'/LessonImages/circleOfThirds-triad.png'} alt="A triad (A, C, E) on the diatonic circle of thirds." style={{ }}/>
+                <img src={'/LessonImages/circleOfThirds-triad.svg'} alt="A triad (A, C, E) on the diatonic circle of thirds." style={{ height: '100%', width: '100%' }}/>
 
                 <h4>Identifying and labeling triads </h4>
 
@@ -28,7 +28,7 @@ export default function Triads(){
 
                 <p>To find a triad’s root, arrange the pitch classes on a circle of thirds (mentally or on paper). The root is the <em>lowest</em> in the three-pitch-class clump. Expressed another way, if the circle <em>ascends</em> by thirds as it moves clockwise, the root is the “earliest” note (thinking like a literal clock), and the other pitch classes come “later.”</p>
 
-                <img src={'/LessonImages/circleOfThirds-triadRTF.png'} alt="A triad (A, C, E) on the diatonic circle of thirds." style={{ }}/>
+                <img src={'/LessonImages/circleOfThirds-triadRTF.svg'} alt="A triad (A, C, E) on the diatonic circle of thirds." style={{ height: '100%', width: '100%' }}/>
 
                 <p>Once you know the root, you can identify the remaining notes as the <em>third</em> of the chord (a third above the root) and the <em>fifth</em> of the chord (a fifth above the root).</p>
 
@@ -107,7 +107,7 @@ export default function Triads(){
 
                 <p>Like with a triad, the pitch classes belonging to a seventh chord occupy adjacent positions (a four-pitch-class clump) on the circle of thirds. The four members of a seventh chord are the <em>root</em>, <em>third</em>, <em>fifth</em>, and <em>seventh</em>.</p>
 
-                <img src={'/LessonImages/circleOfThirds-seventhRTFS.png'} alt="A seventh chord (A, C, E, G) on the diatonic circle of thirds." style={{ }}/>
+                <img src={'/LessonImages/circleOfThirds-seventhRTFS.svg'} alt="A seventh chord (A, C, E, G) on the diatonic circle of thirds." style={{ height: '100%', width: '100%' }}/>
 
                 <p>There are five qualities of seventh chords that appear in diatonic music: major seventh, dominant seventh, minor seventh, diminished seventh (also called fully-diminished), and half-diminished seventh. They are comprised of the following intervals above their roots:</p>
 
