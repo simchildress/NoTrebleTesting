@@ -6,7 +6,7 @@ export default function Pitches(){
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
+            <div className="lesson-div" >
                 <h2>Pitches and Octave Designations</h2>
 
                 <h3>The Keyboard </h3>

@@ -59,7 +59,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   box-sizing: border-box;
 }
-p, h2, h3 {
+p, h2, h3, h4 {
   text-wrap: pretty;
 }
 .prefColor { /* Do not use this class purely for color prefs*/
@@ -179,8 +179,12 @@ p, h2, h3 {
   width: 100%;
   padding-top: 10px;
   font-size: (--body-text-size);
+  max-width: 800px;
+  margin: auto;
+  padding-left: 40px; 
+  padding-right: 40px;
+  padding-bottom: 40px; 
   /* font-family: "Geist Sans", sans-serif; */
-  background-color: var(--background);
 }
 .lesson-div img{
   max-width: 100%;
@@ -197,12 +201,37 @@ p, h2, h3 {
   font-size: var(--h3-text-size);
   padding-top: 10px;
   padding-bottom: 4px;
-  padding-left: 40px
+  padding-left: 10px
+}
+.lesson-div > h4{
+  font-size: var(--body-text-size);
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 .lesson-div > p{
   font-size: var(--body-text-size);
   padding: 12px;
   text-align: justify;
+}
+.lesson-div > table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.lesson-div > table > tr > th {
+  font-size: var(--body-text-size);
+  padding-left: 12px;
+  padding-right: 12px;
+  text-align: center;
+  border: 1px solid #dddddd;
+  background-color: var(--shadow-color);
+}
+.lesson-div > table > tr > td {
+  font-size: var(--body-text-size);
+  padding-left: 12px;
+  padding-right: 12px;
+  text-align: center;
+  border: 1px solid #dddddd;
 }
  
 /* Styles for smaller screens */
