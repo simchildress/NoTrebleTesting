@@ -1,14 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import NavLink from "./component/NavLink";
-import { useTTS } from "./context/TTSContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebaseConfig"; // import your firebase configuration
 
 export default function Home() {
   const [target, setTarget] = useState("/Login");
   const [loading, setLoading] = useState(true);
-  const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
 
   // Use useEffect to trigger the speech when the page loads
   useEffect(() => {
@@ -24,10 +22,9 @@ export default function Home() {
       } finally {
         setLoading(false);
       }
-    });
 
-    // Trigger the text-to-speech functionality after the component mounts
-    speakPageContent(); // This will read out the page content
+    });
+   
 
     return () => unsubscribe();
   }, []);
@@ -39,7 +36,7 @@ export default function Home() {
           <div className="welcome-div flex-col gap-4 items-center justify-items-center sm:flex-row">
             <h2>Learn Music <span>with No Treble</span></h2>
             <p className="wd-50">
-              No Treble provides an accessible learning environment for blind/visually impaired people to learn music theory and access sheet music reading and writing tools.
+              No Treble provides an accessible learning environment for visually impaired people to learn music theory and access sheet music reading and writing tools.
             </p>
           </div>
           {target === "/Login" ? <NavLink href="/Signup" className="btn-primary welcome-signup" activeClassName="" nonActiveClassName="">Sign up</NavLink> : ""}
