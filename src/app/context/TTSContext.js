@@ -9,29 +9,50 @@ export const TTSProvider = ({ children }) => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [utterance, setUtterance] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [rate, setRate] = useState(1);
+  const [voice, setVoice] = useState();
+  const [voices, setVoices] = useState();
   const pathname = usePathname(); // Gets the current page route
 
   useEffect(() => {
     const synth = window.speechSynthesis;
+    
+    // Get the voices available for different browsers
+    const loadVoices = () => {
+      const availableVoices = synth.getVoices();
+      setVoice(availableVoices[0]);   // Default voice
+      setVoices(availableVoices);   // Store all voices
+    };
     const newUtterance = new SpeechSynthesisUtterance();
     setUtterance(newUtterance);
-
-    return () => {
-      synth.cancel(); // Stop speech when component unmounts
-    };
-  }, []);
-
-   // Stop speech when the user navigates to a new page
-   useEffect(() => {
-    window.speechSynthesis.cancel(); // Stop TTS on route change
+  
+    // Stop speech and reset state on route change
+    synth.cancel();
     setIsSpeaking(false);
-    setCurrentIndex(0);   // Reset the index when the page changes
-  }, [pathname]); // Runs whenever the page path changes
+    setCurrentIndex(0);
+
+    if (synth.onvoiceschanged !== undefined) {
+      synth.onvoiceschanged = loadVoices;
+    }
+  
+    loadVoices(); // Also run on mount
+  
+    return () => {
+      synth.cancel(); // Also stop speech on unmount
+    };
+  }, [pathname]);
 
   // Select all the texts from the inside the body tag
   const getPageText = () => {
     const mainContent = document.body;
-    return mainContent.innerText.trim();
+    const ttsBar = document.querySelector(".ttsBar"); // Target the TTSBar by class
+    
+    // If there's a TTS Bar, exclude it from the selection
+    const textContent = mainContent.innerText.trim();
+    const barText = ttsBar ? ttsBar.innerText.trim() : ''; // Get the TTS Bar content
+  
+    // Remove the TTS Bar's text from the body text
+    return textContent.replace(barText, "").trim();
   };
 
   const speakPageContent = (startIndex = 0) => {
@@ -46,6 +67,8 @@ export const TTSProvider = ({ children }) => {
     const synth = window.speechSynthesis;
     synth.cancel(); // Stop previous speech
   
+    utterance.rate = rate;
+    utterance.voice = voice;
     utterance.text = resumedText; // Only contains the remaining words
     let spokenWordCount = startIndex; // Track spoken words
   
@@ -79,7 +102,8 @@ export const TTSProvider = ({ children }) => {
   };
 
   return (
-    <TTSContext.Provider value={{ getPageText, speakPageContent, resumeSpeaking, stopSpeaking, isSpeaking, currentIndex }}>
+    <TTSContext.Provider value={{ getPageText, speakPageContent, resumeSpeaking, stopSpeaking, isSpeaking, currentIndex,
+       rate, setRate, voice, setVoice, voices, setVoices }}>
       {children}
     </TTSContext.Provider>
   );
