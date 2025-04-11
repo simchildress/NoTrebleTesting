@@ -5,12 +5,74 @@
     margin-bottom:20px;
     margin-top: 10px;
     height: 10vh;
-    font-size: xx-large;
+    width: 85%;
+    font-size: var(--h3-text-size);
     box-sizing: border-box;
+    background: #455090;
 }
 .lvlBtn p {
+    font-size: var(--h3-text-size);
     text-align: center;
     height: 100%;
     width: 100%;
     margin-top: 20px;
+}
+/* mobile screens */
+
+@media (max-width: 376px) {
+    .grand_lessons_div{
+        display:flex;
+        flex-direction: column;
+    }
+    .lvlBtn {
+        height: 6vh;
+        width:70%;
+        /* font-size: 1rem; */
+        font-size: var(--h2-text-size);
+        padding-top: 0.5px;
+    }
+}
+@media (min-width: 377px) and (max-width: 480px) {
+    .grand_lessons_div{
+        display:flex;
+        flex-direction: column;
+    }
+    .lvlBtn {
+        height: 6vh;
+        width:70%;
+        /* font-size: 1rem; */
+        font-size: var(--body-text-size);
+        padding-top: 0.5px;
+    }
+}
+
+/* tablet screen */
+@media (min-width: 481px) and (max-width: 768px) {
+    .lvlBtn {
+        height: 8vh;
+        width: 75%;
+        /* font-size: 1.5rem; */
+        padding-top: 0.5px;
+    }
+}
+
+/* laptop screens */
+@media(min-width: 769px) and (max-width: 1024px) {
+    .lvlBtn {
+        height: 9vh;
+        width: 80%;
+        /* font-size: 2rem; */
+        padding-top: 0.5px;
+    
+    }
+}
+
+/* large laptop screens */
+@media(min-width: 1025px) {
+    .lvlBtn {
+        height:10vh;
+        width: 85%;
+        /* font-size: 2.5rem; */
+        padding-top: 1px;
+    }
 }

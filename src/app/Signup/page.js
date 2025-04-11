@@ -8,7 +8,6 @@ import { db } from "../../firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
-
 const SignUp = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -46,6 +45,8 @@ const SignUp = () => {
         setError(error.message);
         console.error("Sign Up Error:", error.message);
       }
+    
+      };
     };
 
 return (
@@ -118,4 +119,4 @@ return (
         ); 
     }; 
 
-        export default SignUp; 
+    export default SignUp; 
