@@ -2,12 +2,31 @@
 import React, { useState, useEffect } from "react";
 import FileUploader from "./fileupload";
 import SheetMusicInput from "../component/SheetMusicInput"
+import { auth } from "@/firebaseConfig";
+import { onAuthStateChanged, useAuth } from "firebase/auth";
 import { useTTS } from "../context/TTSContext";
+import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function SheetMusicTools() {
+    const router = useRouter();
+    const [user, setUser] = useState(null);
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [uploadStatus, setUploadStatus] = useState("");
+    const [uploading, setUploading] = useState(false);
     const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+          if (!currentUser) {
+            router.push("/Login");
+            return;
+          }
+          setUser(currentUser);
+        });
+        return () => unsubscribe();
+    }, [router]);
     
     //Music sheet starts out with 4 properties
     const [sheet, setSheet]=useState({
@@ -37,11 +56,68 @@ export default function SheetMusicTools() {
         // Generate preview URL for images/PDFs
         if (selectedFile) {
             setPreview(URL.createObjectURL(selectedFile)); 
+            handleUpload(selectedFile); // Upload the file to EC2
         } else {
             setPreview(null); // Clear preview if no file is selected
         }
+    }
+
+    // Upload the file to the server when triggered
+  const handleUpload = async () => {
+    if (!file) {
+      setUploadStatus("No file selected!");
+      return;
+    }
+
+    const renamedFile = new File([file], `${user.uid}_${file.name}`, { type: file.type });
+    const formData = new FormData();
+    formData.append("file", renamedFile); // No need for uid field anymore
+
+
+    try {
+      const response = await fetch("http://3.14.250.162:3000/upload", {
+        method: "POST",
+        body: formData, // Send FormData containing the file
+      });
+
+      if (response.ok) {
+        setUploadStatus("File uploaded successfully!");
+        const isXml = file.name.endsWith(".xml");
+        if(!isXml){
+            const convertResponse = await fetch("http://3.14.250.162:3000/convert", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  uid: user.uid,
+                  filename: file.name,
+                }),
+              });
+              if (convertResponse.ok) {
+                setUploadStatus("File converted successfully!");
+              } else {
+                const errText = await convertResponse.text();
+                setUploadStatus(`Conversion failed: ${errText}`);
+              }
+            } else {
+              setUploadStatus("XML file uploaded. No conversion needed.");
+            }
+         } else {
+            setUploadStatus("Upload failed. Please try again.");
+          }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      setUploadStatus("Error uploading file.");
+    }
+    finally{
+        setUploading(false);
+    }
+  };
     
-    };
+    useEffect(() => {
+        speakPageContent(); // Speak the page content when the component is mounted
+    }, []); 
 
     return (
         <main>
@@ -75,8 +151,20 @@ export default function SheetMusicTools() {
                             ) : (
                                 <span className="text-gray-500">No file uploaded</span>
                             )}
+                           
                     </div>
                 </div>
+            <div>
+        <button onClick={handleUpload}disabled={uploading}>
+        {uploading ? 'Saving...' : 'Save File'}
+        </button>
+      </div>
+        <div>
+        {uploadStatus && <p>{uploadStatus}</p>}
+         </div>
+         <Link href="SheetMusicTools/MusicLibrary">
+                <button>🎵 Go to Music Library</button>
+            </Link>
             </div>
 
             <br />
