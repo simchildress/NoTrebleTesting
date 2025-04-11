@@ -17,7 +17,7 @@ export default function Library() {
             }
                 setUid(user.uid);
                 try {
-                    const response = await fetch(`http://3.149.232.240:3000/listfiles/${user.uid}`);
+                    const response = await fetch(`http://3.14.250.162:3000/listfiles/${user.uid}`);
                     const data = await response.json();
                     setFiles(data.files);
                 } catch (error) {
