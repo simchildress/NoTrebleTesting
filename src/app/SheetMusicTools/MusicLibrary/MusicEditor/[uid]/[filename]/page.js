@@ -35,7 +35,7 @@ export default function MusicEditor({ params }) {
             async function fetchXml() {
                 try {
                     const response = await fetch(
-                        `http://3.149.232.240:3000/getxml/${uid}/${filename}`
+                        `http://3.14.250.162:3000/getxml/${uid}/${filename}`
                     );
                     const xml = await response.text();
                     setXmlData(xml);
