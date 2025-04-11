@@ -6,7 +6,7 @@ export default function Scales(){
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
+            <div className="lesson-div" >
                 <h2>Scales and Scale Degrees</h2>
 
                 <p>A scale is a succession of pitches ascending or descending in steps. There are two types of steps: <em>half steps</em> and <em>whole steps</em>. A half step (H) consists of two adjacent pitches on the keyboard. A whole step (W) consists of two half steps. Usually, the pitches in a scale are each notated with different letter names, though this isn't always possible or desirable. </p>

@@ -10,7 +10,7 @@ export default function TTSBar() {
   const [position, setPosition] = useState({ x: 100, y: 200 }); // Initial position for dragging
   const [dragging, setDragging] = useState(false); // Dragging state
   const [offset, setOffset] = useState({ x: 0, y: 0 }); // Offset while dragging
-  const { speakPageContent, stopSpeaking, isSpeaking } = useTTS(); // Get TTS functions and states
+  const { speakPageContent, stopSpeaking, isSpeaking, currentIndex, resumeSpeaking } = useTTS(); // Use the TTS context
 
   const handleMouseDown = (e) => {
     setDragging(true);
@@ -28,13 +28,19 @@ export default function TTSBar() {
 
   const handleClick = () => {
     setButtonClicked(!buttonClicked);
-
+  
     if (isSpeaking) {
-      stopSpeaking(); // Stop speech if currently speaking
+      stopSpeaking();  // Stop speech if currently speaking
     } else {
-        speakPageContent(); // Start speaking if not already speaking
+      // Start from the beginning, or resume from the last word
+      if (currentIndex !== null) {
+        resumeSpeaking(); // Resume if we have a current index
+      } else {
+        speakPageContent(); // Start speaking if no previous index
+      }
     }
   };
+  
 
   return (
     <div
@@ -57,10 +63,10 @@ export default function TTSBar() {
 
       {/* Click on the icon to toggle */}
       <div className="transition-transform transform hover:scale-150" onClick={handleClick}>
-        {isSpeaking ? (
-          <FaCirclePause size={40} color={isHovered ? "#303E60" : "#455090"} />
-        ) : (
+        {!isSpeaking ? (
           <FaCirclePlay size={40} color={isHovered ? "#303E60" : "#455090"} />
+        ) : (
+          <FaCirclePause size={40} color={isHovered ? "#303E60" : "#455090"} />
         )}
       </div>
     </div>

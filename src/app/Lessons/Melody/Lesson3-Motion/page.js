@@ -5,7 +5,7 @@ export default function Motion(){
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
+            <div className="lesson-div" >
                 <h2>Types of contrapuntal motion</h2>
 
                 <p>There are four types of contrapuntal motion between two musical lines. Differentiating these four types of motion is essential to generating good voice-leading, both strict and free.</p>
