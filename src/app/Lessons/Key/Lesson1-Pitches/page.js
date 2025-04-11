@@ -6,14 +6,14 @@ export default function Pitches(){
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div className="lesson-div" >
+            <div className="lesson-div " >
                 <h2>Pitches and Octave Designations</h2>
 
                 <h3>The Keyboard </h3>
 
                 <p>The keyboard is great for helping you develop a visual, aural, and tactile understanding of music theory. On the illustration below, the <em>pitch-class</em> letter names are written on the keyboard. </p>
 
-                <img src={'/LessonImages/keyboardlayout-small.png'} style={{ width: '50%', height: '50%' }}/>
+                <a href="/LessonImages/keyboardlayout-small.png"><img src={'/LessonImages/keyboardlayout-small.png'} style={{ width: '50%', height: '50%' }}/></a>
 
                 <h3>Enharmonic equivalence </h3>
 
@@ -27,19 +27,19 @@ export default function Pitches(){
 
                 <p>The tricky bit about this system is that the octave starts on C and ends on B. So an ascending scale from middle C contains the following pitch designations: </p>
 
-                <img src={'/LessonImages/C4toC5.png'} style={{ width: '80%' }}/>
+                <a href="/LessonImages/C4toC5.png"><img src={'/LessonImages/C4toC5.png'} style={{ width: '80%' }} alt="The picture shows the ascending scale from middle C that left to right are C4, D4, E4, F4, G4, A4, B4, and C5"/></a>
 
                 <p>And a descending scale from middle C contains the following pitch designations: </p>
 
-                <img src={'/LessonImages/C4toC3.png'} style={{ width: '80%' }}/>
+                <a href="/LessonImages/C4toC3.png"><img src={'/LessonImages/C4toC3.png'} style={{ width: '80%' }} alt="The picture shows the descending scale from middle C that left to right are C4, B3, A3, G3, F3, E3, D3, and C3" /></a>
 
                 <p>Pitches on the alto staff are as follows: </p>
 
-                <img src={'/LessonImages/F3toG4-alto.png'} style={{ width: '80%' }}/>
+                <a href="/LessonImages/F3toG4-alto.png"><img src={'/LessonImages/F3toG4-alto.png'} style={{ width: '80%' }} alt="The picture shows the ascending pitches on alto staff that are F3, G3, A3, B3, C4, D4, E4, F4, and G4"/></a>
 
                 <p>Pitches on the tenor staff are as follows:</p>
 
-                <a href="/LessonImages/pitchesTenor.png"><img src={'/LessonImages/pitchesTenor.png'} style={{ width: '80%' }}/></a>
+                <a href="/LessonImages/pitchesTenor.png"><img src={'/LessonImages/pitchesTenor.png'} style={{ width: '80%' }} alt="The picture shows the ascending pitches on the tenor staff that are D3, E3, F3, G3, A3, B3, C4, and D4"/></a>
 
                 <p>Any accidentals follow the octave designation of the natural pitch with the same generic name. Thus a half step below C4 is C-flat4 (even though it sounds the same as B3), and a half step above C4 is C-sharp4. </p>
 
