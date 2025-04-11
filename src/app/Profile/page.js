@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import NavLink from "../component/NavLink";
-import { useTTS } from "../context/TTSContext";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -15,7 +14,6 @@ const Profile = () => {
   const [uploading, setUploading] = useState(false);
   const router = useRouter();
   const db = getFirestore();
-  const { speakPageContent } = useTTS(); // Get the speakPageContent function from TTSContext
   
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -36,8 +34,6 @@ const Profile = () => {
       }
     });
     
-    speakPageContent(); // Speak the page content when the component is mounted
-
     return () => unsubscribe();
   }, [router]);
 

@@ -5,9 +5,9 @@ export default function Intervals(){
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
+            <div className="lesson-div" >
                
-                <h2>Intervals and dyads</h2>
+                <h2>Intervals and Dyads</h2>
 
                 <p>An <em>interval</em> is the distance between two pitches, usually measured as a number of steps on a scale.</p>
 
@@ -42,23 +42,26 @@ export default function Intervals(){
                 <p><li>diminished </li>(d)</p>
 
                 <p>To obtain an interval's quality, find both the generic interval and the chromatic interval. Then consult the following table to find the specific interval. </p>
+                <table>
 
-                <p>|  | unis. | 2nd | 3rd | 4th | 5th | 6th | 7th | oct. |</p>
-                <p>| --: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |</p>
-                <p>| i0 | P1 | d2 |  |  |  |  |  |  |</p>
-                <p>| i1 | A1 | m2 |  |  |  |  |  |  |</p>
-                <p>| i2 |  | M2 | d3 |  |  |  |  |  |</p>
-                <p>| i3 |  | A2 | m3 |  |  |  |  |  |</p>
-                <p>| i4 |  |  | M3 | d4 |  |  |  |  |</p>
-                <p>| i5 |  |  | A3 | P4 |  |  |  |  |</p>
-                <p>| i6 |  |  |  | A4 | d5 |  |  |  |</p>
-                <p>| i7 |  |  |  |  | P5 | d6 |  |  |</p>
-                <p>| i8 |  |  |  |  | A5 | m6 |  |  |</p>
-                <p>| i9 |  |  |  |  |  | M6 | d7 |  |</p>
-                <p>| i10 |  |  |  |  |  | A6 | m7 |  |</p>
-                <p>| i11 |  |  |  |  |  |  | M7 | d8 |</p>
-                <p>| i12 |  |  |  |  |  |  | A7 | P8 |</p>
-
+                
+                <tr>
+                    <th>  </th><th> unis. </th><th> 2nd </th><th> 3rd </th><th> 4th </th><th> 5th </th><th> 6th </th><th> 7th </th><th> oct. </th>  
+                </tr>
+                <tr><td style={{ textAlign: 'right' }}> i0 </td><td> P1 </td><td> d2 </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i1 </td><td> A1 </td><td> m2 </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i2 </td><td>    </td><td> M2 </td><td> d3 </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i3 </td><td>    </td><td> A2 </td><td> m3 </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i4 </td><td>    </td><td>    </td><td> M3 </td><td> d4 </td><td>    </td><td>    </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i5 </td><td>    </td><td>    </td><td> A3 </td><td> P4 </td><td>    </td><td>    </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i6 </td><td>    </td><td>    </td><td>    </td><td> A4 </td><td> d5 </td><td>    </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i7 </td><td>    </td><td>    </td><td>    </td><td>    </td><td> P5 </td><td> d6 </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i8 </td><td>    </td><td>    </td><td>    </td><td>    </td><td> A5 </td><td> m6 </td><td>    </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i9 </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td><td> M6 </td><td> d7 </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i10 </td><td>   </td><td>    </td><td>    </td><td>    </td><td>    </td><td> A6 </td><td> m7 </td><td>    </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i11 </td><td>   </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td><td> M7 </td><td> d8 </td></tr>
+                <tr><td style={{ textAlign: 'right' }}> i12 </td><td>   </td><td>    </td><td>    </td><td>    </td><td>    </td><td>    </td><td> A7 </td><td> P8 </td></tr>
+                </table>
 
 
                 <p>For example, C4–E4 is a generic third, and has a chromatic interval of i4. A third that encompasses four semitones is a <em>major third</em> (M3). Note that both generic interval and chromatic interval are necessary to find the specific interval, since there are multiple specific diatonic intervals for each generic interval and for each chromatic interval.</p>
@@ -114,7 +117,7 @@ export default function Intervals(){
                 <p>Intervals are categorized as <em>consonant</em> or <em>dissonant</em> based on their sound (how stable, sweet, or harsh they sound), how easy they are to sing, and how they best function in a passage (beginning, middle, end; between certain other intervals; etc.). Different standards apply to melody and harmony. The following categories will be essential for your work in strict voice-leading, and they will be a helpful guide for free composition and arranging work, as well.</p>
 
 
-                <p>**Melodic consonance and dissonance**</p>
+                <h4>Melodic consonance and dissonance</h4>
 
                 <p>The following <em>melodic</em> intervals are <em>consonant</em>, and can be used in strict voice-leading both for successive pitches and as boundaries of stepwise progressions in a single direction:</p>
 
@@ -128,7 +131,7 @@ export default function Intervals(){
                 <p><li>All augmented and diminished intervals </li>(including those that are enharmonically equivalent to consonant intervals, such as A2 and A1)  </p>
                 <p><li>All sevenths</li></p>
 
-                <p>**Harmonic consonance and dissonance**</p>
+                <h4>Harmonic consonance and dissonance</h4>
 
                 <p>The following <em>harmonic</em> intervals are <em>imperfect consonances</em>, and can be used relatively freely in strict voice-leading (except for beginnings and endings):</p>
 

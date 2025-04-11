@@ -4,7 +4,7 @@ export default function Fundamentals(){
 
     return (
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
-            <div style={{ maxWidth: '800px', margin: 'auto', paddingLeft: 40, paddingRight: 40 }} className="lesson-div" >
+            <div className="lesson-div" >
                     <h2>Basic Notation</h2>
                     <h3>Notes</h3>
 
@@ -30,7 +30,7 @@ export default function Fundamentals(){
 
                     <h3>Ledger lines</h3>
 
-                    <p>When the music's range exceeds what can be written on the staff, extra lines are drawn so that we can still clearly read the pitch. These extra lines are called *ledger lines.* In the example below, From Haydn's Piano Sonata in G (Hob. XVI: 39), Ab5 occurs just above the treble staff in the right hand, and G3 and B3 occur just below the treble staff in the left hand.</p>
+                    <p>When the music's range exceeds what can be written on the staff, extra lines are drawn so that we can still clearly read the pitch. These extra lines are called <em>ledger lines.</em> In the example below, From Haydn's Piano Sonata in G (Hob. XVI: 39), Ab5 occurs just above the treble staff in the right hand, and G3 and B3 occur just below the treble staff in the left hand.</p>
 
                     <img src ={'/LessonImages/ledgerLines.png'} style={{ width: '80%', height: '80%' }} />
 
