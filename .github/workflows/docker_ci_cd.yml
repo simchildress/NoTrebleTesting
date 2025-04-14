@@ -63,7 +63,7 @@ jobs:
 
   deploy:
     name: Deploy & Push to Docker Hub
-    needs: [backend_Nextjs]
+    needs: [notreble]
     runs-on: ubuntu-latest
     # Important step - add your environment name
     # Kept enviornment name as PROD to use of tutorial - Joshua Yao
