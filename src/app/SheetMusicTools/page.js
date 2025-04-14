@@ -75,7 +75,7 @@ export default function SheetMusicTools() {
 
 
     try {
-      const response = await fetch("http://3.149.232.240:3000/upload", {
+      const response = await fetch("http://3.14.250.162:3000/upload", {
         method: "POST",
         body: formData, // Send FormData containing the file
       });
@@ -84,7 +84,7 @@ export default function SheetMusicTools() {
         setUploadStatus("File uploaded successfully!");
         const isXml = file.name.endsWith(".xml");
         if(!isXml){
-            const convertResponse = await fetch("http://3.149.232.240:3000/convert", {
+            const convertResponse = await fetch("http://3.14.250.162:3000/convert", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
