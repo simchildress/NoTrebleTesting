@@ -1,0 +1,99 @@
+name: Docker Image CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  backend_Nextjs:
+    name: Backend (Nextjs)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - uses: actions/checkout@v4
+
+      # Set up Nextjs
+      - name: Detect package manager
+        id: detect-package-manager
+        run: |
+          if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+            echo "manager=yarn" >> $GITHUB_OUTPUT
+            echo "command=install" >> $GITHUB_OUTPUT
+            echo "runner=yarn" >> $GITHUB_OUTPUT
+            exit 0
+          elif [ -f "${{ github.workspace }}/package.json" ]; then
+            echo "manager=npm" >> $GITHUB_OUTPUT
+            echo "command=ci" >> $GITHUB_OUTPUT
+            echo "runner=npx --no-install" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "Unable to determine package manager"
+            exit 1
+          fi
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
+
+      # Step 3: Run liter
+        #add linter
+      # Step 4: Run tests
+        #add tests
+        
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+            
+      - name: Install dependencies
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+        
+      - name: Build with Next.js
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+
+  deploy:
+    name: Deploy & Push to Docker Hub
+    needs: [backend_Nextjs]
+    runs-on: ubuntu-latest
+    # Important step - add your environment name
+    # Kept enviornment name as PROD to use of tutorial - Joshua Yao
+    environment: PROD
+    steps:
+        - uses: actions/checkout@v4
+
+        # Optional: List repository files to verify the docker-compose file exists
+        - name: List repository files
+          run: ls -al
+
+    # Step 7: Build docker image 
+    # Go to dockerhub.com
+    # Create a new repository - backend_flask
+    # Create a new access token - <access_token>
+    # Note down your username - <username>
+    # Add the following secrets to your GitHub repository - Environment (name = TEST)
+    # add the Environment name to the deploy job above (important step)
+    # https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
+        - name: Build Docker Image
+          run: |
+                docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/notreble:latest .
+                # make sure that your dockerhub repo name matches as this line (notreble)
+  
+    # Step 8: # Log in to Docker Hub
+        - name: Log in to Docker Hub
+          run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+
+    # Step 8: Push docker image to dockerhub
+        - name: Push Docker Image
+          run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/notreble:latest
+
