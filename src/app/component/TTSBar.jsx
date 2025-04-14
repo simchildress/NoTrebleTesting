@@ -27,8 +27,9 @@ export default function TTSBar() {
   };
 
   const handleClick = () => {
+    
     setButtonClicked(!buttonClicked);
-  
+ 
     if (isSpeaking) {
       stopSpeaking();  // Stop speech if currently speaking
     } else {
