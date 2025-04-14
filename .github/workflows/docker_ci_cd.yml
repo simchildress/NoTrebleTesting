@@ -85,7 +85,7 @@ jobs:
     # https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
         - name: Build Docker Image
           run: |
-                docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/notreble:latest .
+                docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/notreble:latest
                 # make sure that your dockerhub repo name matches as this line (notreble)
   
     # Step 8: # Log in to Docker Hub
