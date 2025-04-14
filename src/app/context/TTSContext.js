@@ -13,7 +13,8 @@ export const TTSProvider = ({ children }) => {
   const [voice, setVoice] = useState();
   const [voices, setVoices] = useState();
   const pathname = usePathname(); // Gets the current page route
-
+  
+  
   useEffect(() => {
     const synth = window.speechSynthesis;
     
@@ -55,10 +56,10 @@ export const TTSProvider = ({ children }) => {
     return textContent.replace(barText, "").trim();
   };
 
-  const speakPageContent = (startIndex = 0) => {
+  const speakPageContent = (startIndex = 0, content = getPageText()) => {
     if (!utterance) return;
   
-    const text = getPageText();
+    const text = content;
     if (!text) return;
   
     const words = text.split(/\s+/); // Split text into an array of words
@@ -86,8 +87,7 @@ export const TTSProvider = ({ children }) => {
   
     utterance.onend = () => setIsSpeaking(false);
   };
-  
-  
+    
   // Resume function
   const resumeSpeaking = () => {
     if (currentIndex !== null) {
@@ -100,7 +100,22 @@ export const TTSProvider = ({ children }) => {
     window.speechSynthesis.pause(); // resume speech
     setIsSpeaking(false); // Update state
   };
+// TEST FIXME: delete this comments once bug is fixed.
+useEffect(() => {
+  const elements = document.querySelectorAll('p, h1, h2, h3, span, img'); // Select all <p> elements
+  elements.forEach(element => {
+    element.addEventListener('click', handleClick);
+  });
+}, [pathname]);
+const handleClick = (event) => {
+  console.log('Clicked element:', event.target);
+  // on click read
+  console.log("I herd a clickkk");
+  const content = event.target.innerText.trim();
+  speakPageContent(0, content); // Read current paragraph
+};
 
+// END TEST
   return (
     <TTSContext.Provider value={{ getPageText, speakPageContent, resumeSpeaking, stopSpeaking, isSpeaking, currentIndex,
        rate, setRate, voice, setVoice, voices, setVoices }}>

@@ -38,6 +38,7 @@ export default function Home() {
             <p className="wd-50">
               No Treble provides an accessible learning environment for visually impaired people to learn music theory and access sheet music reading and writing tools.
             </p>
+            <p> Move quick with CTRL + arrow keys</p>
           </div>
           {target === "/Login" ? <NavLink href="/Signup" className="btn-primary welcome-signup" activeClassName="" nonActiveClassName="">Sign up</NavLink> : ""}
         </main>
