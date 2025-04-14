@@ -1,19 +1,17 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaCirclePause } from "react-icons/fa6";
 import { FaCirclePlay } from "react-icons/fa6";
-import { MdOutlineArrowDropDown } from "react-icons/md";
-import { MdOutlineArrowDropUp } from "react-icons/md";
+import { HiMiniSpeakerWave } from "react-icons/hi2";
+import { useHotkeys } from 'react-hotkeys-hook'
 import { useTTS } from "../context/TTSContext"; // Import TTS functions
 
 export default function TTSBar() {
   const [buttonClicked, setButtonClicked] = useState(false); // State to track if the button is clicked
   const [isHovered, setIsHovered] = useState(false); // State to track hover status
-  const [position, setPosition] = useState({ x: 100, y: 200 }); // Initial position for dragging
-  const [dragging, setDragging] = useState(false); // Dragging state
-  const [offset, setOffset] = useState({ x: 0, y: 0 }); // Offset while dragging
   const [showOptions, setShowOptions] = useState(false);  // State for the expanding button   
   const { speakPageContent, stopSpeaking, isSpeaking, currentIndex, resumeSpeaking, rate, setRate, voice, setVoice, voices, setVoices } = useTTS(); // Use the TTS context
+  const menuRef = useRef();
 
   useEffect(() => {
     // Ensure the voices are populated from the SpeechSynthesis API
@@ -21,19 +19,20 @@ export default function TTSBar() {
     setVoices(allVoices); // Set the available voices in the TTS context
   }, []);
 
-  const handleMouseDown = (e) => {
-    setDragging(true);
-    setOffset({ x: e.clientX - position.x, y: e.clientY - position.y });
-  };
+  useEffect(() =>{
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setShowOptions(false);
+      }
+    }
 
-  const handleMouseMove = (e) => {
-    if (!dragging) return;
-    setPosition({ x: e.clientX - offset.x, y: e.clientY - offset.y });
-  };
-
-  const handleMouseUp = () => {
-    setDragging(false);
-  };
+    if (showOptions){
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showOptions]);
 
   const handleTTS = () => {
     setButtonClicked(!buttonClicked);
@@ -72,72 +71,62 @@ export default function TTSBar() {
 
   return (
     <div
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      className="ttsBar flex flex-col justify-center items-center w-fit h-fit p-2 bg-white border-4 border-gray-200 drop-shadow rounded-[50px]"
-      style={{
-        position: "absolute",
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        bottom: "20px",
-        right: "20px",
-        zIndex: 1000,
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="relative">
-        <div className="flex items-center">
-        <p className="content-center text-body m-3">TTS Bar</p>
+        className="ttsBar"
+        style={{
+        position: "fixed",
+        bottom: "10px",
+        right: "60px",
+        zIndex: 1000,}}>
+        <div style={{position: "relative"}}  ref={menuRef}>
+          <button>
+          <HiMiniSpeakerWave onClick={handleExpand} size={40}/>
+          </button>
 
-        {/* Position the Play/Pause button on top of the speech rate */}
-        <div className="transition-transform transform hover:scale-125" onClick={handleTTS}>
-          {!isSpeaking ? (
-            <FaCirclePlay size={40} color={isHovered ? "#303E60" : "#455090"} />
-          ) : (
-            <FaCirclePause size={40} color={isHovered ? "#303E60" : "#455090"} />
-          )}
-        </div>
-        <button className="m-2" onClick={handleExpand}>
-          {!showOptions ? (
-            < MdOutlineArrowDropDown size={40} />
-          ) : (
-            <MdOutlineArrowDropUp size={40} />
-          )}
-        </button>
-      </div>
-      </div>
           {/* Expandable Options */}
-      <div className={`transition-all duration-300 ease-in-out ${showOptions ? "max-h-96" : "max-h-0"} overflow-hidden`}>
-        {/* Speech rate dropdown below the play/pause button */}
-        <div className="text-body mt-2"> {/* Adjust margin to move the dropdown below the button */}
-          <label>Speed: </label>
-          <select 
-            value={rate}
-            onChange={handleRate}
-            className="content-center text-center m-2 bg-gray-200 shadow"
-          >
-            <option value="0.5">0.5</option>
-            <option value="0.75">0.75</option>
-            <option value="1">1</option>
-            <option value="1.5">1.5</option>
-            <option value="1.75">1.75</option>
-            <option value="2">2</option>
-          </select>
-        </div>
-        <div className="text-body mt-2">
-            <label>Voice: </label>
-            <select 
-              value={voice?.name} 
-              onChange={handleVoiceChange} // Now the function is called correctly
-            >
-              {filteredVoices.map((v, i) => (
-                <option key={i} value={v.name}>{v.name}</option>
-              ))}
-            </select>
+        <div className={`absolute bottom-12 right-0 transition-all duration-300 ease-in-out ${showOptions ? "max-h-fit opacity-100 bg-[#f5f5f5] border rounded-xl border-2xl" : "max-h-0 opacity-0"} overflow-hidden`}>
+          <div className="flex items-center justify-between p-3">
+            <div className="mr-5 transition-transform transform hover:scale-125" onClick={handleTTS}>
+              {!isSpeaking ? (
+                <FaCirclePlay size={40} color={isHovered ? "#303E60" : "#455090"} />
+              ) : (
+                <FaCirclePause size={40} color={isHovered ? "#303E60" : "#455090"} />
+              )}
+            </div>
+
+            {/* Speech rate dropdown below the play/pause button */}
+            <div className="flex items-center">
+            <div className="mr-5 text-body"> {/* Adjust margin to move the dropdown below the button */}
+              <label>Speed</label>
+              <select 
+                value={rate}
+                onChange={handleRate}
+                className="content-center text-center text-body bg-gray-300 shadow"
+              >
+                <option value="0.5">0.5</option>
+                <option value="0.75">0.75</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="1.75">1.75</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+            </div>
+
+          <div className="text-body ">
+              <label>Voice</label>
+              <select 
+                className="bg-gray-300 shadow"
+                value={voice?.name} 
+                onChange={handleVoiceChange} // Now the function is called correctly
+              >
+                {filteredVoices.map((v, i) => (
+                  <option key={i} value={v.name}>{`Voice ${i + 1}`}</option>
+                ))}
+              </select>
+          </div>
         </div>
       </div>
-    </div>
+      </div>
+          </div>
   );
 }

@@ -116,7 +116,6 @@ export default function SheetMusicTools() {
   };
     
     useEffect(() => {
-        speakPageContent(); // Speak the page content when the component is mounted
     }, []); 
 
     return (

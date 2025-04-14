@@ -95,25 +95,45 @@ export const TTSProvider = ({ children }) => {
     }
   };
   
-
   const stopSpeaking = () => {
     window.speechSynthesis.pause(); // resume speech
     setIsSpeaking(false); // Update state
   };
-// TEST FIXME: delete this comments once bug is fixed.
-useEffect(() => {
-  const elements = document.querySelectorAll('p, h1, h2, h3, span, img'); // Select all <p> elements
-  elements.forEach(element => {
-    element.addEventListener('click', handleClick);
-  });
-}, [pathname]);
-const handleClick = (event) => {
-  console.log('Clicked element:', event.target);
-  // on click read
-  console.log("I herd a clickkk");
-  const content = event.target.innerText.trim();
-  speakPageContent(0, content); // Read current paragraph
-};
+
+  const handleClick = (event) => {
+    const target = event.target;
+    let content = "";
+
+    // Take in the alt texts if an element is an image
+    if (target.tagName === "img") {
+      content = target.alt?.trim();
+    } else {
+      content = target.innerText?.trim();
+    }
+
+    console.log('Clicked element:', event.target);
+    // on click read
+    console.log("I herd a clickkk");
+
+    if (content) {
+      speakPageContent(0, content); // Read current paragraph
+    }
+  };
+
+  // TEST FIXME: need to unmount the event listener 
+  useEffect(() => {
+    const elements = document.querySelectorAll('p, h1, h2, h3, span, img, div'); // Select all <p> elements
+    elements.forEach(element => {
+      element.addEventListener('click', handleClick);
+    });
+
+    return () => {
+    elements.forEach(element => {
+      element.removeEventListener('click', handleClick);
+    });
+    };
+  }, [pathname, handleClick]);
+
 
 // END TEST
   return (
