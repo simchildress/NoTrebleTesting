@@ -71,20 +71,20 @@ export default function SheetMusicTools() {
 
     const renamedFile = new File([file], `${user.uid}_${file.name}`, { type: file.type });
     const formData = new FormData();
-    formData.append("file", renamedFile); // No need for uid field anymore
+    formData.append("file", renamedFile); 
 
 
-    try {
-      const response = await fetch("http://3.14.250.162:3000/upload", {
+      const response = await fetch("/api/upload",{
         method: "POST",
         body: formData, // Send FormData containing the file
       });
 
       if (response.ok) {
         setUploadStatus("File uploaded successfully!");
+
         const isXml = file.name.endsWith(".xml");
         if(!isXml){
-            const convertResponse = await fetch("http://3.14.250.162:3000/convert", {
+            const convertResponse = await fetch("/api/convert", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -95,7 +95,7 @@ export default function SheetMusicTools() {
                 }),
               });
               if (convertResponse.ok) {
-                setUploadStatus("File converted successfully!");
+                setUploadStatus("File Uploaded!");
               } else {
                 const errText = await convertResponse.text();
                 setUploadStatus(`Conversion failed: ${errText}`);
@@ -106,13 +106,6 @@ export default function SheetMusicTools() {
          } else {
             setUploadStatus("Upload failed. Please try again.");
           }
-    } catch (error) {
-      console.error("Error uploading file:", error);
-      setUploadStatus("Error uploading file.");
-    }
-    finally{
-        setUploading(false);
-    }
   };
     
     useEffect(() => {
