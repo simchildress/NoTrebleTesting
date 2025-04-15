@@ -47,7 +47,9 @@ export default function Home() {
         <ul className="features">
           <li className="features-list">
             <div>
+              <a href= "/Lessons">
               <h3>Lessons</h3>
+              </a>
               <p>
                 Learn music theory concepts in an easy way. From tempo and time signature to dynamics, we’ll teach you all the skills and vocabulary you need to read sheet music. Use the log-in feature to save your progress.
               </p>
@@ -55,7 +57,9 @@ export default function Home() {
           </li>
           <li className="features-list">
             <div>
+            <a href="/SheetMusicTools">
               <h3>Sheet Music Reader</h3>
+              </a>
               <p>
                 Scan and upload a picture of your sheet music, and we’ll format it to be read aloud. We’ll tell you the key, time signature, and any other sheet music notation in the piece. Save your scanned music with the log-in feature.
               </p>
@@ -63,7 +67,9 @@ export default function Home() {
           </li>
           <li className="features-list FLExcess">
             <div>
+              <a href="/SheetMusicTools">
               <h3><span>Sheet Music Composer</span></h3>
+              </a>
               <p>
                 Write and edit your own compositions with this feature. You’ll be able to edit your sheet music markings in an easy and accessible way and play it back to perfect your piece.
               </p>
