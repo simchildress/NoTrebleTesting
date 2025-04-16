@@ -8,11 +8,11 @@ import { useTTS } from "../context/TTSContext"; // Import TTS functions
 
 export default function TTSBar() {
   const [buttonClicked, setButtonClicked] = useState(false); // State to track if the button is clicked
-  const [isHovered, setIsHovered] = useState(false); // State to track hover status
+  const [isHovered, setIsHovered] = useState(false);
   const [showOptions, setShowOptions] = useState(false);  // State for the expanding button   
-  const { speakPageContent, stopSpeaking, isSpeaking, currentIndex, resumeSpeaking, rate, setRate, voice, setVoice, voices, setVoices } = useTTS(); // Use the TTS context
+  const { speakPageContent, stopSpeaking, isSpeaking, currentIndex, resumeSpeaking, rate, setRate, voice, setVoice, voices, setVoices, speakText } = useTTS(); // Use the TTS context
   const menuRef = useRef();
-
+    
   useEffect(() => {
     // Ensure the voices are populated from the SpeechSynthesis API
     const allVoices = window.speechSynthesis.getVoices();
@@ -34,7 +34,16 @@ export default function TTSBar() {
     };
   }, [showOptions]);
 
-  const handleTTS = () => {
+  // Bind play/pause button with space bar
+  useHotkeys("space", (e) => {
+    e.preventDefault()   // Stop spacebar from scrolling
+    handleTTS(e);
+  });
+
+  const handleTTS = (e) => {
+    const target = e.target
+
+    e.stopPropagation();    // stop the event bubbling
     setButtonClicked(!buttonClicked);
     if (isSpeaking) {
       stopSpeaking();  // Stop speech if currently speaking
@@ -56,7 +65,7 @@ export default function TTSBar() {
   };
 
   const handleExpand = () => {
-    setShowOptions(!showOptions);
+    setShowOptions(prev => !prev);
   };
 
   const filteredVoices = voices.slice(0, 3);
@@ -71,62 +80,83 @@ export default function TTSBar() {
 
   return (
     <div
-        className="ttsBar"
-        style={{
-        position: "fixed",
-        bottom: "10px",
-        right: "60px",
-        zIndex: 1000,}}>
-        <div style={{position: "relative"}}  ref={menuRef}>
-          <button>
-          <HiMiniSpeakerWave onClick={handleExpand} size={40}/>
-          </button>
+      className="ttsBar"
+      style={{ position: "fixed", bottom: "10px", right: "60px", zIndex: 1000 }}
+    >
+      <div style={{ position: "relative" }} ref={menuRef}>
+        {/* Speaker button (only toggles dropdown) */}
+        <button
+          data-ignore-tts
+          onClick={(e) => {
+            e.stopPropagation();
+            handleExpand();
+          }}
+        >
+          <HiMiniSpeakerWave size={40} />
+        </button>
 
-          {/* Expandable Options */}
-        <div className={`absolute bottom-12 right-0 transition-all duration-300 ease-in-out ${showOptions ? "max-h-fit opacity-100 bg-[#f5f5f5] border rounded-xl border-2xl" : "max-h-0 opacity-0"} overflow-hidden`}>
-          <div className="flex items-center justify-between p-3">
-            <div className="mr-5 transition-transform transform hover:scale-125" onClick={handleTTS}>
-              {!isSpeaking ? (
-                <FaCirclePlay size={40} color={isHovered ? "#303E60" : "#455090"} />
-              ) : (
-                <FaCirclePause size={40} color={isHovered ? "#303E60" : "#455090"} />
-              )}
-            </div>
-
-            {/* Speech rate dropdown below the play/pause button */}
+        {/* Dropdown Options */}
+        {showOptions && (
+          <div
+            className="absolute bottom-12 right-0 bg-[#f5f5f5] border rounded-xl p-3 transition-all duration-300 ease-in-out"
+            onClick={(e) => e.stopPropagation()} // Prevent dropdown clicks from closing the menu
+          >
             <div className="flex items-center">
-            <div className="mr-5 text-body"> {/* Adjust margin to move the dropdown below the button */}
-              <label>Speed</label>
-              <select 
-                value={rate}
-                onChange={handleRate}
-                className="content-center text-center text-body bg-gray-300 shadow"
+              {/* Play / Pause button */}
+              <div
+                className="mr-5 transition-transform transform hover:scale-125 cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleTTS(e);
+                }}
               >
-                <option value="0.5">0.5</option>
-                <option value="0.75">0.75</option>
-                <option value="1">1</option>
-                <option value="1.5">1.5</option>
-                <option value="1.75">1.75</option>
-                <option value="2">2</option>
-              </select>
-            </div>
-            </div>
+                {!isSpeaking ? (
+                  <FaCirclePlay size={40} color={isHovered ? "#303E60" : "#455090"} />
+                ) : (
+                  <FaCirclePause size={40} color={isHovered ? "#303E60" : "#455090"} />
+                )}
+              </div>
 
-          <div className="text-body ">
-              <label>Voice</label>
-              <select 
-                className="bg-gray-300 shadow"
-                value={voice?.name} 
-                onChange={handleVoiceChange} // Now the function is called correctly
-              >
-                {filteredVoices.map((v, i) => (
-                  <option key={i} value={v.name}>{`Voice ${i + 1}`}</option>
-                ))}
-              </select>
+              {/* Speed Dropdown */}
+              <div className="mr-5 text-body">
+                <label>Speed</label>
+                <select
+                  value={rate}
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    handleRate(e);
+                  }}
+                  className="content-center text-center text-body bg-gray-300 shadow"
+                >
+                  <option value="0.5">0.5</option>
+                  <option value="0.75">0.75</option>
+                  <option value="1">1</option>
+                  <option value="1.5">1.5</option>
+                  <option value="1.75">1.75</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+
+              {/* Voice Dropdown */}
+              <div className="text-body">
+                <label>Voice</label>
+                <select
+                  className="bg-gray-300 shadow"
+                  value={voice?.name}
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    handleVoiceChange(e);
+                  }}
+                >
+                  {filteredVoices.map((v, i) => (
+                    <option key={i} value={v.name}>{`Voice ${i + 1}`}</option>
+                  ))}
+                </select>
+              </div>
           </div>
         </div>
+        )}
       </div>
-      </div>
-          </div>
+    </div>
   );
 }

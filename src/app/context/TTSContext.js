@@ -1,6 +1,8 @@
 "use client";
 import { createContext, useState, useEffect, useContext } from "react";
+import { getAuth } from "@/firebaseConfig";
 import { usePathname } from "next/navigation";
+import { getFirestore } from "firebase/firestore";
 
 // Create Context
 const TTSContext = createContext();
@@ -13,8 +15,15 @@ export const TTSProvider = ({ children }) => {
   const [voice, setVoice] = useState();
   const [voices, setVoices] = useState();
   const pathname = usePathname(); // Gets the current page route
+  const db = getFirestore();
+
+  useEffect(() => {
+    if (voice) {
+      saveTTSSettings(rate, voice);
+    }
+  }, [rate, voice]);
   
-  
+
   useEffect(() => {
     const synth = window.speechSynthesis;
     
@@ -65,8 +74,7 @@ export const TTSProvider = ({ children }) => {
     const words = text.split(/\s+/); // Split text into an array of words
     const resumedText = words.slice(startIndex).join(" "); // Resume exactly where it left off
   
-    const synth = window.speechSynthesis;
-    synth.cancel(); // Stop previous speech
+    window.speechSynthesis.cancel(); // Stop previous speech
   
     utterance.rate = rate;
     utterance.voice = voice;
@@ -82,12 +90,31 @@ export const TTSProvider = ({ children }) => {
       }
     };
   
-    synth.speak(utterance);
+    window.speechSynthesis.speak(utterance);   // Start speaking
     setIsSpeaking(true);
   
-    utterance.onend = () => setIsSpeaking(false);
+    utterance.onend = () => {
+      setIsSpeaking(false);   // Reset state when done
+      setCurrentIndex(null);    // Reset so future play starts from the beginning
+    };
   };
-    
+  
+
+  // Speak function for quick content
+  const speakText = (text) => {
+    if (!utterance || !text) return;  
+
+    window.speechSynthesis.cancel();    // Stop anything already speaking
+
+    utterance.text = text;
+    utterance.voice = voice;
+    utterance.rate = rate;
+
+    window.speechSynthesis.speak(utterance); // Start speaking
+    setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+  }
+
   // Resume function
   const resumeSpeaking = () => {
     if (currentIndex !== null) {
@@ -103,9 +130,19 @@ export const TTSProvider = ({ children }) => {
   const handleClick = (event) => {
     const target = event.target;
     let content = "";
+  
+    window.speechSynthesis.pause();
+
+    // When clicking the speaker icon, it should read "TTS Menu" instead of the whole page
+    if (event.target.closest('[data-ignore-tts]')) {
+      if (isSpeaking) return;
+      stopSpeaking();
+      speakText("TTS Menu");
+      return;
+    }
 
     // Take in the alt texts if an element is an image
-    if (target.tagName === "img") {
+    if (target.tagName === "IMG") {
       content = target.alt?.trim();
     } else {
       content = target.innerText?.trim();
@@ -115,30 +152,47 @@ export const TTSProvider = ({ children }) => {
     // on click read
     console.log("I herd a clickkk");
 
-    if (content) {
-      speakPageContent(0, content); // Read current paragraph
-    }
+    speakPageContent(0, content); // Read current paragraph
   };
 
-  // TEST FIXME: need to unmount the event listener 
+  // TEST FIXME: need to unmount the event listener when the pathname changes
+  // Old event listeners are still attached when they don't exist anymore
   useEffect(() => {
-    const elements = document.querySelectorAll('p, h1, h2, h3, span, img, div'); // Select all <p> elements
+    const elements = document.querySelectorAll('p, h1, h2, h3, span, img, button, input'); // Select all <p> elements
     elements.forEach(element => {
       element.addEventListener('click', handleClick);
     });
 
     return () => {
     elements.forEach(element => {
+      // Clean up the old event listeners and make sure the current DOM elements have nothing from the previous route
       element.removeEventListener('click', handleClick);
     });
     };
   }, [pathname, handleClick]);
 
+  const saveTTSSettings = async (rate, voice) => {
+    const auth = getAuth();
+    const currentUser = auth.currentUser;
+    if (!currentUser) return;   // Don't save the changes if not logged in
+    
+    try {
+      const userRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userRef, {
+        speed: newRate,
+        voice: newVoice?.name || "", // Store voice name
+      });
+      console.log("TTS settings saved to Firestore");
+    } catch (error) {
+      console.error("Error saving TTS settings:", error.message);
+    }
+  };
+
 
 // END TEST
   return (
     <TTSContext.Provider value={{ getPageText, speakPageContent, resumeSpeaking, stopSpeaking, isSpeaking, currentIndex,
-       rate, setRate, voice, setVoice, voices, setVoices }}>
+       rate, setRate, voice, setVoice, voices, setVoices, speakText }}>
       {children}
     </TTSContext.Provider>
   );
