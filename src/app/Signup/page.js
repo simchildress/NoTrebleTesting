@@ -101,21 +101,21 @@ return (
                         </label>
                     </div>
 
-                    {error && <p className="text-red-500 text-lg font-semibold mb-4">{error}</p>}
+                      {error && <p className="text-red-500 text-lg font-semibold mb-4">{error}</p>}
 
-                    <button 
-                    type="submit" className="mt-6 w-full bg-[#455090] text-white py-4 rounded-lg hover:bg-[#102437] mt-6 text-2xl font-bold"
-                    >Sign Up
-                    </button> 
-                    </form> 
-                    <p className="text-center mb-6 text-xl" >
-                        Already have an account? 
-                        <Link href="/Login" className="test-blue-600 font-semibold hover:underline">
-                        {" "} Login
-                        </Link>
-                        </p> 
-                    </div>
-        ); 
-    }; 
+                      <button 
+                      type="submit" className="mt-6 w-full bg-[#455090] text-white py-4 rounded-lg hover:bg-[#102437] mt-6 text-2xl font-bold"
+                      >Sign Up
+                      </button> 
+                      </form> 
+                      <p className="text-center mb-6 text-xl" >
+                          Already have an account? 
+                          <Link href="/Login" className="test-blue-600 font-semibold hover:underline">
+                          {" "} Login
+                          </Link>
+                          </p> 
+                      </div>
+          ); 
+      }; 
 
     export default SignUp; 
