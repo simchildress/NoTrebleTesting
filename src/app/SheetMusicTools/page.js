@@ -155,7 +155,8 @@ export default function SheetMusicTools() {
                     </div>
                 </div>
             <div>
-        <button onClick={handleUpload}disabled={uploading}>
+        <button className= "text-body text-semibold w-60 bg-[#455090] text-white   
+        rounded-md hover:bg-[#102437] shadow-md " onClick={handleUpload}disabled={uploading}>
         {uploading ? 'Saving...' : 'Save File'}
         </button>
       </div>
