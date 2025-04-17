@@ -17,7 +17,7 @@ export default function Library() {
             }
                 setUid(user.uid);
                 try {
-                    const response = await fetch(`http://3.149.232.240:3000/listfiles/${user.uid}`);
+                    const response = await fetch(`/api/listfiles/${user.uid}`);
                     const data = await response.json();
                     setFiles(data.files);
                 } catch (error) {
@@ -31,7 +31,7 @@ export default function Library() {
     return (
         <div>
             <h1>Music Library</h1>
-            <Link href="/">
+            <Link href="/SheetMusicTools">
                 <button>⬅️ Back to Tools</button>
             </Link>
             <ul>

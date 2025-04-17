@@ -20,6 +20,8 @@ const signUp = async (email, password, username, profilePic, TTS) => {
       profilePic: profilePic, 
       TTS: TTS,
       textSize: "medium", // Default text size
+      speed: 1,
+      voice: "Google US English",
       createdAt: new Date(),
     });
 

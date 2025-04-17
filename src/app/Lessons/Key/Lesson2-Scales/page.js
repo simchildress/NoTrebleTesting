@@ -15,7 +15,7 @@ export default function Scales(){
 
                 <p>The chromatic scale consists entirely of half steps, and uses every pitch on the keyboard within a single octave. Here is the chromatic scale that spans the pitches C4 through C5.</p>
 
-                <img src={'/LessonImages/chromaticscale.png'} alt="The chromatic scale" style={{ }}/>
+                <a href="/LessonImages/chromaticscale.png"><img src={'/LessonImages/chromaticscale.png'} style={{ }} alt="Illustration shows the chromatic scale spanning through pitches C4 and C5"/></a>
 
                 <h3>The major scale </h3>
 
@@ -23,7 +23,7 @@ export default function Scales(){
 
                 <p>Here is the D major scale. It is called the "D major scale" because the pitch D is the <em>tonic</em> and is heard at both ends of the scale. </p>
 
-                <img src={'/LessonImages/majorscale.png'} alt="The major scale" style={{ }}/>
+                <a href= "/LessonImages/majorscale.png"><img src={'/LessonImages/majorscale.png'}  style={{ }} alt="The D major scale"/></a>
 
                 <h3>Scale degrees and solfège </h3>
 
@@ -31,7 +31,7 @@ export default function Scales(){
 
                 <p>Scale degrees are labeled with Arabic numerals and carets (^). The illustration below shows a D-major scale and corresponding ISO notation, scale degrees, and solfège syllables.</p>
 
-                <img src="/LessonImages/sdsf.png"/>
+                <a href= "/LessonImages/sdsf.png"><img src="/LessonImages/sdsf.png" /></a>
 
                 <h3>The minor scale </h3>
 
@@ -39,21 +39,21 @@ export default function Scales(){
 
                 <p>The natural minor scale consists of seven whole (W) and half (H) steps in the following succession: W-H-W-W-H-W-W. Note the changes in solfège syllables.</p>
 
-                <img src="/LessonImages/sdsf-naturalMinor.png"/>
+                <a href= "/LessonImages/sdsf-naturalMinor.png"><img src="/LessonImages/sdsf-naturalMinor.png" alt="The natural minor scale"/></a>
 
                 <p>If you sing through the above example, you'll notice that the ending lacks the same sense of closure you heard in the major scale. This closure is created in the major scale, in part, by the ascending semitone between <em>ti</em> and <em>do</em>. Composers often want to have this sense of closure when using the minor mode, too. They're able to achieve this by applying an accidental to the seventh scale degree, raising it by a semitone. If you do this within the context of the natural minor scale, you get something called the <em>harmonic minor</em> scale.</p>
 
-                <img src="/LessonImages/sdsf-harmonicMinor.png"/>
+                <a href="LessonImages/sdsf-harmonicMinor.png"><img src="/LessonImages/sdsf-harmonicMinor.png" alt="The harmonic minor scale" /></a>
 
                 <p>Now the last two notes of the scale sound much more conclusive, but you might have found it difficult to sing <em>le</em> to <em>ti</em>. When writing melodies in a minor key, composers often "corrected" this by raising <em>le</em> by a semitone to become <em>la</em> when approaching the note <em>ti</em>. When the melody descended from <em>do</em>, the closure from <em>ti</em> to <em>do</em> isn't needed; likewise, it is no longer necessary to "correct" <em>le</em>, so the natural form of the minor scale is used again. Together, these different ascending and descending versions are called the <em>melodic minor</em> scale.</p>
 
                 <p>When ascending, the <em>melodic minor</em> scale uses <em>la</em> and <em>ti</em>.</p>
 
-                <img src="/LessonImages/sdsf-melodicMinorAsc.png"/>
+                <a href="/LessonImages?sdsf-melodicMinorASC.png"><img src="/LessonImages/sdsf-melodicMinorAsc.png" alt="The melodic minor scale when ascending" /></a>
 
                 <p>When descending, the <em>melodic minor</em> scale uses the "natural" <em>te</em> and <em>le</em>. </p>
 
-                <img src="/LessonImages/sdsf-melodicMinorDesc.png"/>
+                <a href="/LessonImages/sdsf-melodicMinorDesc.png"><img src="/LessonImages/sdsf-melodicMinorDesc.png" alt="The melodic minor scale when descending" /></a>
 
                 <p>Truth be told, most composers don't really think about three different "forms" of the minor scale. The <em>harmonic minor</em> scale simply represents composers' tendency to use <em>ti</em> when building harmonies that include the seventh scale degree in the minor mode. Likewise, the <em>melodic minor</em> scale is derived from composers' desire to avoid the melodic augmented second interval (more on this in the <a href ="/Lessons/Melody/Lesson1-Intervals"><u>intervals</u></a> section) between <em>le</em> and <em>ti</em> (and some chose not to avoid this!). In reality, there is only one "version" of the minor scale. Context determines when a composer might use <em>la</em> and <em>ti</em> when writing music in a minor key. </p>
 

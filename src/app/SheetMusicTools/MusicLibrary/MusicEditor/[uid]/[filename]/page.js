@@ -8,18 +8,15 @@ import { auth } from "@/firebaseConfig";
 
 export default function MusicEditor({ params }) {
     const router = useRouter();
-    console.log('Received params:', params); // Will show in terminal
-
-    const { uid, filename } = use(params);
-
+    const { uid, filename } = use(params); // unwraps the params Promise
     const [xmlData, setXmlData] = useState("");
     const [userId, setUserId] = useState("");
+    const [osmd, setosmd] = useState(null);
 
-    // Authenticate the user
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (!user) {
-                console.alert("Please log in to use this feature");
+                alert("Please log in to use this feature");
                 router.push("/Login");
                 return;
             }
@@ -29,14 +26,11 @@ export default function MusicEditor({ params }) {
         return () => unsubscribe();
     }, [router]);
 
-    // Fetch XML data after authentication
     useEffect(() => {
         if (uid && filename && userId) {
             async function fetchXml() {
                 try {
-                    const response = await fetch(
-                        `http://3.149.232.240:3000/getxml/${uid}/${filename}`
-                    );
+                    const response = await fetch(`/api/getxml/${uid}/${filename}`);
                     const xml = await response.text();
                     setXmlData(xml);
                 } catch (error) {
@@ -49,9 +43,12 @@ export default function MusicEditor({ params }) {
 
     useEffect(() => {
         if (xmlData) {
-            const osmdContainer = document.getElementById("osmdContainer"); // Fetch DOM element
+            const osmdContainer = document.getElementById("osmdContainer");
             if (osmdContainer) {
-                const osmd = new OpenSheetMusicDisplay(osmdContainer);
+                const osmd = new OpenSheetMusicDisplay(osmdContainer, {
+                    autoResize: true,
+                    pageFormat: "A4_P"
+                });
                 osmd.load(xmlData).then(() => osmd.render());
             }
         }
@@ -63,7 +60,7 @@ export default function MusicEditor({ params }) {
             <Link href="/SheetMusicTools/MusicLibrary">
                 <button>⬅️ Back to Library</button>
             </Link>
-            <div id="osmdContainer"></div>
+            <div id="osmdContainer" style={{ width: "100%", height: "600px" }}></div>
         </div>
     );
 }
