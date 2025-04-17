@@ -41,7 +41,7 @@ const Login = () => {
                     className="w-full p-1 border border-gray-500 rounded "/>
                      </div>
                       <div> 
-                        <label className="block text-gray-800 font-semibold mb-2">Password:</label> 
+                        <label className="pass block text-gray-800 font-semibold mb-2">Password:</label> 
                         <input 
                         type='password' 
                         value={password} 

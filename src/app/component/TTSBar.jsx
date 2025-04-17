@@ -10,7 +10,7 @@ export default function TTSBar() {
   const [buttonClicked, setButtonClicked] = useState(false); // State to track if the button is clicked
   const [isHovered, setIsHovered] = useState(false);
   const [showOptions, setShowOptions] = useState(false);  // State for the expanding button   
-  const { speakPageContent, stopSpeaking, isSpeaking, currentIndex, resumeSpeaking, rate, setRate, voice, setVoice, voices, setVoices, speakText } = useTTS(); // Use the TTS context
+  const { speakPageContent, stopSpeaking, isSpeaking, currentIndex, resumeSpeaking, rate, setRate, voice, setVoice, voices, setVoices } = useTTS(); // Use the TTS context
   const menuRef = useRef();
     
   useEffect(() => {
@@ -73,6 +73,7 @@ export default function TTSBar() {
   const handleVoiceChange = (e) => {
     stopSpeaking();
     const selectedVoice = filteredVoices.find((v) => v.name === e.target.value);
+    console.log("voice:", selectedVoice)
     setVoice(selectedVoice); // Update the voice in the TTS context
   };
 
