@@ -1,0 +1,31 @@
+name: Run Cypress Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    environment: Configure Account Credentials For Testing  # Environment name (this could change later depending on the main repos environment secrets name)
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Start app
+      run: |
+        npm start &
+        sleep 10
+
+    - name: Run Cypress tests
+      run: npx cypress run
