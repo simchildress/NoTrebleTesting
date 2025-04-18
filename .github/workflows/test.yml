@@ -30,5 +30,10 @@ jobs:
         npm start &
         sleep 10
 
+
     - name: Run Cypress tests
+      env:
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: npx cypress run
+
