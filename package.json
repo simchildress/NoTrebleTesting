@@ -27,22 +27,7 @@
     "tone": "^15.0.4"
   },
   "devDependencies": {
-    "cypress": "^14.3.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
-  },
-  "description": "Welcome to project NoTreble, A music learning web application that provides tools, such as screen-reader-friendly music ledgers, composition tools, and music theory lessons emphasizing auditory details over traditional chord charts and sheet music. Designed from the ground up to foster a community for visually impaired musicians.",
-  "main": "webpack.config.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simchildress/NoTrebleTesting.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/simchildress/NoTrebleTesting/issues"
-  },
-  "homepage": "https://github.com/simchildress/NoTrebleTesting#readme"
+  }
 }
