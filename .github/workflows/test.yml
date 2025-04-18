@@ -8,7 +8,7 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    environment: Configure Account Credentials For Testing  # Environment name (this could change later depending on the main repos environment secrets name)
+    environment: Configure Account Credentials For Testing
 
     steps:
     - name: Checkout code
@@ -20,7 +20,9 @@ jobs:
         node-version: '18'
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        npm install
+        npm install cypress --save-dev
 
     - name: Start app
       run: |
