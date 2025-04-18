@@ -61,3 +61,4 @@ Music Theory lessons presented in this project was made by the authors of [`Open
 - Wayne Halliburton | Back End
 - Sarah Lawton | Back End
 
+
