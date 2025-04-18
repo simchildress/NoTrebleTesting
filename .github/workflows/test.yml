@@ -8,7 +8,7 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    environment: Configure Account Credentials For Testing
+    environment: Account Credentials For Testing
 
     steps:
     - name: Checkout code
