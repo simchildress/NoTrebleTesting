@@ -42,51 +42,51 @@ export default function Meter(){
 
                 <h4>Simple duple meter</h4>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:7GGgQvI5OOv1GL9wehJC2w" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">Symphony No. 5, Movement IV., Ludwig van Beethoven</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:7GGgQvI5OOv1GL9wehJC2w" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">Symphony No. 5, Movement IV., Ludwig van Beethoven</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:1mblryRrYNlSJqvrrtvzyq" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">"Idioteque," Radiohead</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:1mblryRrYNlSJqvrrtvzyq" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">"Idioteque," Radiohead</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:3QKUA7OAaQu3Zl1cqMa9gq" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">Sonata No. 1 in F Minor, Op. 2, No. 1, Movement I., Ludwig van Beethoven</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:3QKUA7OAaQu3Zl1cqMa9gq" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">Sonata No. 1 in F Minor, Op. 2, No. 1, Movement I., Ludwig van Beethoven</p>
 
 
                 <h4>Simple triple meter</h4>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:3kxQTMpuCVX5L34GjHy61h" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">String Quartet No. 15 in D Minor, K. 421, Movement III., Wolfgang A. Mozart</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:3kxQTMpuCVX5L34GjHy61h" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">String Quartet No. 15 in D Minor, K. 421, Movement III., Wolfgang A. Mozart</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:6T5JlpcvC0RbPpexl8xXMI" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">Symphony No. 90 in C Major, Hob: I:90, Movement III., Joseph Haydn</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:6T5JlpcvC0RbPpexl8xXMI" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">Symphony No. 90 in C Major, Hob: I:90, Movement III., Joseph Haydn</p>
 
 
 
                 <h4>Simple quadruple meter</h4>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:5JGEAz15LkPoOtFHttDtVs" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">"With or Without You," U2</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:5JGEAz15LkPoOtFHttDtVs" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">"With or Without You," U2</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:2GnWmYszHAtRKJeODAXuT2" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">"Come Out Clean," Jump Little Children</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:2GnWmYszHAtRKJeODAXuT2" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">"Come Out Clean," Jump Little Children</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:0jXRQSoOA01VTmrVIDbhtm" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">"Shh," Imogen Heap</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:0jXRQSoOA01VTmrVIDbhtm" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">"Shh," Imogen Heap</p>
 
 
                 <h4>Compound duple meter</h4>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:0qksx8mV28lztYIZ1om8ml" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true"}}></iframe><p class="caption">"Shiver," Radiohead</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:0qksx8mV28lztYIZ1om8ml" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true"}}></iframe><p className="caption">"Shiver," Radiohead</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:1w6C2YqIHygosg9OY6v7Wl" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true"}}></iframe><p class="caption">Strong Quartet No. 17 in B-flat Major, K. 458, "The Hunt," Movement I., Wolfgang A. Mozart</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:1w6C2YqIHygosg9OY6v7Wl" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true"}}></iframe><p className="caption">Strong Quartet No. 17 in B-flat Major, K. 458, "The Hunt," Movement I., Wolfgang A. Mozart</p>
 
 
                 <h4>Compound triple meter</h4>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:40J9dEDG0unV6LyYOHfMi9" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">"The Tourist," Radiohead</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:40J9dEDG0unV6LyYOHfMi9" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">"The Tourist," Radiohead</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:4mu9wgDkwUSbOGvx2iQfFf" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">Sonata No. 42 in G Major, Hob. XVI:27, Movement II., Joseph Haydn</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:4mu9wgDkwUSbOGvx2iQfFf" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">Sonata No. 42 in G Major, Hob. XVI:27, Movement II., Joseph Haydn</p>
 
 
                 <h4>Compound quadruple meter</h4>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:76ZDwA8uTyMys4LIS3pBUX" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">"Exogenesis: Symphony Part 3," Muse</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:76ZDwA8uTyMys4LIS3pBUX" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">"Exogenesis: Symphony Part 3," Muse</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:70TI9J2rsGIuXyFqVzOswh" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">Sonata No. 14 in C-sharp Minor, Op. 27, No. 2, "Moonlight," Movement I., Ludwig van Beethoven</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:70TI9J2rsGIuXyFqVzOswh" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">Sonata No. 14 in C-sharp Minor, Op. 27, No. 2, "Moonlight," Movement I., Ludwig van Beethoven</p>
 
-                <iframe src="https://embed.spotify.com/?uri=spotify:track:6M1Eo5wuTl8f5qbpLCuph0" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p class="caption">St. Matthew Passion, No. 1, Chorus, "Kommt, ihr Töchter, helft mir klagen," J.S. Bach</p>
+                <iframe src="https://embed.spotify.com/?uri=spotify:track:6M1Eo5wuTl8f5qbpLCuph0" style={{ width: "300", height: "80", frameborder: "0", allowtransparency: "true" }}></iframe><p className="caption">St. Matthew Passion, No. 1, Chorus, "Kommt, ihr Töchter, helft mir klagen," J.S. Bach</p>
 
             </div>
         </main>
