@@ -60,3 +60,4 @@ Music Theory lessons presented in this project was made by the authors of [`Open
 - Simeon Childress | Back End
 - Wayne Halliburton | Back End
 - Sarah Lawton | Back End
+
