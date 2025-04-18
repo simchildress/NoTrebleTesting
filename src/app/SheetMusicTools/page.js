@@ -69,6 +69,19 @@ export default function SheetMusicTools() {
       return;
     }
 
+    /*await db.collection("users")
+    .doc(uid)
+    .collection("files")
+    .doc(file.name)  // filename is used as the Firestore document ID
+    .set({
+    displayName: displayName || fil.ename,
+    originalName: filename,
+    filePath: path.join(__dirname, 'uploads', uid, filename), // Link to the file on the server
+    timestamp: Date.now()
+  });
+
+    console.log(`Display name "${displayName}" saved for ${filename}`);
+*/
     const renamedFile = new File([file], `${user.uid}_${file.name}`, { type: file.type });
     const formData = new FormData();
     formData.append("file", renamedFile); 
