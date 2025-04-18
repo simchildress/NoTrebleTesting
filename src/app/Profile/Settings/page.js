@@ -8,7 +8,7 @@ import { onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { TfiControlBackward } from "react-icons/tfi";
 import NavLink from "../../component/NavLink";
-const { clickTTS, setClickTTS } = useTTS(); // Use the TTS context
+import { useTTS } from "../../context/TTSContext"; // Import TTS functions
 
 const Settings = () => {
   const router = useRouter();
@@ -20,6 +20,8 @@ const Settings = () => {
   const [newPassword, setPassword] = useState("");
   const [newTextSize, setTextSize] = useState("medium");
   const [newTTS, setTTS] = useState(false);
+  const { clickTTS, setClickTTS } = useTTS(); // Use the TTS context
+
 
 
   useEffect(() => {
@@ -97,9 +99,9 @@ const Settings = () => {
 
   const handleToggle = async () => {
     const currentUser = auth.currentUser;
-    if (!currentUser || newTTS === null) return;  // Ensure user is loaded and newTTS is not null
+    if (!currentUser || clickTTS === null) return;  // Ensure user is loaded and newTTS is not null
   
-    const toggledTTS = !newTTS;  // Toggle the current value
+    const toggledTTS = !clickTTS;  // Toggle the current value
   
     try {
       // Update TTS setting in Firestore
@@ -107,7 +109,7 @@ const Settings = () => {
       await setDoc(userRef, { clickTTS: toggledTTS }, { merge: true });
   
       console.log(`TTS set to ${toggledTTS ? "ON" : "OFF"}`);
-      setTTS(toggledTTS);  // Update local state for TTS
+      setClickTTS(toggledTTS);  // Update local state for TTS
     } catch (error) {
       console.error("Error updating TTS setting:", error);
     }
@@ -165,12 +167,12 @@ const Settings = () => {
           {user && (
             <button
               onClick={handleToggle}
-              className={`p-2 m-2 flex items-center justify-${newTTS ? "end" : "start"} rounded-lg px-2 transition-colors ${
-                newTTS ? "bg-green-500" : "bg-red-500"
+              className={`p-2 m-2 flex items-center justify-${clickTTS ? "end" : "start"} rounded-lg px-2 transition-colors ${
+                clickTTS ? "bg-green-500" : "bg-red-500"
               }`}
             >
               <span className="text-white font-bold text-body flex-1 text-center">
-                {newTTS ? "ON" : "OFF"}
+                {clickTTS ? "ON" : "OFF"}
               </span>
             </button>
           )}

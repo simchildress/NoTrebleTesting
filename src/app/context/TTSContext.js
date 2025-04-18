@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, useRef } from "react";
 import { auth } from "@/firebaseConfig";
 import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 import { usePathname } from "next/navigation";
@@ -17,7 +17,7 @@ export const TTSProvider = ({ children }) => {
   const [clickTTS, setClickTTS] = useState(true);
   const pathname = usePathname(); // Gets the current page route
   const db = getFirestore();
-
+  const lastAnnouncementRef = useRef("");
   useEffect(() => {
     if (voice) {
       saveTTSSettings(rate, voice);
@@ -181,6 +181,19 @@ export const TTSProvider = ({ children }) => {
   // TEST FIXME: need to unmount the event listener when the pathname changes
   // Old event listeners are still attached when they don't exist anymore
   useEffect(() => {
+    if (!pathname) return;
+
+    const pageName = pathname === "/"
+    ? "Home"    // If the route is just /, we label it "Home"
+    : pathname.replace("/","").replace(/([A-Z])/g, " $1");  // Add a space before any capital letters
+
+    const announcement = `You are on the ${pageName} page`;
+    // Only speak if the announcement changed
+    if (lastAnnouncementRef.current !== announcement) {
+      lastAnnouncementRef.current = announcement;
+      speakText(announcement);
+    }
+    
     if (!clickTTS) return;  // Unactive this when user choose to turn off this feature
     const elements = document.querySelectorAll('p, h1, h2, h3, span, img, button, input, label'); // Select all <p> elements
     elements.forEach(element => {
