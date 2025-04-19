@@ -49,21 +49,26 @@ function NavBar() {
   }, []);
   
   useEffect(() => {
-    const currentItem = document.querySelector(`a[href="${pathname}"]`);
-    if (currentItem && navRef.current) {
-      const rect = currentItem.getBoundingClientRect();
-      const containerRect = navRef.current.getBoundingClientRect();
-      setSelectorStyle({
-        left: rect.left - containerRect.left,
-        width: rect.width,
-      });
-    }
+    const timeout = setTimeout(() => {
+      const currentItem = document.querySelector(`a[href="${pathname}"]`);
+      if (currentItem && navRef.current) {
+        const rect = currentItem.getBoundingClientRect();
+        const containerRect = navRef.current.getBoundingClientRect();
+        setSelectorStyle({
+          left: rect.left - containerRect.left,
+          width: rect.width,
+        });
+      }
+    }, 50);
+  
+    return () => clearTimeout(timeout);
   }, [pathname]);
+  
 
   return (<nav className="nav-bar">
-    <div className=" overdiv flex flex-row  items-center ">
+    <div className="overdiv flex flex-row items-center justify-between w-full px-4">
       <Image aria-hidden src="/logo.png" alt="No Treble icon" width={80} height={80}  className="self-center navLogo"/>
-      <ul className="nav-list flex flex-end relative" ref={navRef}>
+      <ul className="nav-list flex flex-row relative flex-shrink space-x-6" ref={navRef}>
     {/* Animated hover thingy */}
     <div
     className="nav-selector"
