@@ -12,8 +12,6 @@ import * as Tone from "tone";
 
 
 export default function SheetMusicTools() {
-    const router = useRouter();
-    const [user, setUser] = useState(null);
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
 const router = useRouter();
