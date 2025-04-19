@@ -14,10 +14,23 @@ export const TTSProvider = ({ children }) => {
   const [rate, setRate] = useState(1);
   const [voice, setVoice] = useState();
   const [voices, setVoices] = useState();
-  const [clickTTS, setClickTTS] = useState(true);
   const pathname = usePathname(); // Gets the current page route
   const db = getFirestore();
   const lastAnnouncementRef = useRef("");
+
+  const [clickTTS, setClickTTS] = useState(() => {
+    if (typeof window !== "undefined") {
+      const storedClickTTS = localStorage.getItem("clickTTS");
+      return storedClickTTS ? JSON.parse(storedClickTTS) : true;  // Default to true if not set
+    }
+    return true;  // Default value if running in server-side environment
+  });
+
+  useEffect(() => {
+    // Save the `clickTTS` value to localStorage whenever it changes
+    localStorage.setItem("clickTTS", JSON.stringify(clickTTS));
+  }, [clickTTS]);
+
   useEffect(() => {
     if (voice) {
       saveTTSSettings(rate, voice);
@@ -162,8 +175,15 @@ export const TTSProvider = ({ children }) => {
     }
 
     // Take in the alt texts if an element is an image
-    if (target.tagName === "INPUT" || target.tagName === "LABEL") {
+    if (target.tagName === "INPUT" || target.tagName === "LABEL" || target.tageName === "TEXTAREA") {
       content = target.value?.trim();   // Read the input's value
+
+      if (!content) {
+        content = target.getAttribute("placeholder")?.trim();
+      }
+      if (!content) {
+        content = target.getAttribute("name")?.trim();
+      }
     }
     else if (target.tagName === "IMG") {
       content = target.alt?.trim();     // Read the alt text of images
@@ -183,9 +203,14 @@ export const TTSProvider = ({ children }) => {
   useEffect(() => {
     if (!pathname) return;
 
-    const pageName = pathname === "/"
-    ? "Home"    // If the route is just /, we label it "Home"
-    : pathname.replace("/","").replace(/([A-Z])/g, " $1");  // Add a space before any capital letters
+    // Split the path name into segments and only pick the last segment to announce it
+    const segments = pathname.split("/").filter(Boolean);
+    const lastSegment = segments[segments.length-1] || "Home";
+
+    const pageName = lastSegment
+      .replace(/([A-Z])/g, " $1")
+      .replace(/-/g, " ")
+      .trim();
 
     const announcement = `You are on the ${pageName} page`;
     // Only speak if the announcement changed
@@ -195,7 +220,7 @@ export const TTSProvider = ({ children }) => {
     }
     
     if (!clickTTS) return;  // Unactive this when user choose to turn off this feature
-    const elements = document.querySelectorAll('p, h1, h2, h3, span, img, button, input, label'); // Select all <p> elements
+    const elements = document.querySelectorAll('p, h1, h2, h3, span, img, button, input, textarea, label');
     elements.forEach(element => {
       element.addEventListener('click', handleClick);
     });
