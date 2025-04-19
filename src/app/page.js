@@ -50,35 +50,36 @@ export default function Home() {
       <div className="features-div flex-cols items-center justify-items-center">
         <h2>Features</h2>
         <ul className="features">
-          <li className="features-list">
-            <div>
-              <h3 className="italic">Lessons</h3>
-              <p>
-                Learn music theory concepts in an easy way. From tempo and time signature to dynamics, we’ll teach you all the skills and vocabulary you need to read sheet music. Use the log-in feature to save your progress.
-              </p>
-            </div>
-          </li>
-          <li className="features-list">
-            <div>
-              <h3 className="italic">Sheet Music Reader</h3>
-              <p>
-                Scan and upload a picture of your sheet music, and we’ll format it to be read aloud. We’ll tell you the key, time signature, and any other sheet music notation in the piece. Save your scanned music with the log-in feature.
-              </p>
-            </div>
-          </li>
-          <li className="features-list FLExcess">
-            <div>
-              <h3 className="italic"><span>Sheet Music Composer</span></h3>
-              <p>
-                Write and edit your own compositions with this feature. You’ll be able to edit your sheet music markings in an easy and accessible way and play it back to perfect your piece.
-              </p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <footer className="home-footer">
-        <h2 className="self-center flex items-center justify-center p2">Brought to you by Bryte </h2>
-      </footer>
-    </>
-  );
-}
+  <li className="features-list">
+    <div>
+      <a href="/Lessons">
+        <h3 className="italic">Lessons</h3>
+      </a>
+      <p>
+        Learn music theory concepts in an easy way. From tempo and time signature to dynamics, we’ll teach you all the skills and vocabulary you need to read sheet music. Use the log-in feature to save your progress.
+      </p>
+    </div>
+  </li>
+
+  <li className="features-list">
+    <div>
+      <a href="/SheetMusicTools">
+        <h3 className="italic">Sheet Music Reader</h3>
+      </a>
+      <p>
+        Scan and upload a picture of your sheet music, and we’ll format it to be read aloud. We’ll tell you the key, time signature, and any other sheet music notation in the piece. Save your scanned music with the log-in feature.
+      </p>
+    </div>
+  </li>
+
+  <li className="features-list FLExcess">
+    <div>
+      <a href="/SheetMusicTools">
+        <h3 className="italic"><span>Sheet Music Composer</span></h3>
+      </a>
+      <p>
+        Write and edit your own compositions with this feature. You’ll be able to edit your sheet music markings in an easy and accessible way and play it back to perfect your piece.
+      </p>
+    </div>
+  </li>
+</ul>
