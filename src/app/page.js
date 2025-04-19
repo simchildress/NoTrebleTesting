@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import NavLink from "./component/NavLink";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/firebaseConfig"; // import your firebase configuration
+import { auth } from "@/firebaseConfig"; // import firebase configuration
+
 
 export default function Home() {
   const [target, setTarget] = useState("/Login");
@@ -25,7 +26,6 @@ export default function Home() {
 
     });
    
-
     return () => unsubscribe();
   }, []);
 
@@ -43,6 +43,8 @@ export default function Home() {
             <p></p>
           </div>
           {target === "/Login" ? <NavLink href="/Signup" className="btn-primary welcome-signup" activeClassName="" nonActiveClassName="">Sign up</NavLink> : ""}
+        
+
         </main>
       </div>
       <div className="features-div flex-cols items-center justify-items-center">
