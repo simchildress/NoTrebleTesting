@@ -10,7 +10,7 @@ export default function Fundamentals(){
 
                     <p>When written on a staff, a note indicates a pitch and rhythmic value. The notation consists of a <em>notehead</em> (either empty or filled in), and optionally can include a <em>stem</em>, <em>beam</em>, <em>dot</em>, or <em>flag</em>. </p>
 
-                    <img src={ '/LessonImages/noteillustration.png' } style={{ width: '50%' }} alt="illustration of note notation. The notehead is the circular base of the note. The stem is a verticle line that comes up from the side of the note. A beam is a verticle bar that connects two notes from the top of their stems. A flag is a curved line that starts at the top of the stem, and curves down and to the right before curving back towards the stem. A dot is a small dot place next to the notehead."/>
+                    <a href="/LessonImages/noteillustration.png"><img src={ '/LessonImages/noteillustration.png' } style={{ width: '50%' }} alt="illustration of note notation. The notehead is the circular base of the note. The stem is a verticle line that comes up from the side of the note. A beam is a verticle bar that connects two notes from the top of their stems. A flag is a curved line that starts at the top of the stem, and curves down and to the right before curving back towards the stem. A dot is a small dot place next to the notehead."/></a>
 
                     <h3>Staff</h3>
 
@@ -22,7 +22,7 @@ export default function Fundamentals(){
 
                     <p>Here is the pitch C4 placed on the treble, bass, alto, and tenor clefs.</p>
 
-                    <img src={'/LessonImages/clefs.png'} style={{ width: '50%', height: '50%' }}/>
+                    <a href="/LessonImages/clefs.png"><img src={'/LessonImages/clefs.png'} style={{ width: '50%', height: '50%' }} alt="Picture shows a treble clef in line with a bass clef, alto clef, and tenor clef. It also showcases where the C4 pitch is placed relative to the clefs." /></a>
 
                     <h3>Grand staff</h3>
 
@@ -32,7 +32,7 @@ export default function Fundamentals(){
 
                     <p>When the music's range exceeds what can be written on the staff, extra lines are drawn so that we can still clearly read the pitch. These extra lines are called <em>ledger lines.</em> In the example below, From Haydn's Piano Sonata in G (Hob. XVI: 39), Ab5 occurs just above the treble staff in the right hand, and G3 and B3 occur just below the treble staff in the left hand.</p>
 
-                    <img src ={'/LessonImages/ledgerLines.png'} style={{ width: '80%', height: '80%' }} />
+                    <a href="/LessonImages/ledgerLines.png"><img src ={'/LessonImages/ledgerLines.png'} style={{ width: '80%', height: '80%' }} alt="Illustration shows G3 and B3 ledger line occuring under the treble clef and Ab5 ledger line occuring above the treble clef"/></a>
 
                     <h3>Accidentals</h3>
 
@@ -46,7 +46,7 @@ export default function Fundamentals(){
 
                     <p>The example below shows the symbols for flat, natural, sharp, double sharp, and double flat, respectively</p>
 
-                    <img src ={'/LessonImages/accidentals.png'} style={{ width: '50%', height: '50%' }}/>
+                    <a href="/LessonImages/accidentals.png"><img src ={'/LessonImages/accidentals.png'} style={{ width: '50%', height: '50%' }}/></a>
                 </div>
         </main>
 

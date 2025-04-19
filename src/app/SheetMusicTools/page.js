@@ -2,21 +2,44 @@
 import React, { useState, useEffect } from "react";
 import FileUploader from "./fileupload";
 import SheetMusicInput from "../component/SheetMusicInput";
+import { auth } from "@/firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 import { useTTS } from "../context/TTSContext";
+import Link from 'next/link';
+import { useRouter } from "next/navigation";
 import { Midi } from "@tonejs/midi";
 import * as Tone from "tone";
 
+
 export default function SheetMusicTools() {
+    const router = useRouter();
+    const [user, setUser] = useState(null);
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
-    const { speakPageContent } = useTTS();
+const router = useRouter();
+const [user, setUser] = useState(null);
+const [uploadStatus, setUploadStatus] = useState("");
+const [uploading, setUploading] = useState(false);
+const { speakPageContent } = useTTS();
 
-    const [sheet, setSheet] = useState({
-        title: "",
-        composer: "",
-        key: "",
-        timesig: ""
-    });
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    if (!currentUser) {
+      router.push("/Login");
+      return;
+    }
+    setUser(currentUser);
+  });
+  return () => unsubscribe();
+}, [router]);
+
+const [sheet, setSheet] = useState({
+  title: "",
+  composer: "",
+  key: "",
+  timesig: ""
+});
+
 
     const [midiFile, setMidiFile] = useState(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -40,11 +63,13 @@ export default function SheetMusicTools() {
         setFile(selectedFile);
 
         if (selectedFile) {
-            setPreview(URL.createObjectURL(selectedFile));
+          setPreview(URL.createObjectURL(selectedFile));
+          handleUpload(selectedFile);
         } else {
             setPreview(null);
         }
     }
+
 
     async function playMIDI(file) {
         if (!file) {
@@ -137,35 +162,110 @@ export default function SheetMusicTools() {
         }
     }
 
+    // Upload the file to the server when triggered
+  const handleUpload = async () => {
+    if (!file) {
+      setUploadStatus("No file selected!");
+      return;
+    }
+
+    const renamedFile = new File([file], `${user.uid}_${file.name}`, { type: file.type });
+    const formData = new FormData();
+    formData.append("file", renamedFile); 
+
+
+      const response = await fetch("/api/upload",{
+        method: "POST",
+        body: formData, // Send FormData containing the file
+      });
+
+      if (response.ok) {
+        setUploadStatus("File uploaded successfully!");
+
+        const isXml = file.name.endsWith(".xml");
+        if(!isXml){
+            const convertResponse = await fetch("/api/convert", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  uid: user.uid,
+                  filename: file.name,
+                }),
+              });
+              if (convertResponse.ok) {
+                setUploadStatus("File Uploaded!");
+              } else {
+                const errText = await convertResponse.text();
+                setUploadStatus(`Conversion failed: ${errText}`);
+              }
+            } else {
+              setUploadStatus("XML file uploaded. No conversion needed.");
+            }
+         } else {
+            setUploadStatus("Upload failed. Please try again.");
+          }
+  };
+    
+    useEffect(() => {
+    }, []); 
+
+
     return (
         <main>
-            {/* SHEET MUSIC CONVERTR */}
-            <div className="m-20">
-                <h1 className="font-bold mb-7 text-4xl">Sheet Music Converter</h1>
+      
+            {/* SHEET MUSIC CONVERTER */}
+<div className="m-20">
+  <h1 className="font-bold mb-7 text-4xl">Sheet Music Converter</h1>
 
-                <div className="w-auto h-auto bg-gray-200 rounded-2xl text-body p-4 pl-7 flex flex-col md:flex-row border-2 border-gray-400">
-                    <div className="md:w-1/2 flex flex-col justify-between p-4">
-                        <FileUploader setFile={handleFileChange} />
-                        <div className="mt-auto text-left md:text-4xl text-body">
-                            <p className="pb-3">Piece Title: {sheet.title}</p>
-                            <p className="pb-3">Key: {sheet.key}</p>
-                            <p className="pb-3">Time Signature: {sheet.timesig}</p>
-                            <p className="pb-3">Composer: {sheet.composer}</p>
-                        </div>
-                    </div>
-                    <div className="w-1/2 p-4">
-                        {preview ? (
-                            file.type === "application/pdf" ? (
-                                <embed src={preview} type="application/pdf" className="w-full h-full max-h-full object-contain" />
-                            ) : (
-                                <img src={preview} alt="Preview" className="w-full h-full max-h-full object-contain rounded" />
-                            )
-                        ) : (
-                            <span className="text-gray-500">No file uploaded</span>
-                        )}
-                    </div>
-                </div>
-            </div>
+  <div className="w-auto h-auto bg-gray-200 rounded-2xl text-body p-4 pl-7 flex flex-col md:flex-row border-2 border-gray-400">
+    <div className="md:w-1/2 flex flex-col justify-between p-4">
+      <FileUploader setFile={handleFileChange} />
+      <div className="mt-auto text-left md:text-4xl text-body">
+        <p className="pb-3">Piece Title: {sheet.title}</p>
+        <p className="pb-3">Key: {sheet.key}</p>
+        <p className="pb-3">Time Signature: {sheet.timesig}</p>
+        <p className="pb-3">Composer: {sheet.composer}</p>
+      </div>
+    </div>
+
+    <div className="w-1/2 p-4">
+      {preview ? (
+        file.type === "application/pdf" ? (
+          <embed
+            src={preview}
+            type="application/pdf"
+            className="w-full h-full max-h-full object-contain"
+          />
+        ) : (
+          <img
+            src={preview}
+            alt="Preview"
+            className="w-full h-full max-h-full object-contain rounded"
+          />
+        )
+      ) : (
+        <span className="text-gray-500">No file uploaded</span>
+      )}
+    </div>
+  </div>
+
+  <div>
+    <button onClick={handleUpload} disabled={uploading}>
+      {uploading ? "Saving..." : "Save File"}
+    </button>
+  </div>
+
+  <div>
+    {uploadStatus && <p>{uploadStatus}</p>}
+  </div>
+
+  <Link href="SheetMusicTools/MusicLibrary">
+    <button>🎵 Go to Music Library</button>
+  </Link>
+</div>
+
 
             {/* SHEET MUSIC COMPOSER */}
             <div className="ml-20 mr-20 mb-20">

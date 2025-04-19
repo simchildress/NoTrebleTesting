@@ -4,13 +4,20 @@ export default function FileUploader({ setFile }) {
     function handleFileChange(e) {
         const selectedFile = e.target.files?.[0];
         if (!selectedFile) return;
-
+        
         // Only accept png, jpeg, jpg, and pdf files
-        const validTypes = ["image/png", "image/jpeg", "image/jpg", "application/pdf"];
-        if (!validTypes.includes(selectedFile.type)) {
-            alert("Invalid file type. Please upload an image or a PDF.");
-            return;
+        const validTypes = ["image/png", "image/jpeg", "image/jpg", "application/pdf","application/xml"]; 
+        if (!(selectedFile.name.endsWith("mxl") || selectedFile.name.endsWith("xml"))){
+
+            if (!validTypes.includes(selectedFile.type))  {
+                console.log("Selected file:", selectedFile);
+                console.log("File type:", selectedFile.type);
+                alert(`Invalid file type ${selectedFile.type}. Please upload an image, xml, mxl, or a PDF.`);
+                return;
+            }
+
         }
+       
 
         setFile(selectedFile); // Send file to parent component
     }
@@ -20,8 +27,8 @@ export default function FileUploader({ setFile }) {
             <input
                 type="file"
                 id="fileInput"
-                onChange={handleFileChange}
-                accept="image/*, application/pdf"
+                onChange={handleFileChange}                        // PARTWISE XML ONLY FOR OSMD (if we want to let them upload xml)
+                accept="image/*, application/pdf, application/xml, application/vnd.recordare.musicxml+xml"
                 style={{ display: "none" }}
             />
             <button  className="w-fit mt-4 mb-10 px-3 py-2 text-body border-2 border-black bg-white text-black rounded hover:bg-gray-400 duration-300"

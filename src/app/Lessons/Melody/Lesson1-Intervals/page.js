@@ -1,6 +1,63 @@
-
+import Quizviewer from "../../../component/QuizView"
 
 export default function Intervals(){
+
+    const quizzes=[
+        {
+            id: 1,
+            title: "Intervals and Dyads Introduction",
+            question: "What is a dyad in music?",
+            answer: "A dyad is a pair of pitches sounding together, essentially a two-note chord."
+          },
+          {
+            id: 2,
+            title: "Intervals and Dyads Introduction",
+            question: "What is the difference between an interval and a dyad?",
+            answer: "An interval refers to the distance between two pitches, while a dyad is a pair of pitches sounding together, often referred to by the interval between them."
+          },
+          {
+            id: 3,
+            title: "Intervals and Dyads Introduction",
+            question: "How is the term \"interval\" used in both a theoretical and practical context in music?",
+            answer: "The term \"interval\" refers both to the distance between two pitches on a scale and to a dyad whose pitches are separated by that distance. This allows for the term to describe both theoretical distance and practical musical chords."
+          },
+          {
+            id: 4,
+            title: "Chromatic and Diatonic Intervals",
+            question: "How are chromatic intervals measured on the keyboard?",
+            answer: "Chromatic intervals are measured by counting the number of half-steps (semitones) between two pitches."
+          },
+          {
+            id: 5,
+            title: "Chromatic and Diatonic Intervals",
+            question: "How would you determine the diatonic interval from C4 to E4?",
+            answer: "Count the number of different letter names (C, D, E), including both C and E, which gives you a diatonic interval of a third."
+          },
+          {
+            id: 6,
+            title: "Chromatic and Diatonic Intervals",
+            question: "Why is it necessary to know both the generic and chromatic interval to find the specific interval between two pitches, such as C4–E4?",
+            answer: "The generic interval identifies the broad category (e.g., third), but the chromatic interval gives the exact number of semitones, which allows you to determine the specific quality (e.g., major, minor) of the interval."
+          },
+          {
+            id: 7,
+            title: "Compound Intervals, Inversions, and Methods",
+            question: "What is a compound interval?",
+            answer: "A compound interval is any interval larger than an octave."
+          },
+          {
+            id: 8,
+            title: "Compound Intervals, Inversions, and Methods",
+            question: "What is the relationship between C4-E4 and C4-E5, and how is it classified?",
+            answer: "C4-E4 is a major third, and C4-E5 is a major tenth. The tenth is called a compound third because it functions the same as the major third but spans an octave."
+          },
+          {
+            id: 9,
+            title: "Compound Intervals, Inversions, and Methods",
+            question: "How does interval inversion work, and what are the three key relationships between inversions, such as C4-E4 and E4-C5?",
+            answer: "Interval inversion involves switching the order of the notes while maintaining the same pitch classes. The three key relationships are:\n\nThe chromatic intervals add up to 12.\n\nThe generic intervals add up to 9.\n\nMajor intervals invert to minor, augmented to diminished, and perfect remains perfect."
+          }
+    ];
 
     return (
         
@@ -19,7 +76,7 @@ export default function Intervals(){
 
                 <p>The simplest way to measure intervals, particularly at the keyboard, is to count the number of half-steps, or <em>semitones</em>, between two pitches. To determine the chromatic interval between C4 and E4, for example, start at C4 and ascend the chromatic scale to E4, counting steps along the way: C#4, D4, D#4, E4. E4 is four semitones higher than C4. Chromatic intervals are notated with a lower-case  <em>i</em> followed by an Arabic numeral for the number of semitones. C4–E4 is four semitones, or  <em>i4</em>.</p>
 
-                <img src={'/LessonImages/c4e4.png'} alt="Chromatic steps from C4 to E4." style={{ }}/>
+                <a href="/LessonImages/c4e4.png"><img src={'/LessonImages/c4e4.png'} alt="Chromatic steps from C4 to E4." style={{ }}/></a>
 
                 <h3>Diatonic intervals </h3>
 
@@ -29,7 +86,7 @@ export default function Intervals(){
 
                 <p>For example, from C4 to E4, counting both C and E, there are three diatonic steps (three letter names): C, D, E. Thus, the generic interval for C4–E4 is a <em>third</em>. The same is true for any C to any E: C#4 to E4, Cb4 to E#4, etc. They are all diatonic thirds.</p>
 
-                <img src={'/LessonImages/thirds.png'} alt='Three kinds of generic thirds.' style={{ }}/>
+                <a href="/LessonImages/thirds.png"><img src={'/LessonImages/thirds.png'} alt='Three kinds of generic thirds.' style={{ }}/></a>
 
                 <p>Often more specificity is needed than generic intervals can provide. That specificity comes in the form of an interval's <em>quality</em>. Combining <em>quality</em> with a generic interval name produces a <em>specific interval</em>.</p>
 
@@ -44,7 +101,7 @@ export default function Intervals(){
                 <p>To obtain an interval's quality, find both the generic interval and the chromatic interval. Then consult the following table to find the specific interval. </p>
                 <table>
 
-                
+                <caption></caption>
                 <tr>
                     <th>  </th><th> unis. </th><th> 2nd </th><th> 3rd </th><th> 4th </th><th> 5th </th><th> 6th </th><th> 7th </th><th> oct. </th>  
                 </tr>
@@ -74,7 +131,7 @@ export default function Intervals(){
 
                 <p>The intervals discussed above, from unison to octave, are called <em>simple intervals</em>. Any interval larger than an octave is considered a <em>compound interval</em>. Take the interval C4 to E5. The generic interval is a tenth. However, it functions the same as C4 to E4 in almost all musical circumstances. Thus, the tenth C4–E5 is also called a <em>compound third</em>. A compound interval takes the same quality as the corresponding simple interval. If C4–E4 is a major third, then C4–E5 is a major tenth.</p>
 
-                <img src={'/LessonImages/compound.png'} alt='Simple and compound major thirds.' style={{ }}/>
+                <a href="/LessonImages/compound.png"><img src={'/LessonImages/compound.png'} alt='Simple and compound major thirds.' style={{ }}/></a>
 
                 <h3>Interval inversion </h3>
 
@@ -148,6 +205,7 @@ export default function Intervals(){
                 <p><li>All augmented and diminished intervals </li>(including those that are enharmonically equivalent to consonant intervals, such as A2 and A1)  </p>
                 <p><li>All sevenths</li></p>
                 <p><li>Perfect fourths</li></p> 
+                <Quizviewer quizzes={quizzes}/>
             </div>
         </main>
 
