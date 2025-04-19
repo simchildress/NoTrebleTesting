@@ -8,7 +8,7 @@ const auth = getAuth(app);
 const DEFAULT_PROFILE_PIC = "/defaultprofile.png";
 
 // Sign up
-const signUp = async (email, password, username, profilePic, TTS) => {
+const signUp = async (email, password, username, profilePic) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -18,7 +18,7 @@ const signUp = async (email, password, username, profilePic, TTS) => {
       email: user.email,
       username: username,
       profilePic: profilePic, 
-      TTS: TTS,
+      clickTTS: true,
       textSize: "medium", // Default text size
       speed: 1,
       voice: "Google US English",

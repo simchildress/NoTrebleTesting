@@ -1,8 +1,8 @@
 "use client";
-import { createContext, useState, useEffect, useContext } from "react";
-import { getAuth } from "@/firebaseConfig";
+import { createContext, useState, useEffect, useContext, useRef } from "react";
+import { auth } from "@/firebaseConfig";
+import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
 import { usePathname } from "next/navigation";
-import { getFirestore } from "firebase/firestore";
 
 // Create Context
 const TTSContext = createContext();
@@ -14,9 +14,10 @@ export const TTSProvider = ({ children }) => {
   const [rate, setRate] = useState(1);
   const [voice, setVoice] = useState();
   const [voices, setVoices] = useState();
+  const [clickTTS, setClickTTS] = useState(true);
   const pathname = usePathname(); // Gets the current page route
   const db = getFirestore();
-
+  const lastAnnouncementRef = useRef("");
   useEffect(() => {
     if (voice) {
       saveTTSSettings(rate, voice);
@@ -30,8 +31,12 @@ export const TTSProvider = ({ children }) => {
     // Get the voices available for different browsers
     const loadVoices = () => {
       const availableVoices = synth.getVoices();
-      setVoice(availableVoices[0]);   // Default voice
       setVoices(availableVoices);   // Store all voices
+
+      // Set to default voice if none is saved
+      if (!voice){
+        setVoice(availableVoices[0]);   // Default voice
+      }
     };
     const newUtterance = new SpeechSynthesisUtterance();
     setUtterance(newUtterance);
@@ -52,25 +57,40 @@ export const TTSProvider = ({ children }) => {
     };
   }, [pathname]);
 
-  // Select all the texts from the inside the body tag
   const getPageText = () => {
-    const mainContent = document.body;
-    const ttsBar = document.querySelector(".ttsBar"); // Target the TTSBar by class
-    
-    // If there's a TTS Bar, exclude it from the selection
-    const textContent = mainContent.innerText.trim();
-    const barText = ttsBar ? ttsBar.innerText.trim() : ''; // Get the TTS Bar content
+    // Clone the entire body so we can manipulate it without affecting the real DOM
+    const bodyClone = document.body.cloneNode(true);
   
-    // Remove the TTS Bar's text from the body text
-    return textContent.replace(barText, "").trim();
+    // Find and remove the TTS bar from the cloned body (so it’s not read out loud)
+    const ttsBar = bodyClone.querySelector(".ttsBar");
+    if (ttsBar) {
+      ttsBar.remove();
+    }
+  
+    // Remove any unwanted tags that might contain scripts, styles, or non-visible content
+    const unwantedTags = bodyClone.querySelectorAll("script, style, template");
+    unwantedTags.forEach(tag => tag.remove());
+  
+    // Replace each image with its alt text (if it exists)
+    const images = bodyClone.querySelectorAll("img");
+    images.forEach((img) => {
+      const altText = img.alt || "";                          // Use the alt text if available
+      const altNode = document.createTextNode(altText + " "); // Create a text node from alt text
+      img.replaceWith(altNode);                               // Replace the image with that text node
+    });
+  
+    // Return all visible, readable text from the cleaned-up cloned body
+    return bodyClone.innerText.trim();
   };
+  
 
   const speakPageContent = (startIndex = 0, content = getPageText()) => {
     if (!utterance) return;
   
     const text = content;
     if (!text) return;
-  
+    console.log("Text TTS will read:\n", content);
+
     const words = text.split(/\s+/); // Split text into an array of words
     const resumedText = words.slice(startIndex).join(" "); // Resume exactly where it left off
   
@@ -142,8 +162,11 @@ export const TTSProvider = ({ children }) => {
     }
 
     // Take in the alt texts if an element is an image
-    if (target.tagName === "IMG") {
-      content = target.alt?.trim();
+    if (target.tagName === "INPUT" || target.tagName === "LABEL") {
+      content = target.value?.trim();   // Read the input's value
+    }
+    else if (target.tagName === "IMG") {
+      content = target.alt?.trim();     // Read the alt text of images
     } else {
       content = target.innerText?.trim();
     }
@@ -158,7 +181,21 @@ export const TTSProvider = ({ children }) => {
   // TEST FIXME: need to unmount the event listener when the pathname changes
   // Old event listeners are still attached when they don't exist anymore
   useEffect(() => {
-    const elements = document.querySelectorAll('p, h1, h2, h3, span, img, button, input'); // Select all <p> elements
+    if (!pathname) return;
+
+    const pageName = pathname === "/"
+    ? "Home"    // If the route is just /, we label it "Home"
+    : pathname.replace("/","").replace(/([A-Z])/g, " $1");  // Add a space before any capital letters
+
+    const announcement = `You are on the ${pageName} page`;
+    // Only speak if the announcement changed
+    if (lastAnnouncementRef.current !== announcement) {
+      lastAnnouncementRef.current = announcement;
+      speakText(announcement);
+    }
+    
+    if (!clickTTS) return;  // Unactive this when user choose to turn off this feature
+    const elements = document.querySelectorAll('p, h1, h2, h3, span, img, button, input, label'); // Select all <p> elements
     elements.forEach(element => {
       element.addEventListener('click', handleClick);
     });
@@ -169,30 +206,62 @@ export const TTSProvider = ({ children }) => {
       element.removeEventListener('click', handleClick);
     });
     };
-  }, [pathname, handleClick]);
+  }, [pathname, handleClick, clickTTS]);
 
   const saveTTSSettings = async (rate, voice) => {
-    const auth = getAuth();
     const currentUser = auth.currentUser;
     if (!currentUser) return;   // Don't save the changes if not logged in
     
     try {
       const userRef = doc(db, "users", currentUser.uid);
       await updateDoc(userRef, {
-        speed: newRate,
-        voice: newVoice?.name || "", // Store voice name
+        speed: rate,
+        voice: voice?.name || "", // Store voice name
       });
+      console.log("Saving voice to Firestore:", voice?.name);
       console.log("TTS settings saved to Firestore");
     } catch (error) {
       console.error("Error saving TTS settings:", error.message);
     }
   };
 
+  // Fetching the saved values back when the page changes or reloads
+  useEffect(() => {
+    const fetchSettings = async () => {
+      const currentUser = auth.currentUser;
+      if (!currentUser || !voices) return;
+
+      try {
+        const userRef = doc(db, "users", currentUser.uid);
+        const userSnap = await getDoc(userRef);
+  
+        if (userSnap.exists()) {
+          const data = userSnap.data();   // Grab data from user's document
+  
+          if (data.speed) {
+            setRate(data.speed);    // Update the rate of TTS
+          }
+  
+          if (data.voice) {
+            const matchedVoice = voices.find(v => v.name === data.voice);
+            if (matchedVoice) {
+              setVoice(matchedVoice);   // Update the voice of TTS
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load TTS settings:", err.message);
+      }
+    };
+  
+    fetchSettings();
+  }, [voices]);
+
 
 // END TEST
   return (
     <TTSContext.Provider value={{ getPageText, speakPageContent, resumeSpeaking, stopSpeaking, isSpeaking, currentIndex,
-       rate, setRate, voice, setVoice, voices, setVoices, speakText }}>
+       rate, setRate, voice, setVoice, voices, setVoices, speakText, clickTTS, setClickTTS }}>
       {children}
     </TTSContext.Provider>
   );
