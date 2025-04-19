@@ -1,4 +1,7 @@
 "use client";
+import { useState }from "react";
+
+//Array of all terms and definitions
 const terms = [
 
     { 
@@ -306,7 +309,7 @@ const terms = [
     {
         term: 'Dynamics',
         definition: 'Dynamics are indicators of the relative intensity or volume of a musical line.\nRarely, even softer or louder dynamic levels are indicated by adding more ps or fs. While ppp is called "pianississimo" and fff is called "fortississimo", these words (formed by adding an additional "iss") are not proper Italian.\nDynamics are relative, and the meaning of each level is at the discretion of the performer or the conductor. Laws to curb high noise levels in the workplace have changed the interpretation of very loud dynamics in some large orchestral works, as noise levels within the orchestra itself can easily exceed safe levels.',
-        group: '',
+        group: 'Dynamics',
         image: ''
     },
     {
@@ -556,58 +559,66 @@ const terms = [
 ];
 
 
-function SortByGroup () {
-    terms.sort((a,b) => a.group.localeCompare(b.group));
-    return terms;
-}
-function SortAlpha () {
-    terms.sort((a,b) => a.term.localeCompare(b.term));
-    return terms;
-}
-var sort = 'group';
 export default function Reference(){
 
-    const handleSort = (sortType) => {
-        
-        if (sortType === 'group') {
-            SortByGroup();
+    //This keeps track of how terms are sorted and updates the page when the state changes
+    const [sort, setSort] = useState(1);
+
+    //Sort terms by group/category
+    function SortByGroup () {
+        //compare group and sort
+        return terms.sort((a,b) => a.group.localeCompare(b.group)).map((term, index) => {
+            //render with group as header if it is the first term in the group
+            if (index === 0 || term.group !== terms[index - 1].group) {
+                return <div className="reference-div" key={term.term}>
+                    <h3>{term.group}</h3>
+                    <h4>{term.term}</h4>
+                    <p>{term.definition}</p>
+                </div>;
+            }
+            //all other terms in the group rendered without the group name
+            else {
+                return <div className="reference-div" key={term.term}>
+                    <h4>{term.term}</h4>
+                    <p>{term.definition}</p>
+                </div>;
+            }
+                        
+        })
+    }
+
+    //Sort terms alphabetically
+    function SortAlpha () {
+        //sort terms alphabetically and render them with term group and definition
+        return terms.sort((a,b) => a.term.localeCompare(b.term)).map((term, index) => {
+            return <div className="reference-div" key={term.term}>
+                <h4>{term.term}</h4>
+                <p><strong>{term.group}</strong></p>
+                <p>{term.definition}</p>
+            </div>;
+        })
+    }
+
+    //Render based on the value of sort, 1 for group, 2 for alphabetical
+    function renderSort() {
+        if (sort == 1) {
+            console.log("switch to group");
+            return SortByGroup();
         }
-        else if (sortType === 'alpha') {
-            SortAlpha();
-        }
-        if (sort != sortType) {
-            sort = sortType;
-            //window.location.reload();
+        else if (sort == 2) {
+            console.log("switch to alpha");
+            return SortAlpha(); 
         }
     }
     return (
+        //sort buttons set sort to the appropriate value and changes the state
         <div className="reference-title">
             <h2>Reference Guide</h2>
-            <button className="sort-button" onClick={handleSort('group')}>Sort by Category</button>
-            <button className="sort-button" onClick={handleSort('alpha')}>Sort Alphabetically</button>
-            {terms.map((term, index) => {
-                if (sort === 'group') {
-                    if (index === 0 || term.group !== terms[index - 1].group) {
-                        return <div className="reference-div" key={term.term}>
-                            <h3>{term.group}</h3>
-                            <h4>{term.term}</h4>
-                            <p>{term.definition}</p>
-                        </div>;
-                    }
-                    else {
-                        return <div className="reference-div" key={term.term}>
-                            <h4>{term.term}</h4>
-                            <p>{term.definition}</p>
-                        </div>;
-                    }
-                } else if (sort === 'alpha') {
-                    return <div className="reference-div" key={term.term}>
-                        <h4>{term.term}</h4>
-                        <p><strong>{term.group}</strong></p>
-                        <p>{term.definition}</p>
-                    </div>;
-                }
-            })}
+            <div className="sort-buttons">
+            <button onClick={() => setSort(1)}>Sort by Category</button>
+            <button onClick={() => setSort(2)}>Sort Alphabetically</button>
+            </div>
+            {renderSort()}
         </div>
     );
 }
