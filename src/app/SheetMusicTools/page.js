@@ -65,6 +65,7 @@ const [sheet, setSheet] = useState({
           handleUpload(selectedFile);
         } else {
             setPreview(null);
+            setUploadStatus("No file selected!");
         }
     }
 
@@ -157,16 +158,29 @@ const [sheet, setSheet] = useState({
 
         if (isPlaying) {
             Tone.Transport.bpm.value = originalBPM * newSpeed;
+            setUploadStatus("No file selected!");
         }
     }
 
     // Upload the file to the server when triggered
   const handleUpload = async () => {
-    if (!file) {
-      setUploadStatus("No file selected!");
+   if (!file) {
       return;
     }
 
+    /*await db.collection("users")
+    .doc(uid)
+    .collection("files")
+    .doc(file.name)  // filename is used as the Firestore document ID
+    .set({
+    displayName: displayName || fil.ename,
+    originalName: filename,
+    filePath: path.join(__dirname, 'uploads', uid, filename), // Link to the file on the server
+    timestamp: Date.now()
+  });
+
+    console.log(`Display name "${displayName}" saved for ${filename}`);
+*/
     const renamedFile = new File([file], `${user.uid}_${file.name}`, { type: file.type });
     const formData = new FormData();
     formData.append("file", renamedFile); 
