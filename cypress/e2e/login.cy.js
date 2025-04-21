@@ -9,3 +9,4 @@ describe('Login Test', () => {
     cy.url().should('eq', 'http://localhost:3000/');
   });
 });
+
