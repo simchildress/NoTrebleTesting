@@ -65,6 +65,7 @@ const [sheet, setSheet] = useState({
           handleUpload(selectedFile);
         } else {
             setPreview(null);
+            setUploadStatus("No file selected!");
         }
     }
 
