@@ -59,13 +59,13 @@ export default function SheetMusicTools() {
             handleUpload(selectedFile); // Upload the file to EC2
         } else {
             setPreview(null); // Clear preview if no file is selected
+            setUploadStatus("No file selected!");
         }
     }
 
     // Upload the file to the server when triggered
   const handleUpload = async () => {
-    if (!file) {
-      setUploadStatus("No file selected!");
+   if (!file) {
       return;
     }
 
