@@ -1,7 +1,62 @@
-
+import Quizviewer from "../../../component/QuizView"
 
 export default function Rhythm(){
-
+    const quizzes=[
+        {
+            id: 1,
+            title: "Rhythmic Values",
+            question: "What do rhythm and durations in music represent?",
+            answer: "The combination of long and short durations in time."
+          },
+          {
+            id: 2,
+            title: "Rhythmic Values",
+            question: "What visual characteristics differentiate unfilled and filled noteheads?",
+            answer: "Unfilled noteheads can have or lack stems; filled noteheads always have stems."
+          },
+          {
+            id: 3,
+            title: "Rhythmic Values",
+            question: "How does adding flags to a filled notehead affect its duration?",
+            answer: "Each flag halves the duration of the note."
+          },
+          {
+            id: 4,
+            title: "Rests",
+            question: "What do rests represent in music notation?",
+            answer: "Silence."
+          },
+          {
+            id: 5,
+            title: "Rests",
+            question: "How do rests relate to note durations?",
+            answer: "Each note duration has a matching rest with the same time value."
+          },
+          {
+            id: 6,
+            title: "Rests",
+            question: "Why is it important that each duration has a corresponding rest?",
+            answer: "To accurately represent rhythmic timing, including periods of silence."
+          },
+          {
+            id: 7,
+            title: "Dots and Ties",
+            question: "What does a dot do to a note or rest?",
+            answer: "It increases the duration by half."
+          },
+          {
+            id: 8,
+            title: "Dots and Ties",
+            question: "What is the difference in beat division between undotted and dotted notes?",
+            answer: "Undotted notes divide into two; dotted notes divide into three."
+          },
+          {
+            id: 9,
+            title: "Dots and Ties",
+            question: "How would you notate a note that lasts longer than one measure?",
+            answer: "Use a tie to connect the note across measures."
+          },
+    ];
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
@@ -33,7 +88,7 @@ export default function Rhythm(){
 
                 <a href="/LessonImages/ties.png"><img src="/LessonImages/ties.png" width="50%"/></a>
 
-
+                <Quizviewer quizzes={quizzes}/>
             </div>
         </main>
 

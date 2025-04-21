@@ -14,7 +14,6 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
-    const [TTS, setTTS] = useState(false);
     const router = useRouter();
   
     const handleSubmit = async (event) => {
@@ -38,7 +37,7 @@ const SignUp = () => {
       }
   
       try {
-        await signUp(trimmedEmail, password, trimmedName, defaultProfilePath, TTS);
+        await signUp(trimmedEmail, password, trimmedName, defaultProfilePath);
         console.log("User signed up and profile saved!");
         router.push("/");
       } catch (error) {
@@ -89,18 +88,6 @@ return (
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full p-1 border border-gray-500 rounded "/>
                     </div>
-                    <div>
-                        <label>
-                        <input 
-                        type="checkbox"
-                        style={{ width: "20px", height: "20px"}}
-                        checked={TTS}
-                        onChange={(e) => setTTS(e.target.checked)}
-                        />
-                        {"    "} Automatically turn on TTS
-                        </label>
-                    </div>
-
                     {error && <p className="text-red-500 text-lg font-semibold mb-4">{error}</p>}
 
                     <button 
@@ -115,7 +102,7 @@ return (
                         </Link>
                         </p> 
                     </div>
-        ); 
-    }; 
+          ); 
+      }; 
 
     export default SignUp; 

@@ -1,7 +1,63 @@
-
+import Quizviewer from "../../../component/QuizView"
 
 export default function Beams(){
 
+    const quizzes=[
+        {
+            id: 10,
+            title: "Beams (Concept & Purpose)",
+            question: "What is the primary goal of musical notation?",
+            answer: "To be easily read and interpreted by performers."
+          },
+          {
+            id: 11,
+            title: "Beams (Concept & Purpose)",
+            question: "What rhythmic element are beams used to group?",
+            answer: "Notes at the beat division level or shorter within the same beat."
+          },
+          {
+            id: 12,
+            title: "Beams (Concept & Purpose)",
+            question: "Why is proper beaming important in musical notation?",
+            answer: "It helps convey the beat structure clearly, making rhythms easier to read."
+          },
+          {
+            id: 13,
+            title: "Beams in Practice",
+            question: "What happens when eighth notes are not grouped with beams?",
+            answer: "The rhythm becomes harder to interpret."
+          },
+          {
+            id: 14,
+            title: "Beams in Practice",
+            question: "How does beaming help in triple meter?",
+            answer: "It groups notes by beat, making the meter easier to understand."
+          },
+          {
+            id: 15,
+            title: "Beams in Practice",
+            question: "How could incorrect beaming affect a performer's interpretation?",
+            answer: "It may obscure the intended meter and lead to rhythmic confusion during performance."
+          },
+          {
+            id: 16,
+            title: "Borrowed Divisions (Triplets & Duplets)",
+            question: "What are the usual beat divisions in simple and compound meter?",
+            answer: "Simple = division by two; Compound = division by three."
+          },
+          {
+            id: 17,
+            title: "Borrowed Divisions (Triplets & Duplets)",
+            question: "What is a triplet, and where is it borrowed from?",
+            answer: "A triplet divides a beat into three and is borrowed from compound meter."
+          },
+          {
+            id: 18,
+            title: "Borrowed Divisions (Triplets & Duplets)",
+            question: "Why might a composer use triplets in simple meter or duplets in compound meter?",
+            answer: "To create rhythmic contrast or expressive variation by temporarily altering the standard beat division."
+          },
+    ];
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
@@ -32,6 +88,7 @@ export default function Beams(){
                 <p>Likewise, <em>duplets</em> can be imported from simple meter into a compound meter.</p>
 
                 <a href="/LessonImages/duplets.png"><img src="/LessonImages/duplets.png" width="70%"/></a>
+                <Quizviewer quizzes={quizzes}/>
             </div>
         </main>
 

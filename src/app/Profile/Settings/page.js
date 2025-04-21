@@ -8,6 +8,7 @@ import { onAuthStateChanged, updateEmail, updatePassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { TfiControlBackward } from "react-icons/tfi";
 import NavLink from "../../component/NavLink";
+import { useTTS } from "../../context/TTSContext"; // Import TTS functions
 
 const Settings = () => {
   const router = useRouter();
@@ -19,6 +20,8 @@ const Settings = () => {
   const [newPassword, setPassword] = useState("");
   const [newTextSize, setTextSize] = useState("medium");
   const [newTTS, setTTS] = useState(false);
+  const { clickTTS, setClickTTS } = useTTS(); // Use the TTS context
+
 
 
   useEffect(() => {
@@ -34,7 +37,7 @@ const Settings = () => {
         });
         setUsername(profileData.username || "");  // Set initial username
         setEmail(profileData.email || "");  // Set initial email
-        setTTS(profileData.TTS || false); //set initial TTS 
+        setTTS(profileData.clickTTS || true); //set initial TTS 
 
         // Fetch the text size setting to work with global CSS
         const storedTextSize = profileData.textSize || "medium";
@@ -58,7 +61,7 @@ const Settings = () => {
     try {
       // Update username, email, TTS and textsize in Firebase
       const userRef = doc(db, "users", currentUser.uid);
-      await setDoc(userRef, { username: newUsername, email: newEmail, textSize: newTextSize, TTS: newTTS }, { merge: true });
+      await setDoc(userRef, { username: newUsername, email: newEmail, textSize: newTextSize, clickTTS: newTTS }, { merge: true });
 
       // Update email if it's changed
       if (newEmail !== user.email) {
@@ -96,17 +99,17 @@ const Settings = () => {
 
   const handleToggle = async () => {
     const currentUser = auth.currentUser;
-    if (!currentUser || newTTS === null) return;  // Ensure user is loaded and newTTS is not null
+    if (!currentUser || clickTTS === null) return;  // Ensure user is loaded and newTTS is not null
   
-    const toggledTTS = !newTTS;  // Toggle the current value
+    const toggledTTS = !clickTTS;  // Toggle the current value
   
     try {
       // Update TTS setting in Firestore
       const userRef = doc(db, "users", currentUser.uid);
-      await setDoc(userRef, { TTS: toggledTTS }, { merge: true });
+      await setDoc(userRef, { clickTTS: toggledTTS }, { merge: true });
   
       console.log(`TTS set to ${toggledTTS ? "ON" : "OFF"}`);
-      setTTS(toggledTTS);  // Update local state for TTS
+      setClickTTS(toggledTTS);  // Update local state for TTS
     } catch (error) {
       console.error("Error updating TTS setting:", error);
     }
@@ -160,16 +163,16 @@ const Settings = () => {
         </label>
 
         <div className="flex items-center space-x-4 mb-8">
-          <p className="text-body font-bold">Text-To-Speech (TTS) option:</p>
+          <p className="text-body font-bold">Activate Text-To-Speech Using Click:</p>
           {user && (
             <button
               onClick={handleToggle}
-              className={`p-2 m-2 flex items-center justify-${newTTS ? "end" : "start"} rounded-lg px-2 transition-colors ${
-                newTTS ? "bg-green-500" : "bg-red-500"
+              className={`p-2 m-2 flex items-center justify-${clickTTS ? "end" : "start"} rounded-lg px-2 transition-colors ${
+                clickTTS ? "bg-green-500" : "bg-red-500"
               }`}
             >
               <span className="text-white font-bold text-body flex-1 text-center">
-                {newTTS ? "ON" : "OFF"}
+                {clickTTS ? "ON" : "OFF"}
               </span>
             </button>
           )}
