@@ -12,14 +12,20 @@
     "@tonejs/midi": "^2.0.28",
     "browserslist": "^4.24.4",
     "caniuse-lite": "^1.0.30001701",
-    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "firebase": "^11.4.0",
+    "midi-player-js": "^2.0.16",
+    "multer": "^1.4.5-lts.2",
     "next": "^15.2.4",
+    "cors": "^2.8.5",
+    "eslint-config-next": "^15.3.1",
+    "firebase": "^11.4.0",
+    "next": "^15.3.1",
     "opensheetmusicdisplay": "^1.9.0",
     "raw-loader": "^4.0.2",
     "raw.macro": "^0.7.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-hotkeys-hook": "^4.6.1",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.3.0",
@@ -27,6 +33,7 @@
     "tone": "^15.0.4"
   },
   "devDependencies": {
+    "globals": "^16.0.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
   }
