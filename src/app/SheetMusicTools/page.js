@@ -155,16 +155,15 @@ export default function SheetMusicTools() {
                     </div>
                 </div>
             <div>
-        <button className= "text-body text-semibold w-60 bg-[#455090] text-white   
-        rounded-md hover:bg-[#102437] shadow-md " onClick={handleUpload}disabled={uploading}>
-        {uploading ? 'Saving...' : 'Save File'}
+        <button className={" font-bold px-10 py-3 rounded-lg bg-blue-600"} onClick={handleUpload}disabled={uploading}>
+        {uploading ? 'Saving...' : 'Save File'} 
         </button>
       </div>
         <div>
         {uploadStatus && <p>{uploadStatus}</p>}
          </div>
          <Link href="SheetMusicTools/MusicLibrary">
-                <button>🎵 Go to Music Library</button>
+                <button className={" font-bold px-10 py-3 rounded-lg bg-blue-600 align-left"} >🎵 Go to Music Library</button>
             </Link>
             </div>
 
