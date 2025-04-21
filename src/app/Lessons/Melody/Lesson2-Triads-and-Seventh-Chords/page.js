@@ -1,13 +1,45 @@
-
+import Quizviewer from "../../../component/QuizView"
 
 export default function Triads(){
 
+    const quizzes=[
+        {
+            id: 401,
+            title: "This sets broken",
+            question: "The Devs are working hard to fix this issue",
+            answer: "The root is the lowest pitch class in the adjacent clump on the circle (clockwise: the earliest note)."
+          },
+        {
+            id: 10,
+            title: "Triads - Basics and Identification",
+            question: "What is a chord in music theory?",
+            answer: "A chord is any combination of three or more pitch classes that sound simultaneously."
+          },
+          {
+            id: 11,
+            title: "Triads - Basics and Identification",
+            question: "What defines a triad?",
+            answer: "A triad is a three-note chord whose pitch classes can be arranged as stacked thirds."
+          },
+          {
+            id: 12,
+            title: "Triads - Basics and Identification",
+            question: "How can you tell if a chord is a triad using the circle of thirds?",
+            answer: "If the three pitch classes sit next to each other on the circle of thirds, it is a triad."
+          },
+          {
+            id: 13,
+            title: "Triad Roots and Qualities",
+            question: "How do you find a triad's root using the circle of thirds?",
+            answer: "The root is the lowest pitch class in the adjacent clump on the circle (clockwise: the earliest note)."
+          },
+    ];
     return (
         
         <main style={{ /*backgroundColor: '#455090e2'*/ }} >
+                
             <div className="lesson-div" >
                 <h2>Triads and seventh chords</h2>
-
                 <p>A chord is any combination of three or more pitch classes that sound simultaneously.</p>
 
                 <p>A three-note chord whose pitch classes can be arranged as thirds is called a <em>triad</em>.</p>
@@ -145,9 +177,9 @@ export default function Triads(){
                 <p><li>  VII<sup>7</sup>: dominant seventh – <em>te</em>, <em>re</em>, <em>fa</em>, <em>le</em>  </li></p>
                 <p><li>  vii°<sup>7</sup>: diminished seventh – <em>ti</em>, <em>re</em>, <em>fa</em>, <em>le</em></li></p>
 
-                <p>Note that major-seventh and dominant-seventh chords have the same Roman numeral nomenclature. The difference is discerned from the context of the key.</p>  
+                <p>Note that major-seventh and dominant-seventh chords have the same Roman numeral nomenclature. The difference is discerned from the context of the key.</p> 
+                <Quizviewer quizzes={quizzes}/>
             </div>
         </main>
-
     );
 }
