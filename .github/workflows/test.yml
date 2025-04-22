@@ -25,15 +25,13 @@ jobs:
     - name: Build Next.js app
       run: npm run build
 
-    - name: Start app
+    - name: Start Next.js app
       run: |
-        npm start &
-        sleep 10
-
+        npm start &  # Start the app in the background
+        sleep 10     # Give the app time to boot up
 
     - name: Run Cypress tests
       env:
-          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
-          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-      run: npx cypress run
-
+        TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+      run: npx cypress run --browser chrome
