@@ -320,3 +320,9 @@ p, h2, h3, h4 {
   }
 
 }
+
+.tts-highlight {
+  outline: 2px solid #facc15;
+  background-color: #ffea48;
+  transition: background-color 0.3s ease;
+}

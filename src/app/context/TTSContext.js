@@ -166,6 +166,19 @@ export const TTSProvider = ({ children }) => {
   
     window.speechSynthesis.pause();
 
+    // Clear previous highlights
+    document.querySelectorAll(".tts-highlight").forEach(el => el.classList.remove("tts-highlight"));
+
+    // Add highlight to the current clicked element
+    target.classList.add("tts-highlight");
+
+    // Clean up highlight after speech ends
+    if (utterance) {
+    utterance.onend = () => {
+      target.classList.remove("tts-highlight");
+      setIsSpeaking(false);
+    };
+
     // When clicking the speaker icon, it should read "TTS Menu" instead of the whole page
     if (event.target.closest('[data-ignore-tts]')) {
       if (isSpeaking) return;
@@ -174,19 +187,11 @@ export const TTSProvider = ({ children }) => {
       return;
     }
 
-    // Take in the alt texts if an element is an image
-    if (target.tagName === "INPUT" || target.tagName === "LABEL" || target.tageName === "TEXTAREA") {
-      content = target.value?.trim();   // Read the input's value
-
-      if (!content) {
-        content = target.getAttribute("placeholder")?.trim();
-      }
-      if (!content) {
-        content = target.getAttribute("name")?.trim();
-      }
-    }
-    else if (target.tagName === "IMG") {
-      content = target.alt?.trim();     // Read the alt text of images
+    // Determine what to read for input, label and images
+    if (["INPUT", "LABEL", "TEXTAREA"].includes(target.tagName)) {
+      content = target.value?.trim() || target.getAttribute("placeholder")?.trim() || target.getAttribute("name")?.trim();
+    } else if (target.tagName === "IMG") {
+      content = target.alt?.trim();
     } else {
       content = target.innerText?.trim();
     }
@@ -283,7 +288,6 @@ export const TTSProvider = ({ children }) => {
   }, [voices]);
 
 
-// END TEST
   return (
     <TTSContext.Provider value={{ getPageText, speakPageContent, resumeSpeaking, stopSpeaking, isSpeaking, currentIndex,
        rate, setRate, voice, setVoice, voices, setVoices, speakText, clickTTS, setClickTTS }}>
