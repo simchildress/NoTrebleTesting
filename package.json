@@ -21,7 +21,7 @@
     "multer": "^1.4.5-lts.2",
     "next": "^15.3.1",
     "opensheetmusicdisplay": "^1.9.0",
-    "osmd-audio-player": "^0.7.0",
+    "osmd-audio-player": "^0.6.0",
     "raw-loader": "^4.0.2",
     "raw.macro": "^0.7.0",
     "react": "^19.1.0",
