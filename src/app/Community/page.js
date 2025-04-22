@@ -31,6 +31,19 @@ export default function Community() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const [isTagPopupOpen, setIsTagPopupOpen] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
+
+
+const toggleTag = (tag) => {
+  setSelectedTags(prev =>
+    prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+  );
+};
+
+
+const removeTag = (tagToRemove) => {
+  setSelectedTags(prev => prev.filter(tag => tag !== tagToRemove));
+};
 
 
   const handleTagPopup = () => {
@@ -194,8 +207,8 @@ export default function Community() {
 
   return (
     <main>
-      <h1 className="text-center font-bold mt-40 mb-10 text-3xl">Community Posts</h1>
-      <div className="container mx-auto bg-gray-200 rounded-2xl text-2xl p-8">
+      <h1 className="text-center font-bold mt-40 mb-10 text-h3">Community Posts</h1>
+      <div className="container mx-auto bg-gray-200 rounded-2xl text-body p-8">
         {user && (
           <div className="flex justify-center mb-4">
             <button
@@ -210,7 +223,7 @@ export default function Community() {
         {isModalOpen && (
           <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-8 rounded-lg w-3/4"> {/* Changed from w-96 to w-3/4 */}
-              <h2 className="text-xl font-bold mb-4">Post to NoTreble!</h2>
+              <h2 className="text-body font-bold mb-4">Post to NoTreble!</h2>
               <input
                 type="text"
                 value={postTitle}
@@ -218,13 +231,60 @@ export default function Community() {
                 placeholder="Post Title"
                 className="w-full p-2 border rounded mb-4"
               />
-              <input
-                type="text"
-                value={tags}
-                onChange={(e) => setTags(e.target.value)}
-                placeholder="Tags (comma-separated)"
-                className="w-full p-2 border rounded mb-4"
-              />
+{/* Existing tag selection list */}
+<div style={{ maxHeight: '100px', overflowY: 'auto', border: '1px solid #ccc', padding: '5px', marginBottom: '10px' }}>
+  {allTags.map((tag, index) => (
+    <button
+      key={index}
+      onClick={() => toggleTag(tag)}
+      style={{
+        margin: '3px',
+        padding: '5px 10px',
+        backgroundColor: selectedTags.includes(tag) ? '#333' : '#eee',
+        color: selectedTags.includes(tag) ? '#fff' : '#000',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer'
+      }}
+    >
+      {tag}
+    </button>
+  ))}
+</div>
+
+{/* New tag input */}
+<input
+  type="text"
+  value={tags}
+  onChange={(e) => setTags(e.target.value)}
+  placeholder="Add new tags (comma-separated)"
+  style={{
+    width: '100%',
+    padding: '8px',
+    marginTop: '10px',
+    marginBottom: '10px',
+    boxSizing: 'border-box',
+    border: '1px solid #ccc',
+    borderRadius: '5px'
+  }}
+/>
+
+
+{/* Display selected tags */}
+<div style={{ marginTop: '10px' }}>
+  {selectedTags.map((tag, index) => (
+    <span key={index} style={{ display: 'inline-block', padding: '5px 10px', margin: '3px', backgroundColor: '#ddd', borderRadius: '5px' }}>
+      {tag}
+      <button
+        onClick={() => removeTag(tag)}
+        style={{ marginLeft: '5px', background: 'transparent', border: 'none', cursor: 'pointer' }}
+      >
+        ×
+      </button>
+    </span>
+  ))}
+</div>
+
               <input
                 type="file"
                 accept="image/*"
@@ -292,7 +352,7 @@ export default function Community() {
 {allTags.length > 5 && (
   <button
     onClick={handleTagPopup}
-    className="px-4 py-1 rounded-full bg-gray-300 text-blue-600"
+    className="m-3 px-4 py-1 rounded-full bg-gray-300 text-blue-600"
   >
     ➔ More Tags
   </button>
@@ -339,9 +399,9 @@ export default function Community() {
                   className="w-10 h-10 rounded-full mr-4"
                 />
                 <div className="flex-1">
-                  <p className="font-bold text-sm">@{post.username || "Anonymous"}</p>
-                  <p className="mb-2 font-bold text-lg">{post.title}</p>
-                  <p className="mb-2">{post.content}</p>
+                  <p className="font-bold text-xl">@{post.username || "Anonymous"}</p>
+                  <p className="mt-4 mb-4 font-bold text-body">{post.title}</p>
+                  <p className="mt-5 mb-5 text-body">{post.content}</p>
                   {post.image && (
                     <img
                       src={post.image}
@@ -354,14 +414,14 @@ export default function Community() {
                       {post.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs"
+                          className="bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-2xl"
                         >
                           #{tag}
                         </span>
                       ))}
                     </div>
                   )}
-                  <p className="text-gray-600 text-xs">
+                  <p className="mt-2 text-gray-600 text-xl">
                     {post.timestamp?.seconds
                       ? new Date(post.timestamp.seconds * 1000).toLocaleString()
                       : "No timestamp"}
@@ -373,7 +433,7 @@ export default function Community() {
                 <div className="absolute top-4 right-4">
                   <button
                     onClick={() => setMenuOpenId(menuOpenId === post.id ? null : post.id)}
-                    className="text-xl font-bold"
+                    className="text-body font-bold"
                   >
                     ⋮
                   </button>
@@ -392,7 +452,7 @@ export default function Community() {
 
               <button
                 onClick={() => handleToggleReplies(post.id)}
-                className="mt-2 text-blue-600"
+                className="mt-8 text-2xl text-blue-600"
               >
                 {expandedThreads[post.id] ? "Hide Replies" : "Show Replies"}
               </button>
@@ -407,9 +467,9 @@ export default function Community() {
                         className="w-10 h-10 rounded-full mr-4"
                       />
                       <div className="flex-1">
-                        <p className="text-sm font-bold">@{reply.username}</p>
-                        <p>{reply.content}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="mb-3 text-xl font-bold">@{reply.username}</p>
+                        <p className="mb-3 text-body">{reply.content}</p>
+                        <p className="text-md text-gray-500">
                           {reply.timestamp?.seconds
                             ? new Date(reply.timestamp.seconds * 1000).toLocaleString()
                             : ""}
@@ -446,14 +506,14 @@ export default function Community() {
             disabled={currentPage === 1}
             className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg"
           >
-            Previous
+            ← Previous
           </button>
           <button
             onClick={() => paginate(currentPage + 1)}
             disabled={currentPage * postsPerPage >= filteredPosts.length}
             className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg ml-4"
           >
-            Next
+            Next →
           </button>
         </div>
       </div>
