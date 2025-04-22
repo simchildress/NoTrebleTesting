@@ -37,7 +37,7 @@ export default function Library() {
             <ul>
                 {files.map((file) => (
                     <li key={file}>
-                        <Link href={`/SheetMusicTools/MusicLibrary/MusicEditor/${uid}/${file}`} style={{ textDecoration: 'none' }}>
+                        <Link href={`/SheetMusicTools/MusicLibrary/MusicListener/${uid}/${file}`} style={{ textDecoration: 'none' }}>
                             🎵 {file}
                         </Link>
                     </li>

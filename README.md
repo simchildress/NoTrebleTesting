@@ -55,6 +55,8 @@ Music Theory lessons presented in this project was made by the authors of [`Open
 - AWS EC2
 - Audiveris
 - Speech Synthesis
+- VexFlow
+- OpenSheetMusicDisplay
 ## Living UML Diagrams
 ### Web Architecture
 ![Website Architecture Diagram](https://github.com/user-attachments/assets/c808dca1-3272-4f4b-afd5-2c7602e59ff5)
