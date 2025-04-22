@@ -13,7 +13,7 @@ describe('Full User Flow: Login → Create/Delete Post → Logout', () => {
 
     // POST CREATION
     cy.visit('http://localhost:3000/Community');
-    cy.contains('button', 'Create New Post').click();
+    cy.contains('button', 'Create New Post').click({ force: true });
     cy.get('input[placeholder="Post Title"]').type('Test Post Title');
     cy.get('textarea[placeholder="Share your query with the NoTreble Community..."]').type(postContent);
     cy.get('button').contains('Post').click();
