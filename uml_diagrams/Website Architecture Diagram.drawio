@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.9">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.12">
   <diagram name="Page-1" id="b5b7bab2-c9e2-2cf4-8b2a-24fd1a2a6d21">
     <mxGraphModel dx="1667" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -115,13 +115,7 @@
         <mxCell id="6e0c8c40b5770093-28" value="Speech Synthesis" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=50;tabHeight=17;tabPosition=left;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=10;align=center;" parent="6e0c8c40b5770093-24" vertex="1">
           <mxGeometry x="59" y="248.1457142857143" width="112" height="83.125" as="geometry" />
         </mxCell>
-        <mxCell id="IAMsXty9cubu6bKy7xcF-7" value="[Insert CI/CD&amp;nbsp;&lt;div&gt;Pipeline]&lt;/div&gt;" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=50;tabHeight=17;tabPosition=left;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=10;align=center;" parent="6e0c8c40b5770093-24" vertex="1">
-          <mxGeometry x="59" y="448.1385714285714" width="112" height="83.125" as="geometry" />
-        </mxCell>
-        <mxCell id="-3_54eZg0HH8zazko7FV-4" value="&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Controller&amp;nbsp;&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="6e0c8c40b5770093-24" vertex="1">
-          <mxGeometry x="4.5" y="2.375" width="95.5" height="35.625" as="geometry" />
-        </mxCell>
-        <mxCell id="ccF4rOZxtwISQRu8mERn-2" value="AWS EC2" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=50;tabHeight=17;tabPosition=left;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=10;align=center;" vertex="1" parent="6e0c8c40b5770093-24">
+        <mxCell id="ccF4rOZxtwISQRu8mERn-2" value="AWS EC2 Hook" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=50;tabHeight=17;tabPosition=left;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=10;align=center;" parent="6e0c8c40b5770093-24" vertex="1">
           <mxGeometry x="59" y="348.1428571428571" width="112" height="83.125" as="geometry" />
         </mxCell>
         <mxCell id="6e0c8c40b5770093-58" style="rounded=0;html=1;dashed=1;labelBackgroundColor=none;startFill=0;endArrow=open;endFill=0;endSize=10;fontFamily=Verdana;fontSize=10;entryX=0.592;entryY=0.2;entryPerimeter=0;edgeStyle=elbowEdgeStyle;" parent="1" source="6e0c8c40b5770093-4" target="6e0c8c40b5770093-11" edge="1">
@@ -177,6 +171,9 @@
         </mxCell>
         <mxCell id="-3_54eZg0HH8zazko7FV-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=366;exitPerimeter=0;entryX=1.002;entryY=0.425;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="6e0c8c40b5770093-25" target="6e0c8c40b5770093-33" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-3_54eZg0HH8zazko7FV-4" value="&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Controller&amp;nbsp;&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1054.5" y="458.29214285714284" width="95.5" height="35.625" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
