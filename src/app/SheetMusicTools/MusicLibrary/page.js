@@ -30,10 +30,10 @@ export default function Library() {
 
     return (
         <div>
-            <h1>Music Library</h1>
             <Link href="/SheetMusicTools">
-                <button>⬅️ Back to Tools</button>
+                <button className="font-bold text-body hover:underline" >⬅️ Back to Tools</button>
             </Link>
+            <h1 className="text-center font-bold mt-35 mb-15 text-h3" >Music Library</h1>
             <ul>
                 {files.map((file) => (
                     <li key={file}>

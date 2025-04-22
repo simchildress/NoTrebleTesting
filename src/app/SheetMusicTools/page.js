@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { Midi } from "@tonejs/midi";
 import * as Tone from "tone";
+import { GiSaveArrow } from "react-icons/gi";
 
 
 export default function SheetMusicTools() {
@@ -239,6 +240,9 @@ const [sheet, setSheet] = useState({
         <p className="pb-3">Key: {sheet.key}</p>
         <p className="pb-3">Time Signature: {sheet.timesig}</p>
         <p className="pb-3">Composer: {sheet.composer}</p>
+  <div>
+    {uploadStatus && <p>{uploadStatus}</p>}
+  </div>
       </div>
     </div>
 
@@ -263,19 +267,17 @@ const [sheet, setSheet] = useState({
     </div>
   </div>
 
-  <div>
-    <button onClick={handleUpload} disabled={uploading}>
-      {uploading ? "Saving..." : "Save File"}
-    </button>
-  </div>
-
-  <div>
-    {uploadStatus && <p>{uploadStatus}</p>}
-  </div>
-
+  <div >
   <Link href="SheetMusicTools/MusicLibrary">
-    <button>🎵 Go to Music Library</button>
+    <button className="text-center text-body font-bold hover:bg-[#102437] bg-[#455090] text-white px-6 py-6 rounded-md mb-4 shadow-lg">
+    Go to Music Library 🎵 
+    </button>
   </Link>
+  <button className="text-center text-body  font-bold hover:bg-[#102437] bg-[#455090] text-white px-12 py-6 rounded-md mb-6 shadow-lg ml-80 float-right inline-flex gap-4" onClick={handleUpload} disabled={uploading}>
+      {uploading ? "Saving..." : "Save File"} <GiSaveArrow className="text-gray-800 text-4xl" />
+    </button>
+  
+  </div>
 </div>
 
 
