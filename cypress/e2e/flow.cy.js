@@ -14,13 +14,18 @@ describe('Full User Flow: Login → Create/Delete Post → Logout', () => {
       // POST CREATION
       cy.visit('http://localhost:3000/Community');
   
-      /* Only click "Create New Post" if the box isn't already open:
+      // Check if modal is open - Close it if so - Confirm it's gone
       cy.get('body').then(($body) => {
-        if ($body.find('div[class*="w-3/4"]').length === 0) {
-          cy.contains('button', 'Create New Post').click();
+        if (
+          $body.find('button').filter((i, el) => el.innerText.trim() === 'Cancel').length > 0
+        ) {
+          cy.contains('button', 'Cancel').click();
+          cy.get('div[class*="w-3/4"]').should('not.exist'); // Confirm modal is gone
         }
       });
-      */
+  
+      // Now open the modal safely
+      cy.contains('button', 'Create New Post').click();
   
       // Fill out the post form
       cy.get('input[placeholder="Post Title"]').type('Test Post Title');
