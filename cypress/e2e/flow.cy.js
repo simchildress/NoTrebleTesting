@@ -15,7 +15,7 @@ describe('Full User Flow: Login → Create/Delete Post → Logout', () => {
       cy.visit('http://localhost:3000/Community');
   
       // Wait for any leftover modals to not exist before clicking
-      cy.get('div.bg-white.p-8.rounded-lg.w-3/4').should('not.exist');
+      cy.get('div.bg-white.p-8.rounded-lg[class*="w-3/4"]').should('not.exist');
   
       // Now click the button safely
       cy.contains('button', 'Create New Post').click();
@@ -40,4 +40,5 @@ describe('Full User Flow: Login → Create/Delete Post → Logout', () => {
       cy.url().should('eq', 'http://localhost:3000/Login');
     });
   });
+  
   
