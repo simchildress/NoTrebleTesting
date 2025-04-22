@@ -97,7 +97,7 @@ export const TTSProvider = ({ children }) => {
   };
   
 
-  const speakPageContent = (startIndex = 0, content = getPageText()) => {
+  const speakPageContent = (startIndex = 0, content = getPageText(), element = null) => {
     if (!utterance) return;
   
     const text = content;
@@ -127,6 +127,9 @@ export const TTSProvider = ({ children }) => {
     setIsSpeaking(true);
   
     utterance.onend = () => {
+      if (element) {
+        element.classList.remove("tts-highlight");
+      }
       setIsSpeaking(false);   // Reset state when done
       setCurrentIndex(null);    // Reset so future play starts from the beginning
     };
@@ -161,7 +164,7 @@ export const TTSProvider = ({ children }) => {
   };
 
   const handleClick = (event) => {
-    const target = event.target;
+    const element = event.target;
     let content = "";
   
     window.speechSynthesis.pause();
@@ -170,17 +173,10 @@ export const TTSProvider = ({ children }) => {
     document.querySelectorAll(".tts-highlight").forEach(el => el.classList.remove("tts-highlight"));
 
     // Add highlight to the current clicked element
-    target.classList.add("tts-highlight");
-
-    // Clean up highlight after speech ends
-    if (utterance) {
-    utterance.onend = () => {
-      target.classList.remove("tts-highlight");
-      setIsSpeaking(false);
-    };
+    element.classList.add("tts-highlight");
 
     // When clicking the speaker icon, it should read "TTS Menu" instead of the whole page
-    if (event.target.closest('[data-ignore-tts]')) {
+    if (element.closest('[data-ignore-tts]')) {
       if (isSpeaking) return;
       stopSpeaking();
       speakText("TTS Menu");
@@ -188,19 +184,19 @@ export const TTSProvider = ({ children }) => {
     }
 
     // Determine what to read for input, label and images
-    if (["INPUT", "LABEL", "TEXTAREA"].includes(target.tagName)) {
-      content = target.value?.trim() || target.getAttribute("placeholder")?.trim() || target.getAttribute("name")?.trim();
-    } else if (target.tagName === "IMG") {
-      content = target.alt?.trim();
+    if (["INPUT", "LABEL", "TEXTAREA"].includes(element.tagName)) {
+      content = element.value?.trim() || element.getAttribute("placeholder")?.trim() || target.getAttribute("name")?.trim();
+    } else if (element.tagName === "IMG") {
+      content = element.alt?.trim();
     } else {
-      content = target.innerText?.trim();
+      content = element.innerText?.trim();
     }
 
     console.log('Clicked element:', event.target);
     // on click read
     console.log("I herd a clickkk");
 
-    speakPageContent(0, content); // Read current paragraph
+    speakPageContent(0, content, element); // Read current paragraph
   };
 
   // TEST FIXME: need to unmount the event listener when the pathname changes
