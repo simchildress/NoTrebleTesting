@@ -185,14 +185,14 @@ export const TTSProvider = ({ children }) => {
 
     // Determine what to read for input, label and images
     if (["INPUT", "LABEL", "TEXTAREA"].includes(element.tagName)) {
-      content = element.value?.trim() || element.getAttribute("placeholder")?.trim() || target.getAttribute("name")?.trim();
+      content = element.value?.trim() || element.getAttribute("placeholder")?.trim() || element.getAttribute("name")?.trim();
     } else if (element.tagName === "IMG") {
       content = element.alt?.trim();
     } else {
       content = element.innerText?.trim();
     }
 
-    console.log('Clicked element:', event.target);
+    console.log('Clicked element:', element);
     // on click read
     console.log("I herd a clickkk");
 
