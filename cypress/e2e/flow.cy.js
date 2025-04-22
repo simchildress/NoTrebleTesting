@@ -14,12 +14,13 @@ describe('Full User Flow: Login → Create/Delete Post → Logout', () => {
       // POST CREATION
       cy.visit('http://localhost:3000/Community');
   
-      // Only click "Create New Post" if the box isn't already open:
+      /* Only click "Create New Post" if the box isn't already open:
       cy.get('body').then(($body) => {
         if ($body.find('div[class*="w-3/4"]').length === 0) {
           cy.contains('button', 'Create New Post').click();
         }
       });
+      */
   
       // Fill out the post form
       cy.get('input[placeholder="Post Title"]').type('Test Post Title');
