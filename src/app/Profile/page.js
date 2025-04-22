@@ -79,7 +79,7 @@ const Profile = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <>
+    <span>
         {user ? (
           <div className="w-3/4 min-h-screen bg-gray-100 flex flex-col md:flex-row justify-center mx-auto my-20 rounded-xl border-2 border-black-100 drop-shadow-md">
             <div className="w-full md:w-1/2 flex flex-col items-center my-auto">
@@ -127,7 +127,7 @@ const Profile = () => {
       )}
     
 
-  </>
+  </span>
   );
 };
 
