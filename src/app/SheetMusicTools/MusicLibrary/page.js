@@ -75,14 +75,14 @@ export default function Library() {
                 <td className="musiclibrarydata hover:scale-105 font-bold hover:underline" key={file}>
                 <div className="flex flex-col items-center">
                   
-                  <a href={`/SheetMusicTools/MusicLibrary/MusicEditor/${uid}/${file}`}>
+                  <a href={`/SheetMusicTools/MusicLibrary/MusicListener/${uid}/${file}`}>
                   <img
                     src={'/musicnote.png'} 
                     className="w-60 h-60 mb-4 "
                   />
                   </a>
                   <Link
-                    href={`/SheetMusicTools/MusicLibrary/MusicEditor/${uid}/${file}`}
+                    href={`/SheetMusicTools/MusicLibrary/MusicListener/${uid}/${file}`}
                     alt="A picture of a music note"
                     style={{ textDecoration: "none" }}
                     className="text-body"
