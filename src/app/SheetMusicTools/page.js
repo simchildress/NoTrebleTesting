@@ -139,6 +139,8 @@ export default function SheetMusicTools() {
               <span className="text-gray-500">No file uploaded</span>
             )}
           </div>
+          {uploadStatus && <p className="mt-2 text-body">{uploadStatus}</p>}
+
         </div>
 
         <div >
@@ -146,9 +148,6 @@ export default function SheetMusicTools() {
         onClick={handleUpload} disabled={uploading}>
       {uploading ? "Saving..." : "Save File"} <GiSaveArrow className="text-gray-800 text-4xl" />
       </button>
-        
-
-        {uploadStatus && <p className="mt-2">{uploadStatus}</p>}
 
         <Link href="SheetMusicTools/MusicLibrary">
       <button className="text-center text-body font-bold hover:bg-[#102437] bg-[#455090] text-white px-4 py-4 rounded-md mb-4 shadow-lg">
