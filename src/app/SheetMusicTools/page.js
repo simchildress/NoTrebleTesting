@@ -142,7 +142,7 @@ export default function SheetMusicTools() {
         </div>
 
         <div >
-        <button className="text-center text-body  font-bold hover:bg-[#102437] bg-[#455090] text-white px-12 py-6 rounded-md mb-6 shadow-lg ml-80 float-right inline-flex gap-4" 
+        <button className="text-center text-body  font-bold hover:bg-[#102437] bg-[#455090] text-white px-8 py-4 rounded-md mb-6 shadow-lg ml-80 float-right inline-flex gap-4" 
         onClick={handleUpload} disabled={uploading}>
       {uploading ? "Saving..." : "Save File"} <GiSaveArrow className="text-gray-800 text-4xl" />
       </button>
@@ -151,7 +151,7 @@ export default function SheetMusicTools() {
         {uploadStatus && <p className="mt-2">{uploadStatus}</p>}
 
         <Link href="SheetMusicTools/MusicLibrary">
-      <button className="text-center text-body font-bold hover:bg-[#102437] bg-[#455090] text-white px-6 py-6 rounded-md mb-4 shadow-lg">
+      <button className="text-center text-body font-bold hover:bg-[#102437] bg-[#455090] text-white px-4 py-4 rounded-md mb-4 shadow-lg">
       Go to Music Library 🎵 
       </button>
     </Link>
