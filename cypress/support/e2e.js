@@ -13,8 +13,9 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-import './commands'
-
 // Import cypress real events to use keyboard shortcuts
 import 'cypress-real-events/support';
+
+// Import commands.js using ES2015 syntax:
+import './commands';
+
