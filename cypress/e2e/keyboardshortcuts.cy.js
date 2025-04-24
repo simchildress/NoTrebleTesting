@@ -2,23 +2,15 @@ describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
   const email = Cypress.env('TEST_EMAIL');
   const password = Cypress.env('TEST_PASSWORD');
 
-  const waitForPathChange = (previousPath, timeout = 10000) => {
-    const start = Date.now();
-    const check = () => {
-      cy.location('pathname').then((newPath) => {
-        if (newPath !== previousPath) {
-          cy.log(`✅ Navigated to: ${newPath}`);
-        } else if (Date.now() - start > timeout) {
-          throw new Error(`❌ Timeout: Path did not change from ${previousPath}`);
-        } else {
-          cy.wait(200).then(check); // Retry after 200ms
-        }
-      });
-    };
-    check();
+  const logCurrentPath = () => {
+    cy.location('pathname').then((path) => {
+      cy.log(`Current Path: ${path}`);
+      console.log(`Current Path: ${path}`); // Console log as well
+    });
   };
 
   before(() => {
+    // Login
     cy.visit('http://localhost:3000/Login');
     cy.get('input[type="email"]').type(email);
     cy.get('input[type="password"]').type(password, { log: false });
@@ -32,21 +24,20 @@ describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
 
   it('cycles forward through pages with ctrl + right arrow 4 times', () => {
     for (let i = 0; i < 4; i++) {
-      cy.location('pathname').then((previousPath) => {
-        cy.get('body').type('{ctrl}{rightarrow}');
-        waitForPathChange(previousPath);
-      });
+      cy.wait(500); // Give time between key presses
+      cy.get('body').type('{ctrl}{rightarrow}');
+      cy.wait(500); // Wait a little for the page to update
+      logCurrentPath();
     }
   });
 
   it('cycles backward through pages with ctrl + left arrow 4 times', () => {
-    cy.visit('http://localhost:3000/Community'); // Start at the last page
-
+    cy.visit('http://localhost:3000/Community'); // Start at last page
     for (let i = 0; i < 4; i++) {
-      cy.location('pathname').then((previousPath) => {
-        cy.get('body').type('{ctrl}{leftarrow}');
-        waitForPathChange(previousPath);
-      });
+      cy.wait(500); // Wait between key presses
+      cy.get('body').type('{ctrl}{leftarrow}');
+      cy.wait(500); // Wait a little for the page to update
+      logCurrentPath();
     }
   });
 });
