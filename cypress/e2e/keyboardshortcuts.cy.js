@@ -1,8 +1,11 @@
 describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
   const homepage = '/';
   const lessonsPath = '/Lessons';
+  const quickReferencePath = '/QuickReference';
   const sheetMusicPath = '/SheetMusicTools';
   const communityPath = '/Community';
+
+  const pages = [lessonsPath, quickReferencePath, sheetMusicPath, communityPath, homepage];
 
   const email = Cypress.env('TEST_EMAIL');
   const password = Cypress.env('TEST_PASSWORD');
@@ -16,10 +19,10 @@ describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
     cy.url().should('eq', 'http://localhost:3000/');
 
     // Prewarm pages twice
-    [homepage, lessonsPath, sheetMusicPath, communityPath].forEach((page) => {
+    pages.forEach((page) => {
       cy.visit(`http://localhost:3000${page}`);
     });
-    [homepage, lessonsPath, sheetMusicPath, communityPath].forEach((page) => {
+    pages.forEach((page) => {
       cy.visit(`http://localhost:3000${page}`);
     });
     cy.visit('http://localhost:3000/'); // Return home after prewarming
@@ -29,31 +32,19 @@ describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
     cy.visit('http://localhost:3000/');
   });
 
-  it('cycles forward 4 times to Community with ctrl + right arrow', () => {
-    const forwardPresses = [
-      lessonsPath,
-      sheetMusicPath,
-      communityPath,
-      homepage // assuming it cycles back to home after community
-    ];
-
-    forwardPresses.forEach((expectedPath) => {
+  it('cycles forward through all pages with ctrl + right arrow', () => {
+    pages.forEach((expectedPath) => {
       cy.get('body').type('{ctrl}{rightarrow}');
       cy.location('pathname', { timeout: 10000 }).should('eq', expectedPath);
     });
   });
 
-  it('cycles backward 4 times back to Home with ctrl + left arrow', () => {
-    cy.visit('http://localhost:3000/Community'); // Start at Community
+  it('cycles backward through all pages with ctrl + left arrow', () => {
+    // Start at Community page to cycle backward
+    cy.visit('http://localhost:3000/Community');
 
-    const backwardPresses = [
-      sheetMusicPath,
-      lessonsPath,
-      homepage,
-      communityPath // assuming cycling continues backward to community again
-    ];
-
-    backwardPresses.forEach((expectedPath) => {
+    const reversedPages = [sheetMusicPath, quickReferencePath, lessonsPath, homepage, communityPath];
+    reversedPages.forEach((expectedPath) => {
       cy.get('body').type('{ctrl}{leftarrow}');
       cy.location('pathname', { timeout: 10000 }).should('eq', expectedPath);
     });
