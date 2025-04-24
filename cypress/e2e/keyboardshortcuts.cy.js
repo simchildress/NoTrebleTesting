@@ -1,50 +1,41 @@
-describe('Keyboard Shortcut Navigation', () => {
-  const homepage = 'http://localhost:3000/';
-  const lessonsPath = '/Lessons';
-  const sheetMusicPath = '/SheetMusicTools';
-  const communityPath = '/Community';
-
-  // Pre-warm (cache) the pages twice before the tests run
-  before(() => {
-    const pages = [homepage, lessonsPath, sheetMusicPath, communityPath];
-    pages.forEach((page) => {
-      cy.visit(page);
-    });
-    pages.forEach((page) => {
-      cy.visit(page);
-    });
-    cy.visit(homepage); // Return to home after pre-warming
-  });
+describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
+  const pages = [
+    '/',                // Home
+    '/QuickReference',  // Quick Reference
+    '/SheetMusicTools', // Sheet Music Tools
+    '/Community',       // Community
+    '/Lessons'          // Lessons
+  ];
 
   beforeEach(() => {
-    cy.visit(homepage);
+    cy.visit('http://localhost:3000/');
   });
 
-  it('navigates to Lessons with ctrl + down arrow', () => {
-    const keys = '{ctrl}{downarrow}';
-    console.log(`Pressing keys: ${keys}`);
-    cy.get('body').type(keys);
-    cy.location('pathname', { timeout: 10000 }).should('eq', lessonsPath);
-  });
+  it('cycles through all pages forward with ctrl + right arrow', () => {
+    pages.slice(1).forEach((page) => {
+      cy.realPress(['Control', 'ArrowRight']);                // Press ctrl + →
+      cy.location('pathname', { timeout: 10000 }).should('eq', page);
+    });
 
-  it('navigates to Sheet Music Tools with ctrl + left arrow', () => {
-    const keys = '{ctrl}{leftarrow}';
-    console.log(`Pressing keys: ${keys}`);
-    cy.get('body').type(keys);
-    cy.location('pathname', { timeout: 10000 }).should('eq', sheetMusicPath);
-  });
-
-  it('navigates to Community with ctrl + right arrow', () => {
-    const keys = '{ctrl}{rightarrow}';
-    console.log(`Pressing keys: ${keys}`);
-    cy.get('body').type(keys);
-    cy.location('pathname', { timeout: 10000 }).should('eq', communityPath);
-  });
-
-  it('navigates back to Home with ctrl + up arrow', () => {
-    const keys = '{ctrl}{uparrow}';
-    console.log(`Pressing keys: ${keys}`);
-    cy.get('body').type(keys);
+    // Check that after Lessons it loops back to Home
+    cy.realPress(['Control', 'ArrowRight']);
     cy.location('pathname', { timeout: 10000 }).should('eq', '/');
+  });
+
+  it('cycles through all pages backward with ctrl + left arrow', () => {
+    // First, cycle forward to the last page so we can test going backward
+    pages.slice(1).forEach(() => {
+      cy.realPress(['Control', 'ArrowRight']);
+    });
+
+    // Now go backward through the pages
+    [...pages].reverse().slice(1).forEach((page) => {
+      cy.realPress(['Control', 'ArrowLeft']);                 // Press ctrl + ←
+      cy.location('pathname', { timeout: 10000 }).should('eq', page);
+    });
+
+    // Check that after Home it loops back to Lessons
+    cy.realPress(['Control', 'ArrowLeft']);
+    cy.location('pathname', { timeout: 10000 }).should('eq', '/Lessons');
   });
 });
