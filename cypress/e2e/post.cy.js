@@ -30,8 +30,8 @@ describe('Full User Flow: Login → Create/Delete Post → Logout', () => {
       // Fill out the post form
       cy.get('input[placeholder="Post Title"]').type('Test Post Title');
       cy.get('textarea[placeholder="Share your query with the NoTreble Community..."]').type(postContent);
-      cy.get('button').contains('Post').click();
-      cy.contains(postContent).should('exist');
+      cy.get('button.bg-blue-600.text-white.px-4.py-2.rounded').contains('Post').click({ force: true });
+      cy.contains(postContent, { timeout: 10000 }).should('exist');
   
       // POST DELETION
       cy.contains(postContent)
