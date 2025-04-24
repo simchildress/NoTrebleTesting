@@ -8,6 +8,8 @@ import * as Tone from "tone";
 import Link from "next/link";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/firebaseConfig";
+import { TfiControlBackward } from "react-icons/tfi";
+import { GiMusicalNotes } from "react-icons/gi";
 
 export default function MusicPlayer({ params }) {
   const router = useRouter();
@@ -116,32 +118,59 @@ export default function MusicPlayer({ params }) {
      
 
   return (
-    <div>
-      <h1>🎼 Listening to: {filename}</h1>
-      <Link href="/SheetMusicTools/MusicLibrary">
-        <button>⬅️ Back to Library</button>
+    <div
+    className="text-center"
+    >
+      <Link href="/SheetMusicTools/MusicLibrary" className="flex w-fit items-center bg-black text-white text-body ml-20 mt-10 px-4 py-2 rounded-lg hover:bg-white hover:text-black hover:border-2 hover:border-black">
+        <TfiControlBackward className="w-1/4 h-1/4 mr-2 flex-shrink-0" /> 
+        Back 
       </Link>
 
+      <div className="text-body ml-6 inline-flex gap-4 text-center  px-8 py-4 ">
+      <h3 className="inline flex gap-4 text-center "> <GiMusicalNotes /> Listening to: {filename} <GiMusicalNotes /></h3>
+      </div>
       <div
         ref={osmdContainerRef}
         id="osmdContainer"
         style={{
-          width: "100%",
-          height: "600px",
-          overflow: "auto",
+          position: "relative",
+          aspectRatio: "10.5/12",
+          width: "auto",
+          height: "1024px",
+          justifySelf: "center",
+          overflowX: "clip",
+          overflowY: "scroll",
           border: "1px solid #ccc",
-          padding: "1rem",
+          padding: "10px",
+          // paddingRight:"1rem",
           marginTop: "1rem",
+          scrollbarWidth:"none",
+          
         }}
       />
 
       <div
         style={{
+          position:"fixed",
+          bottom:"50%",
+          left:"35%",
           marginTop: "1rem",
           display: "flex",
           justifyContent: "center",
           gap: "2rem",
-          fontSize: "1.25rem",
+          fontSize: "var(--body-text-size)",
+          width:"30%",
+          minWidth:"fit-content",
+          height:"7%",
+          textWrap:"nowrap",
+          bottom:"0px",
+          borderRadius: "40px 40px",
+          backgroundColor: "#455090",
+          paddingInline: "30px",
+          paddingBlock: "10px",
+          fontWeight: "var(--font-weight-semibold)",
+          boxShadow: "#102437",
+          color: "#ededed",
         }}
       >
         <button style={{ padding: "0.5rem 1rem" }} onClick={playScore}>▶ Play</button>
