@@ -5,7 +5,7 @@ describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
   const logCurrentPath = () => {
     cy.location('pathname').then((path) => {
       cy.log(`Current Path: ${path}`);
-      console.log(`Current Path: ${path}`); // Console log as well
+      console.log(`Current Path: ${path}`);
     });
   };
 
@@ -24,20 +24,26 @@ describe('Keyboard Shortcut Navigation (Page Cycling)', () => {
 
   it('cycles forward through pages with ctrl + right arrow 4 times', () => {
     for (let i = 0; i < 4; i++) {
-      cy.wait(500); // Give time between key presses
+      cy.wait(500);
       cy.get('body').type('{ctrl}{rightarrow}');
-      cy.wait(500); // Wait a little for the page to update
-      logCurrentPath();
+      cy.wait(500);
     }
+  });
+
+  it('logs the current path after forward cycling', () => {
+    logCurrentPath();
   });
 
   it('cycles backward through pages with ctrl + left arrow 4 times', () => {
     cy.visit('http://localhost:3000/Community'); // Start at last page
     for (let i = 0; i < 4; i++) {
-      cy.wait(500); // Wait between key presses
+      cy.wait(500);
       cy.get('body').type('{ctrl}{leftarrow}');
-      cy.wait(500); // Wait a little for the page to update
-      logCurrentPath();
+      cy.wait(500);
     }
+  });
+
+  it('logs the current path after backward cycling', () => {
+    logCurrentPath();
   });
 });
